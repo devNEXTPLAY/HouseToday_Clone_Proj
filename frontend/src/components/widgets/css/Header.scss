@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+  padding: 25px 50px 25px 50px;
+  border-bottom: 1px solid #c1c1c1;
+  height: 79px;
+  width: 1256px;
+
+  nav a {
+    margin: 1rem;
+  }
+
+  section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  section img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 1rem;
+  }
+
+  section button {
+    width: 92px;
+    padding: 0 15px 0 15px;
+    height: 40px;
+  }
+}

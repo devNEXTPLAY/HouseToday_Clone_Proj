@@ -4,14 +4,20 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const Login = React.lazy(() => import('./pages/Login'));
 const Signup = React.lazy(() => import('./pages/Signup'));
 const Write = React.lazy(() => import('./pages/Write'));
+const Home = React.lazy(() => import('./pages/Home'));
 
 const router = createBrowserRouter([
+  { path: '/', element: <Home /> },
+
   // * 로그인 화면 http://localhost:5173/login
   { path: '/login', element: <Login /> },
 
   // * 회원가입 화면 http://localhost:5173/signup
   { path: '/signup', element: <Signup /> },
+  // * 글쓰기 화면 http://localhost:5173/write
   { path: '/write', element: <Write /> },
+
+  // * 글 수정 화면 http://localhost:5173/write/modify/:aid
   { path: '/write/modify/:aid', element: <Write /> },
 ]);
 

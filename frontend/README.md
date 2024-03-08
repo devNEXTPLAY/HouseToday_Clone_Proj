@@ -13,32 +13,41 @@
 - sass
 - env
 - TinyMCE - _텍스트 에디터_
+- Swiper - _캐러셀_
 
 ## 폴더 구조
 
-📦src  
-┣ 📂assets - _SVG 파일 (Facbook, Kakao, MainLogo, Naver)_  
-┃ ┣ 📜Facebook.jsx  
+📦src
+┣ 📂assets - _SVG 파일 (Facbook, Kakao, MainLogo, Naver ...)_  
+ ┃ ┣ 📜Facebook.jsx
 ┃ ┣ 📜Kakao.jsx  
-┃ ┣ 📜MainLogo.jsx  
-┃ ┗ 📜Naver.jsx  
+┃ ┣ 📜MainLogo.jsx
+┃ ┣ 📜Naver.jsx  
+┃ ┗ 📜TextLogo.jsx  
 ┣ 📂components  
 ┃ ┣ 📂ui - _재사용 빈도가 높은 컴포넌트_  
-┃ ┃ ┣ 📂css  
+┃ ┃ ┣ 📂css
 ┃ ┃ ┃ ┣ 📜Button.scss  
-┃ ┃ ┃ ┗ 📜Input.scss  
+┃ ┃ ┃ ┗ 📜Input.scss
 ┃ ┃ ┣ 📜Button.jsx  
 ┃ ┃ ┗ 📜Input.jsx  
-┃ ┗ 📂widgets - _재사용 빈도가 낮은 컴포넌트_  
-┃ ┃ ┣ 📂css  
+┃ ┣ 📂widgets - _재사용 빈도가 낮은 컴포넌트_  
+┃ ┃ ┣ 📂css
 ┃ ┃ ┃ ┗ 📜SnsLogin.scss  
 ┃ ┃ ┗ 📜SnsLogin.jsx  
+┃ ┗ 📂write
+┃ ┃ ┣ 📂css  
+┃ ┃ ┃ ┗ 📜WriteEditor.scss  
+┃ ┃ ┗ 📜WriteEditor.jsx  
 ┣ 📂pages  
-┃ ┣ 📂css  
+┃ ┣ 📂css
 ┃ ┃ ┣ 📜Login.scss  
-┃ ┃ ┗ 📜Signup.scss  
-┃ ┣ 📜Login.jsx  
-┃ ┗ 📜Signup.jsx  
+┃ ┃ ┣ 📜Signup.scss  
+┃ ┃ ┗ 📜Write.scss
+┃ ┣ 📜Login.jsx
+┃ ┣ 📜Signup.jsx  
+┃ ┣ 📜Write.jsx  
+┃ ┗ 📜WriteModify.jsx  
 ┣ 📜App.jsx - _라우터 설정_  
 ┣ 📜index.css  
 ┗ 📜main.jsx
