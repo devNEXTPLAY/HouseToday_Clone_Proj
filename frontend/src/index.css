@@ -87,3 +87,14 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
