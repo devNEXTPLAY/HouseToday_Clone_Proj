@@ -1,9 +1,9 @@
 import './css/Signup.scss';
 import { Link } from 'react-router-dom';
 
-import Input from '../components/ui/Input.jsx';
-import Button from '../components/ui/Button.jsx';
-import SnsLogin from '../components/widgets/SnsLogin.jsx';
+import Input from '../ui/Input.jsx';
+import Button from '../ui/Button.jsx';
+import SnsLogin from '../widgets/SnsLogin.jsx';
 
 const Signup = () => {
   return (

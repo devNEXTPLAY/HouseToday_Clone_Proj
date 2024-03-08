@@ -11,6 +11,7 @@
 
 - react-router-dom
 - sass
+- TinyMCE - _텍스트 에디터_
 
 ## 폴더 구조
 

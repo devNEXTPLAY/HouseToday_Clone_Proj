@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const Login = React.lazy(() => import('./pages/Login'));
-const Signup = React.lazy(() => import('./pages/Signup'));
+const Login = React.lazy(() => import('./components/pages/Login'));
+const Signup = React.lazy(() => import('./components/pages/Signup'));
 
 const router = createBrowserRouter([
   // * 로그인 화면 http://localhost:5173/login
