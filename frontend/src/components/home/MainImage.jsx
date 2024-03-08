@@ -8,7 +8,7 @@ const MainImage = () => {
     <main className='main'>
       <Link to='https://n.news.naver.com/mnews/article/001/0014536854?sid=104'>
         <img
-          src='https://imgnews.pstatic.net/image/001/2024/02/29/AKR20240229188300073_01_i_P4_20240229215916565.jpg?type=w647'
+          src='https://images.unsplash.com/photo-1542401886-65d6c61db217?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
           alt='news-image'
         />
 

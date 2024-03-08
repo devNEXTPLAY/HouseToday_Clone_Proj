@@ -9,12 +9,13 @@
   img {
     display: flex;
     position: relative;
-    width: 1200px;
+    width: 920px;
     height: 508px;
     border-radius: 10px;
     box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
+    object-fit: cover;
   }
 
   .main__image-description {
