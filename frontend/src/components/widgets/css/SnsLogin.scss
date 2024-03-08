@@ -1,0 +1,34 @@
+.login-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 204px;
+  height: 116px;
+  padding: 40px 0 40px 0;
+
+  strong {
+    padding: 60px 0 10px 0;
+    color: #757575;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 204px;
+  }
+
+  a {
+    margin: 0 1rem 2rem;
+    color: #c2c8cc;
+    font-size: 14px;
+  }
+
+  .form__border-bottom {
+    border-bottom: 1px solid #eaeaea;
+    width: 300px;
+  }
+}

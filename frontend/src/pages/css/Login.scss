@@ -36,16 +36,7 @@
     button {
       width: 300px;
       height: 52px;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      background-color: #35c5f0;
-      transition: 1s all;
       margin: 20px 0 20px 0;
-    }
-
-    button:hover {
-      background-color: #09adab;
     }
   }
 
@@ -60,38 +51,5 @@
     a {
       margin: 1rem;
     }
-  }
-
-  .form__login-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 204px;
-    height: 116px;
-    padding: 20px 0 20px 0;
-
-    strong {
-      color: #757575;
-      font-size: 12px;
-      padding: 60px 0 10px 0;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-around;
-      width: 204px;
-    }
-
-    a {
-      color: #c2c8cc;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
-  }
-
-  .form__border-bottom {
-    border-bottom: 1px slategrey solid;
-    width: 300px;
   }
 }

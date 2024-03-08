@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 
-import { MainLogo } from '../assets/MainLogo.jsx';
-import { Facebook } from '../assets/Facebook.jsx';
-import { Kakao } from '../assets/Kakao.jsx';
-import { Naver } from '../assets/Naver.jsx';
+// SVG 아이콘 참조
+import { MainLogo } from '../assets/MainLogo';
 
 import './css/Login.scss';
 
+// widgets 컴포넌트 참조
+
+import SnsLogin from '../components/widgets/SnsLogin';
+
+// * UI 컴포넌트 참조
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 
@@ -19,38 +22,25 @@ const Login = () => {
 
       <form>
         <div className='form__input-box'>
-          <Input placeholder='이메일' />
-          <Input placeholder='비밀번호' />
+          <Input placeholder='이메일' type='email' />
+          <Input placeholder='비밀번호' type='password' />
         </div>
 
         <Button>로그인</Button>
       </form>
 
       <nav className='form__link-box'>
-        <Link to='/signup'>비밀번호 재설정</Link>
-        <Link to='/forgot-password'>회원가입</Link>
+        <Link to='/password'>비밀번호 재설정</Link>
+        <Link to='/signup'>회원가입</Link>
       </nav>
 
-      <section className='form__login-box'>
-        <strong>SNS 계정으로 간편 로그인/회원가입</strong>
-
-        <nav>
-          <Link>
-            <Facebook />
-          </Link>
-          <Link>
-            <Kakao />
-          </Link>
-          <Link>
-            <Naver />
-          </Link>
-        </nav>
-
+      <SnsLogin text='SNS 계정으로 간편 로그인/회원가입'>
         <Link>로그인에 문제가 있으신가요?</Link>
-        <div className='form__border-bottom'></div>
-      </section>
+      </SnsLogin>
     </main>
   );
 };
+
+document.title = '로그인 | 라이프스타일 슈퍼앱, 오늘의 집';
 
 export default Login;

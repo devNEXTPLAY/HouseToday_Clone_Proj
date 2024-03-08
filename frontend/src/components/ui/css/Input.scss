@@ -1,0 +1,10 @@
+.input-box {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    border: 1px solid #b6b7b7;
+    border-radius: 5px;
+    padding: 15px;
+  }
+}

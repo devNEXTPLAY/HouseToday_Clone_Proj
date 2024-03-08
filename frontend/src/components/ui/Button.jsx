@@ -1,3 +1,5 @@
+import './css/Button.scss';
+
 const Button = ({ children, textOnly, className, ...props }) => {
   let cssClasses = textOnly ? 'text-button' : 'button';
   cssClasses += ' ' + className;

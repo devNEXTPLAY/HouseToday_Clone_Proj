@@ -1,0 +1,72 @@
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+  margin-top: 74px;
+  width: 360px;
+
+  header h1 {
+    text-align: left;
+    width: 300px;
+    font-size: 20px;
+  }
+
+  //   !important 사용
+  nav {
+    width: 360px !important;
+
+    .form__border-bottom {
+      width: 360px !important;
+      height: 78px !important;
+    }
+  }
+
+  form {
+    width: 360px;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+
+    .input-box select {
+      width: 42%;
+    }
+
+    .input-box p {
+      color: #b6b7b7;
+      font-size: 14px;
+    }
+
+    label {
+      margin: 1rem 0 1rem 0;
+      font-weight: 600;
+    }
+
+    input,
+    select {
+      height: 40px;
+      border: 1px solid #b6b7b7;
+      margin-bottom: 1rem;
+    }
+  }
+
+  button:nth-child(4) {
+    background-color: #f7f8fa;
+    color: #c2c8cc;
+  }
+
+  button {
+    width: 100%;
+    height: 50px;
+    margin: 1rem 0 1rem 0;
+  }
+
+  p a {
+    transition: 1s all;
+  }
+
+  p a:hover {
+    color: #8a8a8a;
+  }
+}
