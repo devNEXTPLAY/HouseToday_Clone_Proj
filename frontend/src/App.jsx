@@ -12,6 +12,7 @@ const router = createBrowserRouter([
   // * 회원가입 화면 http://localhost:5173/signup
   { path: '/signup', element: <Signup /> },
   { path: '/write', element: <Write /> },
+  { path: '/write/modify/:aid', element: <Write /> },
 ]);
 
 function App() {
