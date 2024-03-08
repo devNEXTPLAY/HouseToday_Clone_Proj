@@ -46,7 +46,8 @@ const Login = () => {
           </Link>
         </nav>
 
-        <p>로그인에 문제가 있으신가요?</p>
+        <Link>로그인에 문제가 있으신가요?</Link>
+        <div className='form__border-bottom'></div>
       </section>
     </main>
   );

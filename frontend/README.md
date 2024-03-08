@@ -9,5 +9,3 @@
 ## 폴더 구조
 
 SCSS
-
-Class 명 BEM을 사용함

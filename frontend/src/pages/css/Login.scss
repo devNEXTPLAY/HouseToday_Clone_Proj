@@ -56,6 +56,10 @@
     width: 300px;
     height: 15px;
     margin-bottom: 15px;
+
+    a {
+      margin: 1rem;
+    }
   }
 
   .form__login-box {
@@ -70,7 +74,7 @@
     strong {
       color: #757575;
       font-size: 12px;
-      padding: 40px 0 40px 0;
+      padding: 60px 0 10px 0;
     }
 
     nav {
@@ -79,9 +83,15 @@
       width: 204px;
     }
 
-    p {
+    a {
       color: #c2c8cc;
       font-size: 14px;
+      margin-bottom: 25px;
     }
+  }
+
+  .form__border-bottom {
+    border-bottom: 1px slategrey solid;
+    width: 300px;
   }
 }
