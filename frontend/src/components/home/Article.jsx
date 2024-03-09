@@ -20,8 +20,11 @@ const Article = ({
         </div>
       </div>
 
-      <h3>{title}</h3>
-      <p className='content'>{content}</p>
+      <div className='information__title'>
+        <h3>{title}</h3>
+        <p className='content'>{content}</p>
+      </div>
+
       <div className='information'>
         <strong>{author}</strong>
         <span>{date}</span>

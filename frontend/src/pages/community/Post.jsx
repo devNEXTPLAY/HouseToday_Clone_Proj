@@ -1,5 +1,4 @@
 import './css/Post.scss';
-import { LIST } from '../../assets/data';
 
 import { Link } from 'react-router-dom';
 

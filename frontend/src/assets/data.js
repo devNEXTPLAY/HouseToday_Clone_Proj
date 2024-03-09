@@ -1,10 +1,9 @@
 export const LIST = [
   {
     id: 'a1',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: '확실한 컬러 포인트! 살면서 채우는 디자이너의 신혼집',
     coverImage:
-      'https://images.unsplash.com/photo-1581952449676-b59f9fc1b746?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/project/170678697705935406.png?w=2880&h=818&c=c',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
@@ -12,10 +11,10 @@ export const LIST = [
   },
   {
     id: 'a2',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: '베를린 편집샵에 온 듯, 예술가 부부의 유니크 하우스',
     coverImage:
-      'https://images.unsplash.com/photo-1709705011445-e38027a89c2e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/projects/165130829808652004.jpg?w=2880&h=818&c=c',
+
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
@@ -23,10 +22,9 @@ export const LIST = [
   },
   {
     id: 'a3',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: '컨셉발견🍳 미니멀하지만 자연스럽게 #사옥 인테리어',
     coverImage:
-      'https://images.unsplash.com/photo-1709848770676-b6f8a50dee1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8fA%3D%3D',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/projects/165389579606240336.jpg?w=2880&h=818&c=c',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
@@ -34,10 +32,9 @@ export const LIST = [
   },
   {
     id: 'a4',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: "#29 건축 이야기 | 자연과 공존하는 '트인 집'",
     coverImage:
-      'https://images.unsplash.com/photo-1709393361171-db1a0d4d53f9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/projects/164965165504198815.png?w=2880&h=818&c=c',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
@@ -46,10 +43,9 @@ export const LIST = [
 
   {
     id: 'a5',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: '작아도 충분해! 싱그러운 0.5평 베란다정원 만드는 법',
     coverImage:
-      'https://images.unsplash.com/photo-1581952449676-b59f9fc1b746?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/advices/164974230667935172.jpg?gif=1&w=1440&webp=1',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
@@ -60,7 +56,6 @@ export const LIST = [
     title: '갈비찜을 밥 위에 얹어주세요.',
     coverImage:
       'https://images.unsplash.com/photo-1709705011445-e38027a89c2e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
@@ -68,21 +63,19 @@ export const LIST = [
   },
   {
     id: 'a7',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: '기발한 아이디어에 감성까지! 내돈내산 다이소 추천템6',
     coverImage:
-      'https://images.unsplash.com/photo-1709848770676-b6f8a50dee1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyM3x8fGVufDB8fHx8fA%3D%3D',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
-    author: '정민영',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/164687813766738730.gif?w=2880&h=818&c=c',
+    author: '23층이야기',
     date: '2024-03-09',
     viewcount: 10,
     recommend: 3,
   },
   {
     id: 'a8',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: '초깔끔📌우리집 공간별 수납 정리템 총정리 #내돈내산',
     coverImage:
-      'https://images.unsplash.com/photo-1709393361171-db1a0d4d53f9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyNXx8fGVufDB8fHx8fA%3D%3D',
-    content: '갈비찜을 밥 위에 얹어주세요~ \n 내가 좋아하는 갈비찜 덮밥 ',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/162071754777389703.png?w=2880&h=818&c=c',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
