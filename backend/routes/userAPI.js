@@ -6,7 +6,8 @@ var AES = require("mysql-aes");
 var jwt = require("jsonwebtoken");
 var enums = require("../common/enums.js");
 var moment = require("moment");
-const { isLoggedIn, isNotLoggedIn } = require("./passportMiddleware.js");
+const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
+const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
 // 로그인 API
 // http://localhost:3005/api/users/login
@@ -46,10 +47,7 @@ router.post("/login", async (req, res, next) => {
 			token: token,
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			message: "서버 에러",
-		});
+		next(error);
 	}
 });
 
@@ -70,6 +68,7 @@ router.post("/register", async (req, res, next) => {
 				message: "이미 존재하는 사용자입니다.",
 			});
 		}
+		const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 		const hash = await bcrypt.hash(password, 12);
 		await db.Users.create({
 			email: email,
@@ -85,10 +84,7 @@ router.post("/register", async (req, res, next) => {
 			message: "회원가입에 성공하였습니다.",
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			message: "서버 에러",
-		});
+		next(error);
 	}
 });
 
@@ -97,12 +93,10 @@ router.post("/register", async (req, res, next) => {
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
 router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 	const { password } = req.body;
-	var token = req.headers.authorization.split("Bearer ")[1];
-	var decoded = jwt.verify(token, process.env.JWT_SECRET);
 	try {
 		const user = await db.Users.findOne({
 			where: {
-				user_id: decoded.id,
+				user_id: req.user.user_id,
 			},
 		});
 		if (!user) {
@@ -122,7 +116,7 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 			},
 			{
 				where: {
-					email: email,
+					user_id: req.user.user_id,
 				},
 			}
 		);
@@ -130,10 +124,7 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 			message: "회원탈퇴에 성공하였습니다.",
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			message: "서버 에러",
-		});
+		next(error);
 	}
 });
 
@@ -151,8 +142,6 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 	if (address) {
 		address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
 	}
-	var token = req.headers.authorization.split("Bearer ")[1];
-	var decoded = jwt.verify(token, process.env.JWT_SECRET);
 	try {
 		await db.Users.update(
 			{
@@ -167,7 +156,7 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 			},
 			{
 				where: {
-					user_id: decoded.id,
+					user_id: req.user.user_id,
 				},
 			}
 		);
@@ -175,10 +164,7 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 			message: "회원정보 수정에 성공하였습니다.",
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			message: "서버 에러",
-		});
+		next(error);
 	}
 });
 
@@ -187,12 +173,10 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
 router.post("/password", isLoggedIn, async (req, res, next) => {
 	const { password, newPassword } = req.body;
-	var token = req.headers.authorization.split("Bearer ")[1];
-	var decoded = jwt.verify(token, process.env.JWT_SECRET);
 	try {
 		const user = await db.Users.findOne({
 			where: {
-				user_id: decoded.id,
+				user_id: req.user.user_id,
 			},
 		});
 		if (!user) {
@@ -218,7 +202,7 @@ router.post("/password", isLoggedIn, async (req, res, next) => {
 			},
 			{
 				where: {
-					email: email,
+					user_id: req.user.user_id,
 				},
 			}
 		);
@@ -226,11 +210,9 @@ router.post("/password", isLoggedIn, async (req, res, next) => {
 			message: "비밀번호 수정에 성공하였습니다.",
 		});
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			message: "서버 에러",
-		});
+		next(error);
 	}
 });
 
+router.use(errorMiddleware);
 module.exports = router;
