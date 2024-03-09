@@ -18,10 +18,12 @@ const Header = () => {
       </Link>
 
       <section>
-        <nav>
-          <Link to='/comunity'>커뮤니티</Link>
-          <Link to='https://sports.news.naver.com/index'>스포츠 뉴스</Link>
-        </nav>
+        <div className=''>
+          <nav>
+            <Link to='/comunity'>커뮤니티</Link>
+            <Link to='https://sports.news.naver.com/index'>스포츠 뉴스</Link>
+          </nav>
+        </div>
 
         <Input placeholder='게시물 검색' />
 

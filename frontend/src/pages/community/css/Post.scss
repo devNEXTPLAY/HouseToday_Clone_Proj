@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 100%;
 
   img {
     margin: 1rem 0;
@@ -14,55 +15,71 @@
     object-fit: cover;
   }
 
-  nav {
+  .post {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    position: relative;
     align-items: center;
-    position: fixed;
-    top: 50%;
-    right: 0%;
-    height: 409px;
-    width: 260px;
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 1rem;
-      border-radius: 50%;
-      border: 1px solid #505050;
-      color: #505050;
-      width: 60px;
-      height: 60px;
-      box-shadow: 10px 10px 58px -22px rgba(0, 0, 0, 0.75);
-      -webkit-box-shadow: 10px 10px 58px -22px rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 10px 10px 58px -22px rgba(0, 0, 0, 0.75);
-    }
-
-    button:first-child,
-    button:nth-child(2) {
-      background-color: #fff;
-    }
-
-    button:nth-child(4),
-    button:last-child {
-      background-color: #f7f9fa;
-    }
-
-    hr {
-      width: 60px;
-    }
-
-    img {
-      width: 100vw;
-      height: 25vh;
-      object-fit: cover;
-    }
-  }
-
-  .post {
     padding: 1rem;
-    width: 720px;
+    width: 100vw;
+    height: 100%;
+
+    .sticky-container {
+      position: absolute;
+      top: 50px;
+      right: 300px;
+      height: 100%;
+
+      .sticky-container__inner {
+        position: sticky;
+        top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 5px;
+
+        .sticky-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          border: 1px solid #505050;
+          color: #505050;
+          width: 60px;
+          height: 60px;
+          margin-bottom: 1rem;
+
+          box-shadow: 10px 10px 58px -22px rgba(0, 0, 0, 0.75);
+          -webkit-box-shadow: 10px 10px 58px -22px rgba(0, 0, 0, 0.75);
+          -moz-box-shadow: 10px 10px 58px -22px rgba(0, 0, 0, 0.75);
+        }
+
+        button:first-child,
+        button:nth-child(2) {
+          background-color: #fff;
+        }
+
+        button:nth-child(4),
+        button:last-child {
+          background-color: #f7f9fa;
+        }
+
+        hr {
+          width: 60px;
+        }
+
+        img {
+          width: 100vw;
+          height: 25vh;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .content {
+      width: 720px;
+    }
 
     h2 {
       font-size: 2.5rem;
