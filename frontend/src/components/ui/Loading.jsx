@@ -4,12 +4,20 @@ const Loading = () => {
   return (
     <main className='main'>
       <div className='card'>
-        <div className='loader'></div>
-        <div className='loader-info'>
-          <h1>Loading </h1>
-          <p>.</p>
-          <p>.</p>
-          <p>.</p>
+        <div className='banter-loader'>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+          <div className='banter-loader__box'></div>
+        </div>
+
+        <div className='card-info'>
+          <h1>Loading . . .</h1>
         </div>
       </div>
     </main>
