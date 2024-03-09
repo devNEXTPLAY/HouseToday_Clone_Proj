@@ -13,24 +13,18 @@
     font-size: 20px;
   }
 
-  //   !important 사용
-  nav {
-    width: 360px !important;
-
-    .form__border-bottom {
-      width: 360px !important;
-      height: 78px !important;
-    }
-  }
-
   form {
     width: 360px;
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
 
+    span {
+      margin: 0 0.5rem;
+    }
+
     .input-box select {
-      width: 42%;
+      width: 34%;
     }
 
     .input-box p {

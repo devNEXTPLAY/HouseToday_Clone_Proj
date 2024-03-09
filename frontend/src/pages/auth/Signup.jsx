@@ -17,8 +17,8 @@ const Signup = () => {
         <Input label='이메일' id='email' placeholder='이메일'>
           <span>@</span>
           <select name='' id=''>
+            <option value=''>직접 입력</option>
             <option value='naver.com'>naver.com</option>
-            <option value='naver.com'>직접 입력</option>
           </select>
           <Button>이메일 인증하기</Button>
         </Input>
