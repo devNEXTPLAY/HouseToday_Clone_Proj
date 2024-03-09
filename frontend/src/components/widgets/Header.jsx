@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './css/Header.scss';
 
 import { Link } from 'react-router-dom';
@@ -6,6 +7,10 @@ import Input from '../ui/Input';
 import Button from '../ui/Button';
 
 const Header = () => {
+  const [isSettings, setIsSettings] = useState(false);
+
+  const handleShowNav = () => setIsSettings(prevState => !prevState);
+
   return (
     <header className='header'>
       <Link to='/'>
@@ -19,10 +24,21 @@ const Header = () => {
         </nav>
 
         <Input placeholder='게시물 검색' />
-        <img
-          src='https://plus.unsplash.com/premium_photo-1686074443397-ff6e4825581b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D'
-          alt='profile-image'
-        />
+
+        <div className='header__profile-box'>
+          <Button className='header__profile' onClick={handleShowNav}>
+            <img
+              src='https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg'
+              alt='profile-image'
+            />
+          </Button>
+          <nav
+            className={isSettings ? 'header__profile-dropdown' : 'isDisplay'}
+          >
+            <Link to='/users/1'>마이 페이지</Link>
+          </nav>
+        </div>
+
         <Link to='/write'>
           <Button>글쓰기</Button>
         </Link>
