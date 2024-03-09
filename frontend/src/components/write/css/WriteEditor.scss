@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1256px;
+  }
+
+  .input-box input {
+    margin: 30px;
+    border: none;
+    border-bottom: 1px solid #b6b7b7;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .tox-editor-container {
+    width: 1256px !important;
+  }
+}

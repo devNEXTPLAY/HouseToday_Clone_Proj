@@ -7,11 +7,11 @@ import './css/Login.scss';
 
 // widgets 컴포넌트 참조
 
-import SnsLogin from '../widgets/SnsLogin';
+import SnsLogin from '../../components/widgets/SnsLogin';
 
 // * UI 컴포넌트 참조
-import Input from '../ui/Input';
-import Button from '../ui/Button';
+import Input from '../../components/ui/Input';
+import Button from '../../components/ui/Button';
 
 const Login = () => {
   return (
