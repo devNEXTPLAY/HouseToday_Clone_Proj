@@ -18,7 +18,12 @@ var commonAPIRouter = require("./routes/commonAPI");
 var sequelize = require("./models/index.js").sequelize;
 var app = express();
 sequelize.sync();
-app.use(cors());
+app.use(
+	cors({
+		origin: "http://localhost:3005",
+		credentials: true,
+	})
+);
 
 // passport
 passportConfig(passport);
@@ -29,7 +34,7 @@ app.use(
 		secret: process.env.COOKIE_SECRET,
 		cookie: {
 			httpOnly: true,
-			secure: false,
+			secure: true,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
 		},
 	})
