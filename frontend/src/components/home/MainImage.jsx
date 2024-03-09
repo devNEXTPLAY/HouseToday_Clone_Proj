@@ -5,7 +5,7 @@ import './css/MainImage.scss';
 
 const MainImage = () => {
   return (
-    <main className='main'>
+    <main className='home'>
       <Link to='https://n.news.naver.com/mnews/article/001/0014536854?sid=104'>
         <img
           src='https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c'
