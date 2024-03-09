@@ -1,4 +1,4 @@
-import { FcLike } from 'react-icons/fc';
+import { CiBookmark } from 'react-icons/ci';
 
 import './css/Article.scss';
 
@@ -16,8 +16,7 @@ const Article = ({
       <div className='article__image-box'>
         <img src={coverImage} alt='coverImage' />
         <div>
-          <FcLike />
-          <p>{recommend}</p>
+          <CiBookmark />
         </div>
       </div>
 

@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 
 // SVG 아이콘 참조
-import { MainLogo } from '../assets/MainLogo';
+import { MainLogo } from '../../assets/MainLogo';
 
 import './css/Login.scss';
 
 // widgets 컴포넌트 참조
 
-import SnsLogin from '../components/widgets/SnsLogin';
+import SnsLogin from '../../components/widgets/SnsLogin';
 
 // * UI 컴포넌트 참조
-import Input from '../components/ui/Input';
-import Button from '../components/ui/Button';
+import Input from '../../components/ui/Input';
+import Button from '../../components/ui/Button';
 
 const Login = () => {
   return (

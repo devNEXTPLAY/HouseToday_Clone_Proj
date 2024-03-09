@@ -1,7 +1,6 @@
 import './css/Header.scss';
 
 import { Link } from 'react-router-dom';
-import { CiSearch } from 'react-icons/ci';
 import { TextLogo } from '../../assets/TextLogo';
 import Input from '../ui/Input';
 import Button from '../ui/Button';

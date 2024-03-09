@@ -1,11 +1,12 @@
 import './css/Write.scss';
+
 import { Link } from 'react-router-dom';
 
-import { TextLogo } from '../assets/TextLogo';
-import WriteEditor from '../components/write/WriteEditor';
-import Button from '../components/ui/Button';
+import { TextLogo } from '../../assets/TextLogo';
+import WriteEditor from '../../components/write/WriteEditor';
+import Button from '../../components/ui/Button';
 
-const Write = () => {
+const WriteEdit = () => {
   return (
     <>
       <header className='header'>
@@ -24,4 +25,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default WriteEdit;
