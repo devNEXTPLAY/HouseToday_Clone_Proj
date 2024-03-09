@@ -19,6 +19,8 @@ const PushSetting = React.lazy(() => import('./pages/user/PushSetting'));
 // ! Home
 const Home = React.lazy(() => import('./pages/Home'));
 
+const Loading = React.lazy(() => import('./components/ui/Loading'));
+
 const router = createBrowserRouter([
   // ! Home
   { path: '/', element: <Home /> },
@@ -46,6 +48,9 @@ const router = createBrowserRouter([
   { path: '/users/:uid/edit/password', element: <EditPassword /> },
   // * 푸시 설정 화면 http://localhost:5173/users/:uid/push
   { path: '/users/:uid/push', element: <PushSetting /> },
+
+  // ! Loading
+  { path: '/loading', element: <Loading /> },
 ]);
 
 function App() {

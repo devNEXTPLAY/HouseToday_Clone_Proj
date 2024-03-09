@@ -23,7 +23,9 @@ const Header = () => {
           src='https://plus.unsplash.com/premium_photo-1686074443397-ff6e4825581b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D'
           alt='profile-image'
         />
-        <Button>글쓰기</Button>
+        <Link to='/write'>
+          <Button>글쓰기</Button>
+        </Link>
       </section>
     </header>
   );
