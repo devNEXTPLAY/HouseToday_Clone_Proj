@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import './css/Carousel.scss';
 
 // import required modules
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 const Carousel = () => {
   return (
@@ -23,23 +23,23 @@ const Carousel = () => {
       pagination={{
         clickable: true,
       }}
-      modules={[Autoplay, Navigation]}
+      modules={[Autoplay, Navigation, Pagination]}
       className='mySwiper'
     >
       <SwiperSlide>
-        <img src='https://img6.yna.co.kr/photo/yna/YH/2024/03/07/PYH2024030711930006300_P4.jpg' />
+        <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/banners/home_banner/170918113938998192.png?w=720' />
       </SwiperSlide>
       <SwiperSlide>
-        <img src='https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YmFzZWJhbGx8ZW58MHx8MHx8fDA%3D' />
+        <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/banners/home_banner/170918258485705627.png?w=720' />
       </SwiperSlide>
       <SwiperSlide>
-        <img src='https://images.unsplash.com/photo-1475440197469-e367ec8eeb19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmFzZWJhbGx8ZW58MHx8MHx8fDA%3D' />
+        <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/banners/home_banner/170918261601518163.png?w=720' />
       </SwiperSlide>
       <SwiperSlide>
-        <img src='https://images.unsplash.com/photo-1591444539769-2518e73d1090?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJhc2ViYWxsfGVufDB8fDB8fHww' />
+        <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/banners/home_banner/170951968214434675.png?w=720' />
       </SwiperSlide>
       <SwiperSlide>
-        <img src='https://images.unsplash.com/photo-1563299796-b729d0af54a5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJhc2ViYWxsfGVufDB8fDB8fHww' />
+        <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/banners/home_banner/170918236551977507.png?w=720' />
       </SwiperSlide>
     </Swiper>
   );
