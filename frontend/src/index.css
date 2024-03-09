@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 /* box-sizing 규칙을 명시합니다. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 /* 폰트 크기의 팽창을 방지합니다. */

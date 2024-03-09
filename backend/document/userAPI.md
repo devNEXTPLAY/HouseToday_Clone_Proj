@@ -9,7 +9,7 @@
     -   `500 Internal Server Error`: 서버 에러
 -   **Payload**: `{ email, password }`
 -   **Return**: 성공 시 JWT 토큰 반환, 실패 시 메시지 반환
-    -   **Token**: JWT 토큰은 `{ user_id, email }` 정보를 포함하며, 유효 시간은 1시간입니다.
+    -   **Token**: JWT 토큰은 `{ id, email }` 정보를 포함하며, 유효 시간은 1시간
 
 ## 회원가입 API
 
@@ -44,7 +44,7 @@
 -   **Payload**: `{ nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date }`
 -   **Return**: 성공 또는 실패 메시지 반환
 -   **Authentication Required**: Yes (`isLoggedIn` 미들웨어 사용)
--   **주의 사항**: `email`은 수정할 수 없습니다. / 빈 값은 ''로 전송 필수
+-   **주의 사항**: `email`은 수정할 수 없음 / 빈 값은 ''로 전송 필수
 
 ## 비밀번호 수정 API
 
@@ -60,6 +60,6 @@
 
 ## 주의 사항
 
--   로그인 및 회원정보 수정, 비밀번호 수정, 회원탈퇴 API는 인증 필요
--   인증 시, JWT 토큰을 Header에 포함하여 요청 (Authorization: Bearer {token})
--   회원정보 수정에서 빈 값은 ''로 전송
+-   로그인 및 회원정보 수정, 비밀번호 수정 API는 패스포트 인증된 사용자만 접근 가능
+-   인증 시, JWT 토큰을 Header에 포함하여 요청
+-   회원정보 수정 및 비밀번호 수정 API에서는 변경하고자 하는 정보만 전송, 빈 값은 ''로 전송

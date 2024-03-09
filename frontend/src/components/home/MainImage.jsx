@@ -8,14 +8,12 @@ const MainImage = () => {
     <main className='main'>
       <Link to='https://n.news.naver.com/mnews/article/001/0014536854?sid=104'>
         <img
-          src='https://images.unsplash.com/photo-1542401886-65d6c61db217?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          src='https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c'
           alt='news-image'
         />
 
         <div className='main__image-description'>
-          <strong>
-            오타니 결혼에 일본도 &apos;깜짝&apos;…정규 방송 중단하고 속보
-          </strong>
+          <strong>40된 구옥! 페인트칠만으로 환해졌죠?</strong>
           <div>
             <img
               src='https://images.unsplash.com/photo-1709833226150-8eaeb6f291d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
