@@ -11,33 +11,56 @@
 
 - react-router-dom
 - sass
+- env
 - TinyMCE - _텍스트 에디터_
+- Swiper - _캐러셀_
 
 ## 폴더 구조
 
-📦src  
-┣ 📂assets - _SVG 파일 (Facbook, Kakao, MainLogo, Naver)_  
+📦src
+┣ 📂assets - _SVG 파일들_  
 ┃ ┣ 📜Facebook.jsx  
 ┃ ┣ 📜Kakao.jsx  
 ┃ ┣ 📜MainLogo.jsx  
-┃ ┗ 📜Naver.jsx  
+┃ ┣ 📜Naver.jsx  
+┃ ┗ 📜TextLogo.jsx  
 ┣ 📂components  
-┃ ┣ 📂ui - _재사용 빈도가 높은 컴포넌트_  
+┃ ┣ 📂home  
+┃ ┃ ┣ 📂css  
+┃ ┃ ┃ ┣ 📜Article.scss  
+┃ ┃ ┃ ┣ 📜Articles.scss  
+┃ ┃ ┃ ┣ 📜Carousel.scss  
+┃ ┃ ┃ ┗ 📜MainImage.scss  
+┃ ┃ ┣ 📜Article.jsx  
+┃ ┃ ┣ 📜Articles.jsx  
+┃ ┃ ┣ 📜Carousel.jsx  
+┃ ┃ ┗ 📜MainImage.jsx  
+┃ ┣ 📂ui - _재사용 빈도 높은 컴포넌트들_  
 ┃ ┃ ┣ 📂css  
 ┃ ┃ ┃ ┣ 📜Button.scss  
 ┃ ┃ ┃ ┗ 📜Input.scss  
 ┃ ┃ ┣ 📜Button.jsx  
 ┃ ┃ ┗ 📜Input.jsx  
-┃ ┗ 📂widgets - _재사용 빈도가 낮은 컴포넌트_  
+┃ ┣ 📂widgets - _재사용 빈도 낮은 컴포넌트들_  
 ┃ ┃ ┣ 📂css  
+┃ ┃ ┃ ┣ 📜Header.scss  
 ┃ ┃ ┃ ┗ 📜SnsLogin.scss  
+┃ ┃ ┣ 📜Header.jsx  
 ┃ ┃ ┗ 📜SnsLogin.jsx  
-┣ 📂pages  
+┃ ┗ 📂write - _텍스트 에디터_  
+┃ ┃ ┣ 📂css  
+┃ ┃ ┃ ┗ 📜WriteEditor.scss  
+┃ ┃ ┗ 📜WriteEditor.jsx  
+┣ 📂pages - _화면_
 ┃ ┣ 📂css  
 ┃ ┃ ┣ 📜Login.scss  
-┃ ┃ ┗ 📜Signup.scss  
+┃ ┃ ┣ 📜Signup.scss  
+┃ ┃ ┗ 📜Write.scss  
+┃ ┣ 📜Home.jsx  
 ┃ ┣ 📜Login.jsx  
-┃ ┗ 📜Signup.jsx  
-┣ 📜App.jsx - _라우터 설정_  
+┃ ┣ 📜Signup.jsx  
+┃ ┣ 📜Write.jsx  
+┃ ┗ 📜WriteModify.jsx  
+┣ 📜App.jsx - _라우터 설정_
 ┣ 📜index.css  
 ┗ 📜main.jsx
