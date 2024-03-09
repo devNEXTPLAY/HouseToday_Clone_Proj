@@ -53,9 +53,9 @@ export const LIST = [
   },
   {
     id: 'a6',
-    title: '갈비찜을 밥 위에 얹어주세요.',
+    title: "#29 건축 이야기 | 자연과 공존하는 '트인 집'",
     coverImage:
-      'https://images.unsplash.com/photo-1709705011445-e38027a89c2e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
+      'https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/projects/164965165504198815.png?w=720',
     author: '정민영',
     date: '2024-03-09',
     viewcount: 10,
