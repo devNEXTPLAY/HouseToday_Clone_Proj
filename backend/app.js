@@ -14,6 +14,7 @@ const passportConfig = require("./passport/index.js");
 var indexRouter = require("./routes/index");
 var usersAPIRouter = require("./routes/userAPI");
 var commonAPIRouter = require("./routes/commonAPI");
+var blogAPIRouter = require("./routes/blogAPI");
 
 var sequelize = require("./models/index.js").sequelize;
 var app = express();
@@ -34,7 +35,7 @@ app.use(
 		secret: process.env.COOKIE_SECRET,
 		cookie: {
 			httpOnly: true,
-			secure: true,
+			secure: false,
 			maxAge: 1000 * 60 * 60 * 24, // 1 day
 		},
 	})
@@ -56,6 +57,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api/users", usersAPIRouter);
 app.use("/api/common", commonAPIRouter);
+app.use("/api/blog", blogAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
