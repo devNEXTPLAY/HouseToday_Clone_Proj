@@ -26,7 +26,7 @@ module.exports = function (sequelize, DataTypes) {
 			},
 			nickname: {
 				type: DataTypes.STRING(100),
-				allowNull: true,
+				allowNull: false,
 				comment: "사용자 닉네임",
 			},
 			profile_img: {
@@ -39,30 +39,35 @@ module.exports = function (sequelize, DataTypes) {
 				allowNull: true,
 				comment: "사용자 전화번호",
 			},
-			agree_marketing: {
-				type: DataTypes.TINYINT,
+			address: {
+				type: DataTypes.STRING(500),
 				allowNull: true,
-				comment: "개인정보 마케팅 활용 동의 0:미동의 1:동의",
-			},
-			agree_promotion: {
-				type: DataTypes.TINYINT,
-				allowNull: true,
-				comment: "프로모션 메세지 수신 동의 0:미동의 1:동의",
-			},
-			entry_type_code: {
-				type: DataTypes.TINYINT,
-				allowNull: true,
-				comment: "가입경로 0:일반이메일 1:구글 2:네이버 3:카카오",
-			},
-			use_state_code: {
-				type: DataTypes.TINYINT,
-				allowNull: true,
-				comment: "사용자상태 0:정상 1:탈퇴 2:정지",
+				comment: "사용자 주소",
 			},
 			birth_date: {
 				type: DataTypes.STRING(20),
 				allowNull: true,
 				comment: "생년월일",
+			},
+			agree_marketing: {
+				type: DataTypes.TINYINT,
+				allowNull: false,
+				comment: "개인정보 마케팅 활용 동의 0:미동의 1:동의",
+			},
+			agree_promotion: {
+				type: DataTypes.TINYINT,
+				allowNull: false,
+				comment: "프로모션 메세지 수신 동의 0:미동의 1:동의",
+			},
+			entry_type_code: {
+				type: DataTypes.TINYINT,
+				allowNull: false,
+				comment: "가입경로 0:일반이메일 1:구글 2:네이버 3:카카오",
+			},
+			use_state_code: {
+				type: DataTypes.TINYINT,
+				allowNull: false,
+				comment: "사용자상태 0:정상 1:탈퇴 2:정지",
 			},
 			reg_date: {
 				type: DataTypes.DATE,
