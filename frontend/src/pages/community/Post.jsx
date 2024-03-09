@@ -33,13 +33,14 @@ const Post = () => {
           </Button>
         </nav>
 
-        <section className='post'>
-          <img
-            src='https://plus.unsplash.com/premium_photo-1676320103037-fae0b1d3668d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8'
-            alt='대표 이미지'
-          />
+        <img
+          className='main-image'
+          src='https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1920&h=589&c=c'
+          alt='대표 이미지'
+        />
 
-          <h2>lorem</h2>
+        <section className='post'>
+          <h2>40년 된 구옥, 페인트칠만으로 깨끗하고 환하게 변신!</h2>
 
           <div className='information-user'>
             <div className='information-user__profile'>
@@ -52,7 +53,7 @@ const Post = () => {
 
               <div>
                 <strong>작성자</strong>
-                <span>Lorem ipsum dolor sit,</span>
+                <span>안녕하세요!</span>
               </div>
             </div>
 
@@ -60,22 +61,32 @@ const Post = () => {
           </div>
 
           <div>
-            <h3> Lorem ipsum dolor </h3>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa
-              libero assumenda quod voluptatibus architecto perferendis sunt
-              eius, amet repellat. Laboriosam, voluptas quisquam alias explicabo
-              necessitatibus assumenda recusandae! Hic, ratione labore.
-            </p>
+            <h3>⚡ 3초 컷! 집들이 미리보기</h3>
+            <img
+              src='https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/project/170419057112229912.JPG?w=720'
+              alt=''
+            />
+
+            <img
+              src='https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/project/170419185315543843.JPG?w=720'
+              alt=''
+            />
           </div>
 
           <div>
-            <h3>amet consectetur adipisicing elit.</h3>
+            <h3>거실 After</h3>
+            <img
+              src='https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/project/170548239108046595.JPG?w=720'
+              alt=''
+            />
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa
-              libero assumenda quod voluptatibus architecto perferendis sunt
-              eius, amet repellat. Laboriosam, voluptas quisquam alias explicabo
-              necessitatibus assumenda recusandae! Hic, ratione labore.
+              거실은 주로 작업 이외에 하는 일들을 하는 공간이에요. 소파에 앉아서
+              노래를 듣거나, 밥을 먹거나, OTT프로그램을 시청하는 등 쉬는
+              공간으로 사용하고 있어요. <br />
+              거실은 블랙 & 실버 느낌으로 꾸미고 싶었어요. 평소에 많은 분들의
+              집들이를 봤는데 뭔가 이거다! 하는 느낌은 많았지만 다 따라 하기는
+              힘들 것 같아서 제가 원하는 가구를 하나씩 구매 하면서 채워
+              넣었어요. 확실히 벽과 바닥을 화이트로 칠하니 깔끔하고 좋더라구요.
             </p>
           </div>
 
@@ -106,7 +117,7 @@ const Post = () => {
 
               <div>
                 <strong>작성자</strong>
-                <span>Lorem ipsum dolor sit,</span>
+                <span>안녕하세요.</span>
               </div>
             </div>
             <Button>팔로우</Button>
@@ -121,7 +132,7 @@ const Post = () => {
             <div className='comment__user'>
               <div className='user__profile'>
                 <img
-                  src='https://images.unsplash.com/photo-1709403343088-732c888fdc6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHx8'
+                  src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D'
                   alt=''
                 />
 
@@ -129,10 +140,10 @@ const Post = () => {
               </div>
 
               <p className='comment__text'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                distinctio natus, nisi ipsam minima rem optio qui enim
-                cupiditate quo, ducimus nemo quas dolores velit odio repellat
-                illum possimus voluptas.
+                구옥을 이렇게 탈바꿈하는게 쉬운일이 아닌데 정말 대단해요! 큰돈
+                안들이고 실속있게 바꾸신 모습이 멋집니당 ㅎㅎㅎ 저역시
+                체리몰딩과 싸우는중이라.. 얼마나 구석구석 다 신경쓰셨는지
+                느껴져요 ㅜㅜ 창문은 시트지 떼시고 흰색 실리콘 다시 쏘신건가요?
               </p>
 
               <div className='user__action'>
@@ -146,19 +157,14 @@ const Post = () => {
             <div className='comment__user'>
               <div className='user__profile'>
                 <img
-                  src='https://images.unsplash.com/photo-1709403343088-732c888fdc6f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHx8'
+                  src='https://plus.unsplash.com/premium_photo-1666919621579-2fc3f6918cf6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVEJThGJUFDJUVDJUJDJTgwfGVufDB8fDB8fHww'
                   alt=''
                 />
 
                 <strong>포케 먹고싶당</strong>
               </div>
 
-              <p className='comment__text'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                distinctio natus, nisi ipsam minima rem optio qui enim
-                cupiditate quo, ducimus nemo quas dolores velit odio repellat
-                illum possimus voluptas.
-              </p>
+              <p className='comment__text'>이 글을 읽으니 포케가 먹고싶군요!</p>
 
               <div className='user__action'>
                 <span>1주</span>
