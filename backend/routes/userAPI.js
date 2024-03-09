@@ -6,6 +6,7 @@ var AES = require("mysql-aes");
 var jwt = require("jsonwebtoken");
 var enums = require("../common/enums.js");
 var moment = require("moment");
+const { Op } = require("sequelize");
 const passport = require("passport");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
@@ -50,7 +51,7 @@ router.post("/register", async (req, res, next) => {
 	try {
 		const user = await db.Users.findOne({
 			where: {
-				email: email,
+				[Op.or]: [{ email: email }, { nickname: nickname }],
 			},
 		});
 		if (user) {
@@ -134,6 +135,19 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 		address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
 	}
 	try {
+		const user = await db.Users.findOne({
+			where: {
+				nickname: nickname,
+				user_id: {
+					[Op.ne]: req.user.user_id,
+				},
+			},
+		});
+		if (user) {
+			return res.status(400).json({
+				message: "이미 존재하는 닉네임입니다.",
+			});
+		}
 		await db.Users.update(
 			{
 				nickname: nickname,

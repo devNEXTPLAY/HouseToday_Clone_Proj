@@ -1,5 +1,5 @@
 var db = require("../../models/index.js");
-var enums = require("../common/enums.js");
+var enums = require("../../common/enums.js");
 
 async function mainBlog() {
 	try {

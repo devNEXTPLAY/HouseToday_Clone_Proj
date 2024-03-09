@@ -14,4 +14,19 @@ db.Hashtags = require("./blogs/hashtags.js")(sequelize, Sequelize);
 db.Comments = require("./blogs/comments.js")(sequelize, Sequelize);
 db.BlogHashtags = require("./blogs/blogHashtags.js")(sequelize, Sequelize);
 
+db.Users.hasMany(db.Blogs, { foreignKey: "user_id" });
+db.Blogs.belongsTo(db.Users, { foreignKey: "user_id", as: "User" });
+
+db.Users.hasMany(db.Comments, { foreignKey: "user_id" });
+db.Comments.belongsTo(db.Users, { foreignKey: "user_id" });
+
+db.Blogs.hasMany(db.Comments, { foreignKey: "blog_id" });
+db.Comments.belongsTo(db.Blogs, { foreignKey: "blog_id" });
+
+db.Blogs.belongsToMany(db.Hashtags, { through: db.BlogHashtags, foreignKey: "blog_id" });
+db.Hashtags.belongsToMany(db.Blogs, { through: db.BlogHashtags, foreignKey: "hashtag_id" });
+
+db.Comments.hasMany(db.Comments, { as: "Replies", foreignKey: "parent_id" });
+db.Comments.belongsTo(db.Comments, { as: "Parent", foreignKey: "parent_id" });
+
 module.exports = db;
