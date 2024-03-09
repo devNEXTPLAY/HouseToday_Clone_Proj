@@ -18,14 +18,16 @@
 ## 폴더 구조
 
 📦src
-┣ 📂assets - _SVG 파일들_  
-┃ ┣ 📜Facebook.jsx  
-┃ ┣ 📜Kakao.jsx  
-┃ ┣ 📜MainLogo.jsx  
-┃ ┣ 📜Naver.jsx  
-┃ ┗ 📜TextLogo.jsx  
+┣ 📂assets  
+┃ ┣ 📜Facebook.jsx _SVG_  
+┃ ┣ 📜Kakao.jsx _SVG_  
+┃ ┣ 📜MainLogo.jsx _SVG_  
+┃ ┣ 📜Naver.jsx _SVG_  
+┃ ┣ 📜TextLogo.jsx _SVG_  
+┃ ┗ 📜data.js - _더미 데이터_  
 ┣ 📂components  
-┃ ┣ 📂home  
+┃ ┣ 📂community  
+┃ ┣ 📂home - _메인 화면_  
 ┃ ┃ ┣ 📂css  
 ┃ ┃ ┃ ┣ 📜Article.scss  
 ┃ ┃ ┃ ┣ 📜Articles.scss  
@@ -35,32 +37,45 @@
 ┃ ┃ ┣ 📜Articles.jsx  
 ┃ ┃ ┣ 📜Carousel.jsx  
 ┃ ┃ ┗ 📜MainImage.jsx  
-┃ ┣ 📂ui - _재사용 빈도 높은 컴포넌트들_  
+┃ ┣ 📂ui - _재사용 빈도가 높은 컴포넌트_  
 ┃ ┃ ┣ 📂css  
 ┃ ┃ ┃ ┣ 📜Button.scss  
-┃ ┃ ┃ ┗ 📜Input.scss  
+┃ ┃ ┃ ┣ 📜Input.scss  
+┃ ┃ ┃ ┗ 📜Loading.scss  
 ┃ ┃ ┣ 📜Button.jsx  
-┃ ┃ ┗ 📜Input.jsx  
-┃ ┣ 📂widgets - _재사용 빈도 낮은 컴포넌트들_  
+┃ ┃ ┣ 📜Input.jsx  
+┃ ┃ ┗ 📜Loading.jsx  
+┃ ┣ 📂widgets - _재사용 빈도가 낮은 컴포넌트_  
 ┃ ┃ ┣ 📂css  
 ┃ ┃ ┃ ┣ 📜Header.scss  
 ┃ ┃ ┃ ┗ 📜SnsLogin.scss  
 ┃ ┃ ┣ 📜Header.jsx  
 ┃ ┃ ┗ 📜SnsLogin.jsx  
-┃ ┗ 📂write - _텍스트 에디터_  
+┃ ┗ 📂write  
 ┃ ┃ ┣ 📂css  
 ┃ ┃ ┃ ┗ 📜WriteEditor.scss  
-┃ ┃ ┗ 📜WriteEditor.jsx  
-┣ 📂pages - _화면_
-┃ ┣ 📂css  
-┃ ┃ ┣ 📜Login.scss  
-┃ ┃ ┣ 📜Signup.scss  
-┃ ┃ ┗ 📜Write.scss  
-┃ ┣ 📜Home.jsx  
-┃ ┣ 📜Login.jsx  
-┃ ┣ 📜Signup.jsx  
-┃ ┣ 📜Write.jsx  
-┃ ┗ 📜WriteModify.jsx  
-┣ 📜App.jsx - _라우터 설정_
+┃ ┃ ┗ 📜WriteEditor.jsx _텍스트 에디터_  
+┣ 📂pages  
+┃ ┣ 📂auth _사용자 인증 관련_  
+┃ ┃ ┣ 📂css  
+┃ ┃ ┃ ┣ 📜Login.scss
+┃ ┃ ┃ ┗ 📜Signup.scss  
+┃ ┃ ┣ 📜Login.jsx  
+┃ ┃ ┗ 📜Signup.jsx  
+┃ ┣ 📂community _커뮤니티 관련_  
+┃ ┃ ┣ 📂css  
+┃ ┃ ┃ ┣ 📜Post.scss  
+┃ ┃ ┃ ┗ 📜Write.scss  
+┃ ┃ ┣ 📜Community.jsx  
+┃ ┃ ┣ 📜Post.jsx  
+┃ ┃ ┣ 📜Write.jsx  
+┃ ┃ ┗ 📜WriteEdit.jsx  
+┃ ┣ 📂user _사용자 설정_  
+┃ ┃ ┣ 📂css  
+┃ ┃ ┣ 📜EditPassword.jsx  
+┃ ┃ ┣ 📜PushSetting.jsx  
+┃ ┃ ┗ 📜User.jsx  
+┃ ┗ 📜Home.jsx _홈_  
+┣ 📜App.jsx - _라우터 설정_  
 ┣ 📜index.css  
 ┗ 📜main.jsx
