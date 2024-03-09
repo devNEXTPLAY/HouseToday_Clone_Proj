@@ -13,6 +13,7 @@ const passportConfig = require("./passport/index.js");
 
 var indexRouter = require("./routes/index");
 var usersAPIRouter = require("./routes/userAPI");
+var commonAPIRouter = require("./routes/commonAPI");
 
 var sequelize = require("./models/index.js").sequelize;
 var app = express();
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/api/users", usersAPIRouter);
+app.use("/api/common", commonAPIRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

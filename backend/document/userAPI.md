@@ -30,7 +30,7 @@
     -   `200 OK`: 회원탈퇴 성공
     -   `400 Bad Request`: 존재하지 않는 사용자 혹은 비밀번호 불일치
     -   `500 Internal Server Error`: 서버 에러
--   **Payload**: `{ email, password }`
+-   **Payload**: `{ password }`
 -   **Return**: 성공 또는 실패 메시지 반환
 
 ## 회원정보 수정 API
@@ -41,7 +41,7 @@
     -   `200 OK`: 회원정보 수정 성공
     -   `400 Bad Request`: 필수 정보 누락
     -   `500 Internal Server Error`: 서버 에러
--   **Payload**: `{ email, nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date }`
+-   **Payload**: `{ nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date }`
 -   **Return**: 성공 또는 실패 메시지 반환
 -   **Authentication Required**: Yes (`isLoggedIn` 미들웨어 사용)
 -   **주의 사항**: `email`은 수정할 수 없음 / 빈 값은 ''로 전송 필수
@@ -54,7 +54,7 @@
     -   `200 OK`: 비밀번호 수정 성공
     -   `400 Bad Request`: 존재하지 않는 사용자, 비밀번호 불일치, 기존 비밀번호와 동일함
     -   `500 Internal Server Error`: 서버 에러
--   **Payload**: `{ email, password, newPassword }`
+-   **Payload**: `{ password, newPassword }`
 -   **Return**: 성공 또는 실패 메시지 반환
 -   **Authentication Required**: Yes (`isLoggedIn` 미들웨어 사용)
 

@@ -34,7 +34,7 @@ router.post("/login", async (req, res, next) => {
 		}
 		const token = jwt.sign(
 			{
-				id: user.id,
+				id: user.user_id,
 				email: user.email,
 			},
 			process.env.JWT_SECRET,
@@ -95,12 +95,14 @@ router.post("/register", async (req, res, next) => {
 // 회원탈퇴 API
 // http://localhost:3005/api/users/withdrawal
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-router.delete("/withdrawal", async (req, res, next) => {
-	const { email, password } = req.body;
+router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
+	const { password } = req.body;
+	var token = req.headers.authorization.split("Bearer ")[1];
+	var decoded = jwt.verify(token, process.env.JWT_SECRET);
 	try {
 		const user = await db.Users.findOne({
 			where: {
-				email: email,
+				user_id: decoded.id,
 			},
 		});
 		if (!user) {
@@ -141,27 +143,16 @@ router.delete("/withdrawal", async (req, res, next) => {
 // update whatever is changed:
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.post("/modify", isLoggedIn, async (req, res, next) => {
-	var {
-		email,
-		nickname,
-		agree_marketing,
-		agree_promotion,
-		phone,
-		address,
-		profile_img,
-		birth_date,
-	} = req.body;
-	if (!email) {
-		return res.status(400).json({
-			message: "이메일을 입력해주세요.",
-		});
-	}
+	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } =
+		req.body;
 	if (phone) {
 		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
 	}
 	if (address) {
 		address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
 	}
+	var token = req.headers.authorization.split("Bearer ")[1];
+	var decoded = jwt.verify(token, process.env.JWT_SECRET);
 	try {
 		await db.Users.update(
 			{
@@ -176,7 +167,7 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 			},
 			{
 				where: {
-					email: email,
+					user_id: decoded.id,
 				},
 			}
 		);
@@ -195,11 +186,13 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 // http://localhost:3005/api/users/password
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
 router.post("/password", isLoggedIn, async (req, res, next) => {
-	const { email, password, newPassword } = req.body;
+	const { password, newPassword } = req.body;
+	var token = req.headers.authorization.split("Bearer ")[1];
+	var decoded = jwt.verify(token, process.env.JWT_SECRET);
 	try {
 		const user = await db.Users.findOne({
 			where: {
-				email: email,
+				user_id: decoded.id,
 			},
 		});
 		if (!user) {
