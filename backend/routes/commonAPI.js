@@ -3,7 +3,16 @@ var router = express.Router();
 
 var multer = require("multer");
 var moment = require("moment");
-var fs = require("fs");
+const fs = require("fs").promises;
+const { v4: uuidv4 } = require("uuid"); // UUID 생성을 위한 라이브러리
+const winston = require("winston"); // 로깅 라이브러리
+const errorMiddleware = require("../middlewares/errorMiddleware.js");
+
+const logger = winston.createLogger({
+	level: "info",
+	format: winston.format.json(),
+	transports: [new winston.transports.File({ filename: "combined.log" })],
+});
 
 var storage = multer.diskStorage({
 	destination(req, file, cb) {
@@ -11,7 +20,8 @@ var storage = multer.diskStorage({
 	},
 	filename(req, file, cb) {
 		const date = moment().format("YYYYMMDD");
-		cb(null, `${date}-${file.originalname}`);
+		const uniqueSuffix = uuidv4();
+		cb(null, `${date}-${uniqueSuffix}-${file.originalname}`);
 	},
 });
 
@@ -39,14 +49,14 @@ var Upload = multer({
 router.post("/upload", Upload.single("file"), (req, res, next) => {
 	if (req.file) {
 		const filePath = req.file.path.replace(/\\/g, "/");
+		logger.info(`파일 업로드 성공: ${filePath}`);
 		res.status(201).json({
 			filePath: filePath,
 			message: "파일 업로드 성공",
 		});
 	} else {
-		next(
-			new Error("파일 업로드 실패: 파일이 없거나 파일 형식/크기가 조건에 부합하지 않습니다.")
-		);
+		logger.error("파일 업로드 실패: 파일이 존재하지 않거나 허용되지 않는 파일 형식");
+		next(new Error("파일 업로드 실패: 파일이 존재하지 않거나 허용되지 않는 파일 형식입니다."));
 	}
 });
 
@@ -54,27 +64,23 @@ router.post("/upload", Upload.single("file"), (req, res, next) => {
 // http://localhost:3005/api/common/delete
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
 // return message if success / return message if fail
-router.delete("/delete", (req, res, next) => {
+router.delete("/delete", async (req, res, next) => {
 	const { filePath } = req.body;
-	if (filePath) {
-		fs.unlink(filePath, (error) => {
-			if (error) {
-				next(new Error("파일 삭제 실패: 파일이 존재하지 않습니다."));
-			} else {
-				res.status(200).json({
-					message: "파일 삭제 성공",
-				});
-			}
-		});
-	} else {
-		next(new Error("파일 삭제 실패: 파일 경로가 존재하지 않습니다."));
+	try {
+		if (filePath && filePath.startsWith("public/upload/images/")) {
+			await fs.unlink(filePath);
+			logger.info(`파일 삭제 성공: ${filePath}`);
+			res.status(200).json({
+				message: "파일 삭제 성공",
+			});
+		} else {
+			logger.error(`파일 삭제 실패: 유효하지 않는 경로 ${filePath}`);
+			throw new Error("파일 삭제 실패: 파일 경로가 존재하지 않습니다.");
+		}
+	} catch (error) {
+		next(error);
 	}
 });
 
-// 에러 처리 미들웨어
-router.use((error, req, res, next) => {
-	console.error(error);
-	res.status(400).json({ message: error.message });
-});
-
+router.use(errorMiddleware);
 module.exports = router;

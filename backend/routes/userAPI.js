@@ -6,6 +6,7 @@ var AES = require("mysql-aes");
 var jwt = require("jsonwebtoken");
 var enums = require("../common/enums.js");
 var moment = require("moment");
+const passport = require("passport");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
@@ -14,41 +15,30 @@ const errorMiddleware = require("../middlewares/errorMiddleware.js");
 // Status: 200 OK / 404 Not Found / 400 Bad Request / 500 Internal Server Error
 // return token if success / return message if fail
 // token: JWT token { id, email } / 1h
-router.post("/login", async (req, res, next) => {
-	const { email, password } = req.body;
-	try {
-		const user = await db.Users.findOne({
-			where: {
-				email: email,
-			},
-		});
+router.post("/login", (req, res, next) => {
+	passport.authenticate("local", (err, user, info) => {
+		if (err) return next(err);
 		if (!user) {
-			return res.status(404).json({
-				message: "존재하지 않는 사용자입니다.",
-			});
+			return res.status(400).json({ message: info.message });
 		}
-		const isMatch = await bcrypt.compare(password, user.password);
-		if (!isMatch) {
-			return res.status(400).json({
-				message: "비밀번호가 일치하지 않습니다.",
+		req.logIn(user, (err) => {
+			if (err) return next(err);
+			const token = jwt.sign(
+				{
+					id: user.user_id,
+					email: user.email,
+				},
+				process.env.JWT_SECRET,
+				{
+					expiresIn: "1h",
+				}
+			);
+			return res.status(200).json({
+				token: token,
+				message: "로그인에 성공하였습니다.",
 			});
-		}
-		const token = jwt.sign(
-			{
-				id: user.user_id,
-				email: user.email,
-			},
-			process.env.JWT_SECRET,
-			{
-				expiresIn: "1h",
-			}
-		);
-		res.status(200).json({
-			token: token,
 		});
-	} catch (error) {
-		next(error);
-	}
+	})(req, res, next);
 });
 
 // 회원가입 API
@@ -69,6 +59,7 @@ router.post("/register", async (req, res, next) => {
 			});
 		}
 		const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+		console.log(`회원가입 시도: ${email}, IP: ${ip_address}`);
 		const hash = await bcrypt.hash(password, 12);
 		await db.Users.create({
 			email: email,
@@ -151,7 +142,7 @@ router.post("/modify", isLoggedIn, async (req, res, next) => {
 				phone: phone,
 				address: address,
 				profile_img: profile_img,
-				birth_date: birth_date,
+				birth_date: Date.parse(birth_date) ? moment(birth_date).format("YYYY-MM-DD") : null,
 				edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
 			},
 			{
