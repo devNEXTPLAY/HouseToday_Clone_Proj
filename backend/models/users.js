@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
 	return sequelize.define(
-		"user",
+		"User",
 		{
 			user_id: {
 				type: DataTypes.INTEGER,
@@ -12,6 +12,7 @@ module.exports = function (sequelize, DataTypes) {
 			email: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
+				unique: true,
 				comment: "사용자 이메일 / 아이디",
 			},
 			password: {
@@ -45,7 +46,7 @@ module.exports = function (sequelize, DataTypes) {
 				comment: "사용자 주소",
 			},
 			birth_date: {
-				type: DataTypes.STRING(20),
+				type: DataTypes.DATEONLY,
 				allowNull: true,
 				comment: "생년월일",
 			},
@@ -84,12 +85,25 @@ module.exports = function (sequelize, DataTypes) {
 			sequelize,
 			timestamps: false,
 			comment: "회원 테이블",
+			tableName: "Users",
 			indexes: [
 				{
 					name: "PRIMARY",
 					unique: true,
 					using: "BTREE",
 					fields: [{ name: "user_id" }],
+				},
+				{
+					name: "idx_user_email",
+					unique: true,
+					using: "BTREE",
+					fields: [{ name: "email" }],
+				},
+				{
+					name: "idx_user_nickname",
+					unique: true,
+					using: "BTREE",
+					fields: [{ name: "nickname" }],
 				},
 			],
 		}
