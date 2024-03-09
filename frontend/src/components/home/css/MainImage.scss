@@ -4,24 +4,23 @@
   align-items: center;
   position: relative;
   margin-bottom: 3rem;
-  padding: 0;
   max-width: 1256px;
 
   a {
     position: relative;
-    object-fit: cover;
+    margin-right: 2rem;
+    border-radius: 1rem;
+    height: 508px;
+    width: 920px;
     overflow: hidden;
   }
 
   img {
-    width: 920px;
-    height: 508px;
-    border-radius: 10px;
+    border-radius: 1rem;
     box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     transition: 1s all;
-    margin-right: 2rem;
   }
 
   img:hover {
