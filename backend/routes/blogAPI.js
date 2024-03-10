@@ -74,7 +74,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 // 블로그 글 수정 API
 // http://localhost:3005/api/blog/update
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-router.post("/update/:bid", isLoggedIn, async (req, res, next) => {
+router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 	const blog_id = req.params.bid;
 	const { title, contents, preview_img } = req.body;
 	const user_id = req.user.user_id;

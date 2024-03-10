@@ -26,7 +26,7 @@
 ## 블로그 게시글 수정 API
 
 -   **URL**: `/api/blog/update/:bid`
--   **Method**: `POST`
+-   **Method**: `PUT`
 -   **설명**: 기존 블로그 게시글을 수정. 게시글의 작성자만 수정 가능
 -   **Payload**: `{ title, contents, preview_img }`
 -   **Status Code**:

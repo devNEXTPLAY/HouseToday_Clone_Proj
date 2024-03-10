@@ -125,7 +125,7 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
 // update whatever is changed:
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
-router.post("/modify", isLoggedIn, async (req, res, next) => {
+router.patch("/modify", isLoggedIn, async (req, res, next) => {
 	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } =
 		req.body;
 	if (phone) {
