@@ -166,5 +166,82 @@ router.get("/detail/:bid", async (req, res, next) => {
 	}
 });
 
+// 블로그 글 삭제 API
+// 블로그 글 상태코드 변경
+// http://localhost:3005/api/blog/delete/:bid
+// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+router.delete("/delete/:bid", isLoggedIn, async (req, res, next) => {
+	const blog_id = req.params.bid;
+	const user_id = req.user.user_id;
+
+	try {
+		const blog = await db.Blogs.findOne({
+			where: {
+				blog_id,
+				user_id,
+			},
+		});
+		if (!blog) {
+			return res.status(400).json({
+				message: "존재하지 않는 글이거나 작성자가 아닙니다.",
+			});
+		}
+		blog.blog_status_code = enums.BLOG_STATUS_CODE.DELETED;
+		await blog.save();
+		res.status(200).json({
+			message: "블로그 글 삭제에 성공하였습니다.",
+		});
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 블로그 좋아요 API
+// 안눌렀을 경우 좋아요 추가, 눌렀을 경우 좋아요 취소
+// http://localhost:3005/api/blog/like/:bid
+// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+router.post("/like/:bid", isLoggedIn, async (req, res, next) => {
+	const blog_id = req.params.bid;
+	const user_id = req.user.user_id;
+
+	try {
+		const blog = await db.Blogs.findOne({
+			where: { blog_id },
+		});
+		if (!blog) {
+			return res.status(400).json({
+				message: "존재하지 않는 글입니다.",
+			});
+		}
+		const like = await db.BlogLikes.findOne({
+			where: {
+				blog_id,
+				user_id,
+			},
+		});
+		if (like) {
+			await like.destroy();
+			blog.like_count -= 1;
+			await blog.save();
+			res.status(200).json({
+				message: "좋아요 취소를 취소했습니다.",
+			});
+		} else {
+			await db.BlogLikes.create({
+				user_id,
+				blog_id,
+				created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+			});
+			blog.like_count += 1;
+			await blog.save();
+			res.status(200).json({
+				message: "좋아요를 눌렀습니다.",
+			});
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
 router.use(errorMiddleware);
 module.exports = router;

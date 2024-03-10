@@ -30,4 +30,10 @@ module.exports = Object.freeze({
 		DELETED: 3,
 		HIDDEN: 4,
 	},
+
+	// "댓글 상태코드 0:정상 1:삭제",
+	COMMENT_STATUS_CODE: {
+		NORMAL: 0,
+		DELETED: 1,
+	},
 });
