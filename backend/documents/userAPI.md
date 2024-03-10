@@ -36,7 +36,7 @@
 ## 회원정보 수정 API
 
 -   **URL**: `/api/users/modify`
--   **Method**: `POST`
+-   **Method**: `PATCH`
 -   **Status Codes**:
     -   `200 OK`: 회원정보 수정 성공
     -   `400 Bad Request`: 필수 정보 누락

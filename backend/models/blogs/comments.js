@@ -48,6 +48,12 @@ module.exports = function (sequelize, DataTypes) {
 				comment: "좋아요수",
 				defaultValue: 0,
 			},
+			comment_status_code: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				comment: "댓글 상태코드 0:정상 1:삭제",
+				defaultValue: 0,
+			},
 			ip_address: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
