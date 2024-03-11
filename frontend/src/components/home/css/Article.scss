@@ -1,3 +1,5 @@
+@import '../../../css/_mixin.scss';
+
 .article {
   display: flex;
   flex-direction: column;
@@ -74,4 +76,27 @@
 
 .article:hover {
   background-color: #b4b4b459;
+}
+
+@include mobile {
+  .articles__title-box {
+    margin-bottom: 2rem;
+    h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .article__image-box {
+    width: 100w;
+    height: 100vh;
+
+    img {
+      width: 100%;
+    }
+  }
 }

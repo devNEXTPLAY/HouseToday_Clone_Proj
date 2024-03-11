@@ -1,13 +1,16 @@
+import { useMediaQuery } from 'react-responsive';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import './css/Articles.scss';
+import { CiBookmark } from 'react-icons/ci';
+import { IoIosArrowForward } from 'react-icons/io';
 
 import Article from './Article';
 import { LIST } from '../../assets/data';
 
-const Articles = () => {
+const PcArticles = () => {
   return (
-    <ul className='articles'>
-      <h3>이런 사진을 찾고 있나요?</h3>
-
+    <>
       <div className='articles__container'>
         {LIST.map(article => (
           <Article
@@ -22,6 +25,59 @@ const Articles = () => {
           />
         ))}
       </div>
+    </>
+  );
+};
+
+const MobileArticles = () => {
+  return (
+    <Swiper
+      centeredSlides={true}
+      spaceBetween={30}
+      pagination={{
+        clickable: true,
+      }}
+      className='articles__swiper'
+    >
+      {LIST.map(article => (
+        <SwiperSlide key={article.id} className='articles__swiper-slide'>
+          <img src={article.coverImage} alt='image' />
+          <div className='profile'>
+            <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images/168729926406224361.jpeg?w=50' />
+            <strong>사용자</strong>
+
+            <button>
+              <CiBookmark />
+            </button>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+const Articles = () => {
+  const isPc = useMediaQuery({
+    query: '(min-width:769px)',
+  });
+
+  const isMobile = useMediaQuery({
+    query: '(max-width:768px)',
+  });
+
+  return (
+    <ul className='articles'>
+      <div className='articles__title-box'>
+        <div>
+          <h3>이런 사진을 찾고 있나요?</h3>
+          {isMobile && <p>좋아하실 만한 인테리어 콘텐츠를 추천해드려요</p>}
+        </div>
+
+        {isMobile && <IoIosArrowForward />}
+      </div>
+
+      {isPc && <PcArticles />}
+      {isMobile && <MobileArticles />}
     </ul>
   );
 };
