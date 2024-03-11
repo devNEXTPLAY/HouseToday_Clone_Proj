@@ -1,12 +1,12 @@
 import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Community from './pages/community/Community';
 
 // ! Auth
 const Login = lazy(() => import('./pages/auth/Login'));
 const Signup = lazy(() => import('./pages/auth/Signup'));
 
 // ! Community
+const Community = lazy(() => import('./pages/community/Community'));
 const Write = lazy(() => import('./pages/community/Write'));
 const WriteEdit = lazy(() => import('./pages/community/WriteEdit'));
 const Post = lazy(() => import('./pages/community/Post'));
