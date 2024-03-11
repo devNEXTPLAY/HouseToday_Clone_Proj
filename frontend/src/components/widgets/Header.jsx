@@ -31,7 +31,7 @@ const Header = () => {
           <div className='header__profile-box'>
             <Button className='header__profile' onClick={handleShowNav}>
               <img
-                src='https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg'
+                src='https://d12zq4w4guyljn.cloudfront.net/750_750_20220126102336280_photo_32b06416ea97.jpg'
                 alt='profile-image'
               />
             </Button>
