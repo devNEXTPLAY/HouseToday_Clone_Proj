@@ -27,11 +27,11 @@ const PcCarousel = () => {
             delay: 2500,
             disableOnInteraction: false,
           }}
+          navigation={true}
           pagination={{
             clickable: true,
           }}
           modules={[Autoplay, Navigation, Pagination]}
-          className='mySwiper'
         >
           <SwiperSlide>
             <img src='https://image.ohou.se/i/bucketplace-v2-development/uploads/banners/home_banner/170918113938998192.png?w=720' />
