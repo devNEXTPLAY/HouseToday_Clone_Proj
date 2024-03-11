@@ -5,3 +5,5 @@
 -   [Common API](./documents/commonAPI.md): multer를 이용한 이미지 업로드, 이미지 삭제 엔드포인트
 
 -   [Blog API](./documents/blogAPI.md): 블로그 게시글 작성, 수정, 삭제, 조회, 좋아요, 메인 게시글 조회 엔드포인트
+
+-   [Comment API](./documents/commentAPI.md): 댓글 작성, 수정, 삭제, 좋아요 엔드포인트

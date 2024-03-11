@@ -44,7 +44,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 //  댓글 수정 API
 //  http://localhost:3005/api/comment/update
 //  Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-router.put("/update", isLoggedIn, async (req, res, next) => {
+router.patch("/update", isLoggedIn, async (req, res, next) => {
 	const { comment_id, contents } = req.body;
 	const user_id = req.user.user_id;
 	const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
@@ -104,8 +104,51 @@ router.delete("/delete/:cid", isLoggedIn, async (req, res, next) => {
 });
 
 // 댓글 좋아요 API
+// 안눌렀을 경우 추가, 눌렀을 경우 삭제
 // http://localhost:3005/api/comment/like
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+router.post("/like", isLoggedIn, async (req, res, next) => {
+	const { comment_id } = req.body;
+	const user_id = req.user.user_id;
+
+	try {
+		const comment = await db.Comments.findOne({
+			where: { comment_id },
+		});
+		if (!comment) {
+			return res.status(400).json({
+				message: "존재하지 않는 댓글입니다.",
+			});
+		}
+		const like = await db.CommentLikes.findOne({
+			where: {
+				comment_id,
+				user_id,
+			},
+		});
+		if (like) {
+			await like.destroy();
+			comment.like_count -= 1;
+			await comment.save();
+			res.status(200).json({
+				message: "좋아요를 취소했습니다.",
+			});
+		} else {
+			await db.CommentLikes.create({
+				user_id,
+				comment_id,
+				created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+			});
+			comment.like_count += 1;
+			await comment.save();
+			res.status(200).json({
+				message: "좋아요를 추가했습니다.",
+			});
+		}
+	} catch (error) {
+		next(error);
+	}
+});
 
 router.use(errorMiddleware);
 module.exports = router;
