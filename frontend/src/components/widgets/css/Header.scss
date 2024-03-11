@@ -29,11 +29,56 @@
     nav a {
       margin: 1rem;
     }
+    .input-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #b6b7b7;
+      transition: 1s all;
+      border-radius: 5px;
+      margin-right: 1rem;
+
+      width: 339px;
+      height: 40px;
+      input {
+        width: 279.88px;
+        height: 38px;
+        border: none;
+        outline: none;
+        background-color: #ffffff00;
+      }
+    }
+
+    .input-box:hover {
+      background-color: #f6f9fa;
+    }
+
+    .input-box:focus-within {
+      border: 1px solid #34c5ef;
+    }
 
     section {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .section__push-alarm {
+      background-color: #ffffff00;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 40px;
+        height: 40px;
+        color: #111;
+        transition: 1s all;
+      }
+      svg:hover {
+        color: #34c5ef;
+      }
     }
 
     .header__profile-box {
