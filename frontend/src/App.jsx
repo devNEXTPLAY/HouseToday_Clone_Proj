@@ -13,8 +13,7 @@ const Post = lazy(() => import('./pages/community/Post'));
 
 // ! User
 const User = lazy(() => import('./pages/user/User'));
-const EditPassword = lazy(() => import('./pages/user/EditPassword'));
-const PushSetting = lazy(() => import('./pages/user/PushSetting'));
+const Setting = lazy(() => import('./pages/user/Setting'));
 
 // ! Home
 const Home = lazy(() => import('./pages/Home'));
@@ -44,10 +43,8 @@ const router = createBrowserRouter([
   // ! User
   // * 마이페이지 화면 http://localhost:5173/users/:uid
   { path: '/users/:uid', element: <User /> },
-  // * 비밀번호 수정 화면 http://localhost:5173/users/:uid/edit/password
-  { path: '/users/:uid/edit/password', element: <EditPassword /> },
-  // * 푸시 설정 화면 http://localhost:5173/users/:uid/push
-  { path: '/users/:uid/push', element: <PushSetting /> },
+  // * 설정 화면 http://localhost:5173/users/:uid/push
+  { path: '/users/:uid/edit', element: <Setting /> },
 
   // ! Loading
   { path: '/loading', element: <Loading /> },

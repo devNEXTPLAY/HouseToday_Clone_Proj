@@ -1,22 +1,14 @@
-import { FcLike } from 'react-icons/fc';
 import './css/User.scss';
+import { FcLike } from 'react-icons/fc';
 
-import { Link } from 'react-router-dom';
 import Header from '../../components/widgets/Header';
-import Button from '../../components/ui/Button';
+import { SubNav } from '../../components/widgets/SubNav';
 
 const User = () => {
   return (
     <>
       <Header />
-      <nav className='user-nav'>
-        <Link>
-          프로필
-          <div className='focus'></div>
-        </Link>
-
-        <Link>설정</Link>
-      </nav>
+      <SubNav select='profile' />
 
       <main>
         <section className='uesr-profile'>

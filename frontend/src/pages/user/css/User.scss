@@ -1,24 +1,3 @@
-.user-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  margin-bottom: 55px;
-  width: 100vw;
-  border-bottom: 1px solid #c1c1c1;
-
-  a {
-    margin: 0 1rem;
-    padding: 10px;
-  }
-
-  a:first-child {
-    position: relative;
-    color: #35c5f0;
-    border-bottom: 3px solid #35c5f0;
-  }
-}
-
 main {
   display: flex;
   justify-content: center;
