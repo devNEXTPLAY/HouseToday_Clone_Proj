@@ -6,6 +6,7 @@ import { TextLogo } from '../../assets/TextLogo';
 import WriteEditor from '../../components/write/WriteEditor';
 import Button from '../../components/ui/Button';
 
+//* 게시글 수정
 const WriteEdit = () => {
   return (
     <>
@@ -20,6 +21,7 @@ const WriteEdit = () => {
         </div>
       </header>
 
+      {/* //* 게시글 에디터 */}
       <WriteEditor />
     </>
   );

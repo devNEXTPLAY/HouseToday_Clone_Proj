@@ -1,5 +1,7 @@
-// Import Swiper React components
+// * Swiper 라이브러리 참조 (캐러셀 라이브러리)
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+// * react-responsive 라이브러리 참조 (React에서 반응형 웹을 구현하기 위한 라이브러리)
 import { useMediaQuery } from 'react-responsive';
 
 // Import Swiper styles
@@ -12,6 +14,7 @@ import './css/Carousel.scss';
 // import required modules
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
+// * PC 캐러셀
 const PcCarousel = () => {
   const isPc = useMediaQuery({
     query: '(min-width:769px)',
@@ -54,6 +57,7 @@ const PcCarousel = () => {
   );
 };
 
+// * 모바일 캐러셀
 const MobileCarousel = () => {
   const isMobile = useMediaQuery({
     query: '(max-width:768px)',

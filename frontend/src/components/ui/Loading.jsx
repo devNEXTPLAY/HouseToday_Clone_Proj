@@ -1,5 +1,6 @@
 import './css/Loading.scss';
 
+//* 로딩 화면
 const Loading = () => {
   return (
     <main className='main'>

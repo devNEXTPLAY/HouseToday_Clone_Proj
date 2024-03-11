@@ -1,3 +1,4 @@
+//* 오늘의 집 아이콘, 텍스트 로고
 export const MainLogo = () => {
   return (
     <svg

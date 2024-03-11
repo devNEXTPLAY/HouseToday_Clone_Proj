@@ -5,6 +5,7 @@ import { SettingSubNav } from '../../components/widgets/SettingSubNav';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
+// * 사용자 설정
 const Setting = () => {
   return (
     <>
