@@ -21,7 +21,7 @@ const Header = () => {
         <section>
           <div className=''>
             <nav>
-              <Link to='/comunity'>커뮤니티</Link>
+              <Link to='/community'>커뮤니티</Link>
               <Link to='https://sports.news.naver.com/index'>스포츠 뉴스</Link>
             </nav>
           </div>
