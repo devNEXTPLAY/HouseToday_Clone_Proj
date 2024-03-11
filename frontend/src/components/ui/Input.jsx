@@ -1,7 +1,7 @@
 import './css/Input.scss';
 
 const Input = ({
-  className,
+  className = '',
   placeholder,
   label,
   id,

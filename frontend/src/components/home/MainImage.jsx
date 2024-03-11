@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import Carousel from './Carousel';
-
 import './css/MainImage.scss';
+
+import { Link } from 'react-router-dom';
+import { PcCarousel, MobileCarousel } from './Carousel';
 
 const MainImage = () => {
   return (
     <main className='home'>
-      <Link to='/post/1'>
+      <Link to='/post/1' className='home__image-box'>
         <img
           src='https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c'
           alt='news-image'
@@ -24,7 +24,8 @@ const MainImage = () => {
         </div>
       </Link>
 
-      <Carousel />
+      <PcCarousel />
+      <MobileCarousel />
     </main>
   );
 };

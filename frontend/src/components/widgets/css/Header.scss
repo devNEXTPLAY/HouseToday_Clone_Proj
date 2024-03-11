@@ -1,3 +1,5 @@
+@import '../../../css/_mixin.scss';
+
 .header {
   display: flex;
   justify-content: center;
@@ -9,6 +11,15 @@
   border-bottom: 1px solid #c1c1c1;
   height: 79px;
   width: 100vw;
+
+  .hamburger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    border: none;
+    background-color: #ffffff00;
+  }
 
   .header__container {
     display: flex;
@@ -86,5 +97,25 @@
       width: 92px;
       height: 40px;
     }
+  }
+}
+
+@include mobile {
+  .header__container {
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    width: 100vw;
+  }
+
+  .container__section {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex !important;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff00;
   }
 }

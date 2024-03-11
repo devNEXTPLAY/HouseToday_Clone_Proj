@@ -1,3 +1,5 @@
+@import '../../../css/_mixin.scss';
+
 .swiper {
   width: 269px;
   height: 508px;
@@ -25,4 +27,17 @@
   width: 269px;
   height: 508px;
   border-radius: 10px !important;
+}
+
+@include mobile {
+  .swiper {
+    width: 343px !important;
+    height: 98px !important;
+
+    .swiper-slide img {
+      width: 343px !important;
+      height: 98px !important;
+      object-fit: cover;
+    }
+  }
 }
