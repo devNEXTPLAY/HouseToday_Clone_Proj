@@ -219,5 +219,64 @@ router.post("/password", isLoggedIn, async (req, res, next) => {
 	}
 });
 
+// 로그아웃 API
+// http://localhost:3005/api/users/logout
+// Status: 200 OK / 500 Internal Server Error
+router.get("/logout", isLoggedIn, (req, res) => {
+	req.logout();
+	req.session.destroy();
+	res.status(200).json({
+		message: "로그아웃에 성공하였습니다.",
+	});
+});
+
+// 이메일 중복확인 API
+// http://localhost:3005/api/users/email
+// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+router.get("/email", async (req, res, next) => {
+	const { email } = req.query;
+	try {
+		const user = await db.Users.findOne({
+			where: {
+				email: email,
+			},
+		});
+		if (user) {
+			return res.status(400).json({
+				message: "이미 존재하는 이메일입니다.",
+			});
+		}
+		res.status(200).json({
+			message: "사용 가능한 이메일입니다.",
+		});
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 닉네임 중복확인 API
+// http://localhost:3005/api/users/nickname
+// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+router.get("/nickname", async (req, res, next) => {
+	const { nickname } = req.query;
+	try {
+		const user = await db.Users.findOne({
+			where: {
+				nickname: nickname,
+			},
+		});
+		if (user) {
+			return res.status(400).json({
+				message: "이미 존재하는 닉네임입니다.",
+			});
+		}
+		res.status(200).json({
+			message: "사용 가능한 닉네임입니다.",
+		});
+	} catch (error) {
+		next(error);
+	}
+});
+
 router.use(errorMiddleware);
 module.exports = router;
