@@ -1,3 +1,4 @@
+import { IoIosSearch } from 'react-icons/io';
 import './css/Input.scss';
 
 const Input = ({
@@ -6,6 +7,7 @@ const Input = ({
   label,
   id,
   description,
+  custom,
   children,
   ...props
 }) => {
@@ -14,10 +16,17 @@ const Input = ({
 
   return (
     <div className={cssClasses}>
+      {custom && (
+        <span>
+          <IoIosSearch />
+        </span>
+      )}
+
       {!children && (
         <>
           {label && <label htmlFor={id}>{label}</label>}
           {description && <p>{description}</p>}
+
           <input id={id} {...props} placeholder={placeholder} />
         </>
       )}

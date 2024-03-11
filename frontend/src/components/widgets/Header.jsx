@@ -4,6 +4,8 @@ import './css/Header.scss';
 import { Link } from 'react-router-dom';
 import { TextLogo } from '../../assets/TextLogo';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { CiBellOn } from 'react-icons/ci';
+
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 
@@ -24,14 +26,10 @@ const Header = () => {
         </Link>
 
         <section className='container__section'>
-          <div className='header__nav'>
-            <nav>
-              <Link to='/community'>커뮤니티</Link>
-              <Link to='https://sports.news.naver.com/index'>스포츠 뉴스</Link>
-            </nav>
-          </div>
-
-          <Input placeholder='게시물 검색' />
+          <Input placeholder='게시물 검색' custom='search' />
+          <Button className='section__push-alarm'>
+            <CiBellOn />
+          </Button>
 
           <div className='header__profile-box'>
             <Button className='header__profile' onClick={handleShowNav}>
