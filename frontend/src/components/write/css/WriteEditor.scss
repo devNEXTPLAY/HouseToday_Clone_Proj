@@ -4,12 +4,42 @@
   justify-content: center;
   align-items: center;
 
+  .form__main-image-upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 720px;
+    height: 405px;
+    border: 1px solid #b6b7b7;
+    background-color: #f7f9fa;
+    border-radius: 5px;
+
+    input {
+      position: absolute;
+      width: 720px;
+      height: 405px;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    button {
+      width: 130px;
+      height: 40px;
+      border-radius: 4px;
+      background-color: #212629;
+      color: #fff;
+      font-size: 12px;
+    }
+  }
+
   .input-box {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 1256px;
+    width: 720px;
   }
 
   .input-box input {
@@ -21,6 +51,6 @@
   }
 
   .tox-editor-container {
-    width: 1256px !important;
+    width: 720px !important;
   }
 }

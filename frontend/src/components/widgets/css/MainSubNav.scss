@@ -1,0 +1,25 @@
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin-bottom: 55px;
+  border-bottom: 1px solid #c1c1c1;
+  width: 100vw;
+  height: 49px;
+
+  .nav__container {
+    width: 1220.99px;
+    a {
+      margin: 0 1rem 0 0;
+      padding: 10px 10px 10px 0;
+      width: 43px;
+      height: 32px;
+    }
+
+    .select {
+      color: #35c5f0;
+      border-bottom: 3px solid #35c5f0;
+    }
+  }
+}

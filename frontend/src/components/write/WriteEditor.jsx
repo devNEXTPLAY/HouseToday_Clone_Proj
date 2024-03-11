@@ -4,8 +4,18 @@ import { Editor } from '@tinymce/tinymce-react';
 import Input from '../ui/Input';
 
 const WriteEditor = () => {
+  const handleUpload = e => e.preventDefault();
+
   return (
     <form className='form'>
+      <section className='form__main-image-upload'>
+        <input type='file' />
+        <p>
+          드래그앤 드롭이나 추가하기 버튼으로 <br /> 커버사진을 업로드 해주세요.
+        </p>
+        <button onClick={handleUpload}>커버사진 추가하기</button>
+      </section>
+
       <Input placeholder='제목을 입력해주세요.' />
 
       <Editor

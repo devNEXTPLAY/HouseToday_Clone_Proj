@@ -1,0 +1,19 @@
+.user-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 55px;
+  border-bottom: 1px solid #c1c1c1;
+  width: 100vw;
+  height: 50px;
+
+  a {
+    margin: 0 1rem;
+    padding: 10px;
+  }
+
+  .select {
+    color: #35c5f0;
+    border-bottom: 3px solid #35c5f0;
+  }
+}
