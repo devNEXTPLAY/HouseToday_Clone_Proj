@@ -3,6 +3,16 @@ import { CiBookmark } from 'react-icons/ci';
 
 import './css/Article.scss';
 
+// * 게시글 카드
+
+// * props
+// * title: 게시글 제목
+// * content: 게시글 내용
+// * author: 작성자
+// * date: 작성일
+// * viewcount: 조회수
+// * coverImage: 게시글 대표 이미지
+
 const Article = ({ title, content, author, date, viewcount, coverImage }) => {
   const isPc = useMediaQuery({
     query: '(min-width:769px)',

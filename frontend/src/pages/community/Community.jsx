@@ -9,6 +9,8 @@ const Community = () => {
     <>
       <Header />
       <MainSubNav select='community' />
+
+      {/* //* 게시글 목록 화면  */}
       <main className='community'>
         <select name='sort' id='sort'>
           <option value=''>정렬</option>
@@ -16,7 +18,6 @@ const Community = () => {
         </select>
 
         <strong>전체 12,544</strong>
-
         <Articles />
       </main>
     </>

@@ -8,6 +8,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import Article from './Article';
 import { LIST } from '../../assets/data';
 
+// * PC 게시글
 const PcArticles = () => {
   return (
     <>
@@ -29,6 +30,7 @@ const PcArticles = () => {
   );
 };
 
+// * 모바일 게시글
 const MobileArticles = () => {
   return (
     <Swiper
@@ -56,6 +58,7 @@ const MobileArticles = () => {
   );
 };
 
+// * 게시글
 const Articles = () => {
   const isPc = useMediaQuery({
     query: '(min-width:769px)',
@@ -73,6 +76,7 @@ const Articles = () => {
           {isMobile && <p>좋아하실 만한 인테리어 콘텐츠를 추천해드려요</p>}
         </div>
 
+        {/* 모바일 > 아이콘 */}
         {isMobile && <IoIosArrowForward />}
       </div>
 

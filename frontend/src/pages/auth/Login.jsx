@@ -13,6 +13,7 @@ import SnsLogin from '../../components/widgets/SnsLogin';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
+// * 로그인
 const Login = () => {
   return (
     <main className='login'>
@@ -20,6 +21,7 @@ const Login = () => {
         <MainLogo />
       </header>
 
+      {/* //* 로그인 입력 폼 */}
       <form>
         <div className='form__input-box'>
           <Input placeholder='이메일' type='email' />
@@ -34,6 +36,7 @@ const Login = () => {
         <Link to='/signup'>회원가입</Link>
       </nav>
 
+      {/* //* SNS 로그인 */}
       <SnsLogin text='SNS 계정으로 간편 로그인/회원가입'>
         <Link>로그인에 문제가 있으신가요?</Link>
       </SnsLogin>

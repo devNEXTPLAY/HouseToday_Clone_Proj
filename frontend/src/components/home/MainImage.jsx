@@ -3,9 +3,11 @@ import './css/MainImage.scss';
 import { Link } from 'react-router-dom';
 import { PcCarousel, MobileCarousel } from './Carousel';
 
+// * 대표 이미지
 const MainImage = () => {
   return (
     <main className='home'>
+      {/* //* 대표 이미지 */}
       <Link to='/post/1' className='home__image-box'>
         <img
           src='https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c'
@@ -24,7 +26,10 @@ const MainImage = () => {
         </div>
       </Link>
 
+      {/* //* PC 캐러셀 */}
       <PcCarousel />
+
+      {/* //* 모바일 캐러셀 */}
       <MobileCarousel />
     </main>
   );

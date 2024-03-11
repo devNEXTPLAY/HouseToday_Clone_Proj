@@ -5,6 +5,7 @@ import SnsLogin from '../../components/widgets/SnsLogin';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
+// * 회원가입
 const Signup = () => {
   return (
     <main className='signup'>
@@ -13,6 +14,7 @@ const Signup = () => {
       </header>
       <SnsLogin text='SNS 계정으로 간편하게 회원 가입' />
 
+      {/* //* 회원 가입 입력 폼 */}
       <form>
         <Input label='이메일' id='email' placeholder='이메일'>
           <span>@</span>
@@ -35,6 +37,7 @@ const Signup = () => {
           description='다른 유저와 겹치지 않도록 입력해주세요.(2~20자)'
         />
 
+        {/* //* reCAPTCHA */}
         <Button>-----reCAPTCHA-----</Button>
         <Button>회원가입하기</Button>
       </form>

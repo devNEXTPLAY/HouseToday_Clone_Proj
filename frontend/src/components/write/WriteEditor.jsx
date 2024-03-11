@@ -1,13 +1,17 @@
 import './css/WriteEditor.scss';
 
+// * TinyMCE: 텍스트 에디터 라이브러리
 import { Editor } from '@tinymce/tinymce-react';
 import Input from '../ui/Input';
+
+// * 게시글 에디터
 
 const WriteEditor = () => {
   const handleUpload = e => e.preventDefault();
 
   return (
     <form className='form'>
+      {/* //* 대표 이미지 업로드 */}
       <section className='form__main-image-upload'>
         <input type='file' />
         <p>
@@ -18,6 +22,7 @@ const WriteEditor = () => {
 
       <Input placeholder='제목을 입력해주세요.' />
 
+      {/* //* // * TinyMCE: 텍스트 에디터 라이브러리 */}
       <Editor
         apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         id='write-editor'

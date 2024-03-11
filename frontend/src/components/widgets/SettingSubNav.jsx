@@ -2,7 +2,9 @@ import './css/SettingSubNav.scss';
 
 import { Link } from 'react-router-dom';
 
-// Select
+// * 설정 서브 네비게이션
+// * props select: 사용자가 선택한 화면 강조
+// * 예) select='profile' 서브 네비게이션에서 "프로필" 강조
 export const SettingSubNav = ({ select }) => {
   return (
     <nav className='user-nav'>

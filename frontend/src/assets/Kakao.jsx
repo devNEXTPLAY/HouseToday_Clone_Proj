@@ -1,3 +1,4 @@
+// * 카카오 로고
 export const Kakao = () => {
   return (
     <svg

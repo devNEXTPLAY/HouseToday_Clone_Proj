@@ -1,3 +1,5 @@
+// * 임시 더미 데이터
+
 export const LIST = [
   {
     id: 'a1',

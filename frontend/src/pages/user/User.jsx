@@ -4,12 +4,14 @@ import { FcLike } from 'react-icons/fc';
 import Header from '../../components/widgets/Header';
 import { SettingSubNav } from '../../components/widgets/SettingSubNav';
 
+// * 사용자 프로필 설정
 const User = () => {
   return (
     <>
       <Header />
       <SettingSubNav select='profile' />
 
+      {/* //* 사용자 프로필  */}
       <main>
         <section className='uesr-profile'>
           <div className='profile__card'>
@@ -36,6 +38,7 @@ const User = () => {
 
         <div className='card__null'></div>
 
+        {/* //* 사용자 게시글  */}
         <section className='post-list'>
           <div className='lilst__title-box'>
             <strong>게시글</strong>

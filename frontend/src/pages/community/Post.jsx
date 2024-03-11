@@ -11,12 +11,14 @@ import { CiBookmark } from 'react-icons/ci';
 import { HiOutlineChatBubbleBottomCenter } from 'react-icons/hi2';
 import { PiShareNetworkLight } from 'react-icons/pi';
 
+// * 게시글 상세 화면
 const Post = () => {
   return (
     <>
       <Header />
 
       <main className='main'>
+        {/* //* 게시글 대표 이미지 */}
         <img
           className='main-image'
           src='https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1920&h=589&c=c'
@@ -24,27 +26,35 @@ const Post = () => {
         />
 
         <section className='post'>
+          {/* //* 게시글 사이드 네비게이션 */}
           <aside className='sticky-container'>
             <nav className='sticky-container__inner'>
               <Button className='sticky-button'>
+                {/* //* 북마크 아이콘 */}
                 <CiBookmark />
               </Button>
               <Button className='sticky-button'>
+                {/* //* 좋아요 아이콘 */}
                 <FcLikePlaceholder />
               </Button>
               <hr />
               <Button className='sticky-button'>
+                {/* //* 댓글 아이콘  */}
                 <HiOutlineChatBubbleBottomCenter />
               </Button>
               <Button className='sticky-button'>
+                {/* //* 공유 아이콘 */}
                 <PiShareNetworkLight />
               </Button>
             </nav>
           </aside>
 
+          {/* //* 게시글 콘텐츠 */}
           <section className='content'>
+            {/* //* 게시글 제목 */}
             <h2>40년 된 구옥, 페인트칠만으로 깨끗하고 환하게 변신!</h2>
 
+            {/* //* 게시글 작성자 정보: 프로필 사진, 소개말, 팔로우 버튼*/}
             <div className='information-user'>
               <div className='information-user__profile'>
                 <Link to='/'>
@@ -64,6 +74,7 @@ const Post = () => {
             </div>
 
             <div>
+              {/* //* 게시글 내용 섹션 제목 */}
               <h3>⚡ 3초 컷! 집들이 미리보기</h3>
               <img
                 src='https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/project/170419057112229912.JPG?w=720'
@@ -100,6 +111,7 @@ const Post = () => {
               alt='Warning'
             />
 
+            {/* //* 게시글 정보: 작성일, 좋아요수, 스크랩수, 조회수 */}
             <div className='information-post'>
               <span>2023.12.21</span>
               <span>좋아요229</span>
@@ -110,6 +122,7 @@ const Post = () => {
               <hr />
             </div>
 
+            {/* //* 게시글 작성자 정보 상단과 동일 */}
             <div className='information-user'>
               <div className='information-user__profile'>
                 <Link to='/'>
@@ -127,12 +140,14 @@ const Post = () => {
               <Button>팔로우</Button>
             </div>
 
+            {/* //* 게시글 댓글 */}
             <section className='comment'>
               <div className='comment__title-box'>
                 <span className='title-box__title'>댓글</span>
                 <span className='title-box__count'>2</span>
               </div>
 
+              {/* //* 댓글단 사용자 프로필 */}
               <div className='comment__user'>
                 <div className='user__profile'>
                   <img
