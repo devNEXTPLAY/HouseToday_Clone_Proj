@@ -1,7 +1,7 @@
 import './css/Setting.scss';
 import Header from '../../components/widgets/Header';
 import { Link } from 'react-router-dom';
-import { SubNav } from '../../components/widgets/SubNav';
+import { SettingSubNav } from '../../components/widgets/SettingSubNav';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 
@@ -9,7 +9,7 @@ const Setting = () => {
   return (
     <>
       <Header />
-      <SubNav select='setting' />
+      <SettingSubNav select='setting' />
 
       <form className='form'>
         <div className='form__image-box'>

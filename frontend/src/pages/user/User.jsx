@@ -2,13 +2,13 @@ import './css/User.scss';
 import { FcLike } from 'react-icons/fc';
 
 import Header from '../../components/widgets/Header';
-import { SubNav } from '../../components/widgets/SubNav';
+import { SettingSubNav } from '../../components/widgets/SettingSubNav';
 
 const User = () => {
   return (
     <>
       <Header />
-      <SubNav select='profile' />
+      <SettingSubNav select='profile' />
 
       <main>
         <section className='uesr-profile'>

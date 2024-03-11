@@ -1,11 +1,19 @@
 .articles {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+  display: flex;
+  flex-direction: column;
   padding: 0;
   max-width: 1256px;
 
-  list-style: none;
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  .articles__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    max-width: 1256px;
+  }
 }

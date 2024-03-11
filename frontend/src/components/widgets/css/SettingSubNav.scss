@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
   margin-bottom: 55px;
-  width: 100vw;
   border-bottom: 1px solid #c1c1c1;
+  width: 100vw;
+  height: 50px;
 
   a {
     margin: 0 1rem;
@@ -13,7 +13,6 @@
   }
 
   .select {
-    position: relative;
     color: #35c5f0;
     border-bottom: 3px solid #35c5f0;
   }

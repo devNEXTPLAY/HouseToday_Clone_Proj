@@ -1,9 +1,9 @@
-import './css/SubNav.scss';
+import './css/SettingSubNav.scss';
 
 import { Link } from 'react-router-dom';
 
 // Select
-export const SubNav = ({ select }) => {
+export const SettingSubNav = ({ select }) => {
   return (
     <nav className='user-nav'>
       <Link to='/users/1' className={select === 'profile' && 'select'}>
