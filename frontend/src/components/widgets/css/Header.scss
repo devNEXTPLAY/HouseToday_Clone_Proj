@@ -48,7 +48,7 @@
         margin: 1rem;
         padding: 0;
         border-radius: 50%;
-        background: costom;
+        transition: 1.5s all;
 
         img {
           width: 100%;
@@ -56,6 +56,10 @@
           border-radius: 50%;
           object-fit: cover;
         }
+      }
+
+      .header__profile:hover {
+        border: 2.5px solid #34c5ef;
       }
 
       .isDisplay {
