@@ -8,7 +8,7 @@ const MainSubNav = ({ select }) => {
       <div className='nav__container'>
         <div>
           <Link to='/' className={select === 'home' && 'select'}>
-            프로필
+            홈
           </Link>
           <Link to='/community' className={select === 'community' && 'select'}>
             게시글
