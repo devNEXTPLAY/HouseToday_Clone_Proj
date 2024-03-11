@@ -3,6 +3,7 @@ import './css/Header.scss';
 
 import { Link } from 'react-router-dom';
 import { TextLogo } from '../../assets/TextLogo';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 
@@ -13,13 +14,17 @@ const Header = () => {
 
   return (
     <header className='header'>
+      <button className='hamburger'>
+        <RxHamburgerMenu />
+      </button>
+
       <div className='header__container'>
         <Link to='/'>
           <TextLogo />
         </Link>
 
-        <section>
-          <div className=''>
+        <section className='container__section'>
+          <div className='header__nav'>
             <nav>
               <Link to='/community'>커뮤니티</Link>
               <Link to='https://sports.news.naver.com/index'>스포츠 뉴스</Link>
