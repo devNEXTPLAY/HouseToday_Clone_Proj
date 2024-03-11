@@ -1,3 +1,5 @@
+@import '../../../css/_mixin.scss';
+
 .home {
   display: flex;
   justify-content: center;
@@ -55,5 +57,11 @@
       border-radius: 50%;
       margin: 1rem;
     }
+  }
+}
+
+@include mobile {
+  .home__image-box {
+    display: none !important;
   }
 }
