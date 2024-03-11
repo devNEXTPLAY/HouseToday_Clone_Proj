@@ -1,9 +1,12 @@
 var db = require("../../models/index.js");
 
 // 댓글과 대댓글을 재귀적으로 조회
+// 삭제되지 않은 댓글만 조회
 async function fetchComments(commentId, blogId) {
 	const comments = await db.Comments.findAll({
-		where: commentId ? { parent_id: commentId } : { blog_id: blogId, parent_id: null },
+		where: commentId
+			? { parent_id: commentId }
+			: { blog_id: blogId, parent_id: null, commnet_status_code: 0 },
 		include: [
 			{
 				model: db.Users,
