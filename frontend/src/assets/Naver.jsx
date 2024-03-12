@@ -1,3 +1,4 @@
+//* 네이버 로고
 export const Naver = () => {
   return (
     <svg
