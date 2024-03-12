@@ -3,6 +3,7 @@ import './css/Community.scss';
 import Articles from '../../components/home/Articles';
 import Header from '../../components/widgets/Header';
 import MainSubNav from '../../components/widgets/MainSubNav';
+``;
 
 const Community = () => {
   return (
