@@ -10,7 +10,7 @@ const HousewarmingPartyArticle = ({
   profileImage,
 }) => {
   return (
-    <li className='card'>
+    <li className='housewarming-party-card'>
       <div className='card__image'>
         <img src={coverImage} alt='집들이 대표 이미지' />
       </div>

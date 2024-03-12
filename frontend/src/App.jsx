@@ -15,6 +15,8 @@ const HousewraimngParty = lazy(() =>
   import('./pages/housewarming-party/HousewarmingParty')
 );
 
+const HousePhoto = lazy(() => import('./pages/house-photo/HousePhoto'));
+
 // ! 사용자 설정 관련 화면
 const User = lazy(() => import('./pages/user/User'));
 const Setting = lazy(() => import('./pages/user/Setting'));
@@ -45,6 +47,7 @@ const router = createBrowserRouter([
   { path: '/community', element: <Community /> },
   // * 집들이 화면 http://localhost:5173/housewarming_party
   { path: '/housewarming_party', element: <HousewraimngParty /> },
+  { path: '/house_photo', element: <HousePhoto /> },
 
   // ! 사용자 설정 관련 화면
   // * 마이페이지 화면 http://localhost:5173/users/:uid

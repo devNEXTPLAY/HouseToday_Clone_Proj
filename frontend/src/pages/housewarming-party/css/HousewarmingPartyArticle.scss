@@ -1,4 +1,4 @@
-.card {
+.housewarming-party-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +6,7 @@
   margin-bottom: 40px;
 
   .card__image {
-    width: inherit;
+    width: 412px;
     height: inherit;
     overflow: hidden;
     img {

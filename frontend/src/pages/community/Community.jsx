@@ -18,7 +18,7 @@ const Community = () => {
           <option value='like'>좋아요순</option>
         </select>
 
-        <strong>전체 12,544</strong>
+        <span>전체 12,544</span>
         <Articles />
       </main>
     </>
