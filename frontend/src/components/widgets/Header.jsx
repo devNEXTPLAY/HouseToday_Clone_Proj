@@ -19,7 +19,7 @@ const Header = () => {
   const handleShowNav = () => setIsSettings(prevState => !prevState);
 
   return (
-    <header className='header'>
+    <header className='main-header'>
       <button className='hamburger'>
         {/* //* 햄버거 아이콘 */}
         <RxHamburgerMenu />
