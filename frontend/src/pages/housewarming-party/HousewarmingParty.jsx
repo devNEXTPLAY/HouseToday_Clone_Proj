@@ -2,15 +2,10 @@ import './css/HousewarmingParty.scss';
 
 import { HOUSEWARMING_PARTY_DATA } from '../../assets/housewarming-party';
 import HousewarmingPartyArticle from './HousewarmingPartyArticle';
-import Header from '../../components/widgets/Header';
-import MainSubNav from '../../components/widgets/MainSubNav';
 
 const HousewarmingParty = () => {
   return (
     <>
-      <Header />
-      <MainSubNav select='housewarming_party' />
-
       <mian className='housewraming-party'>
         <select name='sort' id='sort'>
           <option value=''>정렬</option>
