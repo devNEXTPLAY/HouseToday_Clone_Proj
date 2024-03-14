@@ -1,34 +1,40 @@
 import './css/MainSubNav.scss';
 
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 // * 메인 서브 네비게이션
 
 // * props select: 사용자가 선택한 화면 강조
 //* 예) select='home' 서브 네비게이션에서 "홈" 강조
-const MainSubNav = ({ select }) => {
+const MainSubNav = () => {
   return (
     <nav className='main-nav'>
       <div className='nav__container'>
         <div>
-          <Link to='/' className={select === 'home' && 'select'}>
+          <NavLink
+            to=''
+            className={({ isActive }) => (isActive ? 'select' : null)}
+          >
             홈
-          </Link>
-          <Link to='/community' className={select === 'community' && 'select'}>
+          </NavLink>
+          <NavLink
+            to='community'
+            className={({ isActive }) => (isActive ? 'select' : null)}
+          >
             게시글
-          </Link>
-          <Link
-            to='/housewarming_party'
-            className={select === 'housewarming_party' && 'select'}
+          </NavLink>
+          <NavLink
+            to='housewarming_party'
+            className={({ isActive }) => (isActive ? 'select' : null)}
           >
             집들이
-          </Link>
-          <Link
-            to='/house_photo'
-            className={select === 'house_photo' && 'select'}
+          </NavLink>
+          <NavLink
+            to='house_photo'
+            className={({ isActive }) => (isActive ? 'select' : null)}
           >
             집사진
-          </Link>
+          </NavLink>
         </div>
       </div>
     </nav>
