@@ -1,7 +1,7 @@
-import { useMediaQuery } from 'react-responsive';
-import { CiBookmark } from 'react-icons/ci';
+import { useMediaQuery } from "react-responsive";
+import { CiBookmark } from "react-icons/ci";
 
-import './css/Article.scss';
+import "./css/Article.scss";
 
 // * 게시글 카드
 
@@ -15,36 +15,36 @@ import './css/Article.scss';
 
 const Article = ({ title, content, author, date, viewcount, coverImage }) => {
   const isPc = useMediaQuery({
-    query: '(min-width:769px)',
+    query: "(min-width:769px)",
   });
 
   const isMobile = useMediaQuery({
-    query: '(max-width:768px)',
+    query: "(max-width:768px)",
   });
 
   return (
-    <li className='article'>
-      <div className='article__image-box'>
-        <img src={coverImage} alt='coverImage' />
+    <li className="article">
+      <div className="article__image-box">
+        <img src={coverImage} alt="coverImage" />
         <div>
           {isMobile && (
-            <div className='article__profile'>
+            <div className="article__profile">
               <h3>작성자</h3>
             </div>
           )}
-          <CiBookmark />
+          <CiBookmark size="36" color="#fff" />
         </div>
       </div>
 
       {isPc && (
-        <div className='information__title'>
+        <div className="information__title">
           <h3>{title}</h3>
-          <p className='content'>{content}</p>
+          <p className="content">{content}</p>
         </div>
       )}
 
       {isPc && (
-        <div className='information'>
+        <div className="information">
           <strong>{author}</strong>
           <span>{date}</span>
           <span>{viewcount}</span>

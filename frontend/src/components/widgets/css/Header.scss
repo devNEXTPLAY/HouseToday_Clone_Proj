@@ -1,4 +1,4 @@
-@import '../../../css/_mixin.scss';
+@import "../../../css/_mixin.scss";
 
 .main-header {
   display: flex;
@@ -9,7 +9,7 @@
   background-color: #fff;
   z-index: 50;
   border-bottom: 1px solid #c1c1c1;
-  height: 79px;
+  height: 85px;
   width: 100vw;
 
   .hamburger {
@@ -25,7 +25,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 1220.99px;
+    // width: 1220.99px;
+    width: 1256px;
+    padding: 0 60px;
     nav a {
       margin: 1rem;
     }
@@ -34,12 +36,11 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      border: 1px solid #b6b7b7;
+      border: 1px solid #eaedef;
       transition: 1s all;
-      border-radius: 5px;
       margin-right: 1rem;
 
-      width: 339px;
+      width: 340px;
       height: 40px;
       input {
         width: 279.88px;
