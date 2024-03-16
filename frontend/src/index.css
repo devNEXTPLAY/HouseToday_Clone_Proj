@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
 
 /* box-sizing 규칙을 명시합니다. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   letter-spacing: -0.3px;
@@ -35,8 +36,8 @@ dd {
 }
 
 /* list를 role값으로 갖는 ul, ol 요소의 기본 목록 스타일을 제거합니다. */
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
