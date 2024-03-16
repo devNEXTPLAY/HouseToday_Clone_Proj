@@ -1,19 +1,21 @@
 .house-photo {
   display: flex;
   flex-direction: column;
+  max-width: 1256px;
+  margin: 0 60px;
 
   select {
     width: 70px;
     padding: 5px;
+    margin: 0 60px;
   }
 
   .card-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 45px;
-    margin: 0;
     padding: 0;
     max-width: 1256px;
+    margin: 0 60px;
     list-style: none;
   }
 }
