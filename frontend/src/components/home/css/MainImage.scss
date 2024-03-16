@@ -1,4 +1,4 @@
-@import '../../../css/_mixin.scss';
+@import "../../../css/_mixin.scss";
 
 .home {
   display: flex;
@@ -6,24 +6,28 @@
   align-items: center;
   position: relative;
   margin-bottom: 3rem;
-  max-width: 1256px;
+  width: 1256px;
   margin-top: 2rem;
+  padding: 0 60px;
 
   a {
     position: relative;
-    margin-right: 2rem;
-    border-radius: 1rem;
-    height: 508px;
-    width: 920px;
+    margin-right: 1rem;
+    border-radius: 4px;
+    height: 510px;
+    width: 845px;
     overflow: hidden;
   }
 
   img {
-    border-radius: 1rem;
+    border-radius: 0.4rem;
     box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     transition: 1s all;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   img:hover {
@@ -33,29 +37,40 @@
   .main__image-description {
     position: absolute;
     bottom: 0px;
-    padding: 30px;
+    padding: 20px;
     width: 920px;
-    height: 150px;
-    border-radius: 10px;
-    backdrop-filter: blur(5px);
-    background-color: #2f2f2fb4;
+    //height: 150px;
+    display: flex;
+    flex-direction: column;
+    // border-radius: 10px;
+    // backdrop-filter: blur(5px);
+    // background-color: #2f2f2fb4;
     color: #fff;
 
     div {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      height: 40px;
     }
 
     strong {
-      font-size: 40px;
+      font-size: 32px;
+      line-height: 42px;
+      font-weight: 700;
     }
 
     img {
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      margin: 1rem;
+      margin-right: 1rem;
+    }
+
+    div span {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
     }
   }
 }

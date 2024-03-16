@@ -1,5 +1,5 @@
-import { IoIosSearch } from 'react-icons/io';
-import './css/Input.scss';
+import { IoIosSearch } from "react-icons/io";
+import "./css/Input.scss";
 
 // * 재활용 인풋 컴포넌트
 
@@ -14,7 +14,7 @@ import './css/Input.scss';
 // * custom 속성이 있으면, 해당 속성에 맞는 아이콘을 추가 할 예정 (현재 검색 아이콘만 가능. 추후 추가 예정)
 
 const Input = ({
-  className = '',
+  className = "",
   placeholder,
   label,
   id,
@@ -25,16 +25,16 @@ const Input = ({
 }) => {
   // * className 기본 값으로 input-box 설정
   // * className이 있으면 input-box 뒤에 추가
-  let cssClasses = 'input-box';
-  cssClasses += ' ' + className;
+  let cssClasses = "input-box";
+  cssClasses += " " + className;
 
   return (
     <div className={cssClasses}>
       {/* //* 검색 아이콘을 추가할 경우, */}
-      {custom === 'search' && (
+      {custom === "search" && (
         <span>
           {/* //* 검색 아이콘 */}
-          <IoIosSearch />
+          <IoIosSearch size="24" color="#2F3438" />
         </span>
       )}
 

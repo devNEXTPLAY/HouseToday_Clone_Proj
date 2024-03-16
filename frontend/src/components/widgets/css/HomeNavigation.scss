@@ -1,4 +1,4 @@
-@import '../../../css/mixin';
+@import "../../../css/mixin";
 
 .main-header {
   display: flex;
@@ -8,7 +8,7 @@
   top: 0;
   background-color: #fff;
   z-index: 50;
-  border-bottom: 1px solid #c1c1c1;
+  border-bottom: 1px solid #eaedef;
   height: 79px;
   width: 100vw;
 
@@ -25,28 +25,35 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 1220.99px;
+    width: 1256px;
+    padding: 0 60px;
     nav a {
       margin: 1rem;
     }
+    // 이게 찐인듯
     .input-box {
       display: flex;
       flex-direction: row;
-      justify-content: center;
       align-items: center;
-      border: 1px solid #b6b7b7;
+      border: 1px solid #eaedef;
       transition: 1s all;
-      border-radius: 5px;
       margin-right: 1rem;
+      border-radius: 4px;
+      padding: 14px;
 
-      width: 339px;
+      width: 340px;
       height: 40px;
       input {
-        width: 279.88px;
+        width: 280px;
         height: 38px;
         border: none;
         outline: none;
         background-color: #ffffff00;
+      }
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 
@@ -73,7 +80,7 @@
       svg {
         width: 40px;
         height: 40px;
-        color: #111;
+        color: #2f3438;
         transition: 1s all;
       }
       svg:hover {
@@ -149,8 +156,9 @@
 
     section button {
       padding: 0 15px 0 15px;
-      width: 92px;
+      width: 90px;
       height: 40px;
+      font-weight: 400;
     }
   }
 }

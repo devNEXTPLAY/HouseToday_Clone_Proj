@@ -1,13 +1,15 @@
-@import '../../../css/_mixin.scss';
+@import "../../../css/_mixin.scss";
 
 .articles {
   display: flex;
   flex-direction: column;
   padding: 0;
-  max-width: 1256px;
 
   h3 {
     margin-bottom: 1rem;
+    font-size: 20px;
+    line-height: 28px;
+    padding: 0 60px;
   }
 
   .articles__container {
@@ -16,7 +18,9 @@
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    max-width: 1256px;
+    gap: 20px;
+    width: 1256px;
+    padding: 0 60px;
   }
 
   .articles__swiper {

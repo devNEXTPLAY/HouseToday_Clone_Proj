@@ -1,13 +1,14 @@
-@import '../../../css/_mixin.scss';
+@import "../../../css/_mixin.scss";
 
 .swiper {
-  width: 269px;
-  height: 508px;
-  border-radius: 1rem;
+  width: 277px;
+  height: 510px;
+  border-radius: 4px;
   overflow: hidden;
   box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
+  margin: 0;
 }
 
 .swiper-slide {
@@ -24,9 +25,9 @@
 .swiper-slide img {
   display: block;
   object-fit: cover;
-  width: 269px;
-  height: 508px;
-  border-radius: 10px !important;
+  width: 277px;
+  height: 510px;
+  border-radius: 4px !important;
 }
 
 .swiper-button-prev,
