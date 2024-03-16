@@ -15,6 +15,7 @@
       border: none;
       background-color: #fff;
       color: #828c94;
+      margin: 15px 0 24px 0;
     }
   }
   .input-box {
@@ -23,14 +24,17 @@
     margin-bottom: 24px;
 
     input {
+      margin-top: 8px;
       width: 340px;
       height: 40px;
+      color: #2f3438;
     }
   }
 
   hr {
     margin: 48px 0;
     width: 100%;
+    border: 1px solid #eaedef;
   }
 
   .nav {
