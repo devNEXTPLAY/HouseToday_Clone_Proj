@@ -1,19 +1,25 @@
-.housewraming-party {
+.housewarming-party {
   display: flex;
   flex-direction: column;
+  width: 1256px;
 
   select {
     width: 70px;
     padding: 5px;
+    margin: 0 60px;
+  }
+
+  span {
+    margin: 0 60px;
   }
 }
 
 .card-list {
+  margin: 0 60px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
-  margin: 0;
+  grid-gap: 22px;
   padding: 0;
-  max-width: 1256px;
+
   list-style: none;
 }

@@ -6,11 +6,11 @@
   margin-bottom: 40px;
 
   .card__image {
-    width: 412px;
-    height: inherit;
+    width: 365px;
+    height: 240;
     overflow: hidden;
     img {
-      border-radius: 5px;
+      border-radius: 4px;
       transition: 1.5s all;
     }
 
@@ -34,6 +34,8 @@
       align-items: center;
       width: 100%;
       font-size: 16px;
+      line-height: 20px;
+      font-weight: 700;
     }
 
     .card__profile {
@@ -41,20 +43,21 @@
       justify-content: center;
       align-items: center;
       margin-top: 8px;
-      height: 14px;
+      height: 18px;
 
       width: 329px;
-      font-size: 14px;
 
       strong {
-        font-weight: 400;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 18px;
       }
 
       img {
         margin: 0.3rem;
         border-radius: 5px;
-        width: 14px;
-        height: 14px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
       }
     }
@@ -64,14 +67,15 @@
       justify-content: center;
       align-items: center;
       margin-top: 8px;
-      color: #c1c1c1;
+      color: #828c94;
       font-size: 14px;
+      font-weight: 400;
     }
     .circle {
       width: 3px;
       height: 3px;
       border-radius: 50%;
-      background-color: #c1c1c1;
+      background-color: #828c94;
       margin: 0.3rem;
     }
   }
