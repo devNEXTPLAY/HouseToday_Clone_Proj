@@ -4,23 +4,25 @@
   justify-content: center;
   align-items: center;
   padding: 60px 0;
-  margin-top: 74px;
-  width: 360px;
+  margin-top: 40px;
+  width: 343px;
 
   header h1 {
-    text-align: left;
-    width: 300px;
+    color: #424242;
     font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+    width: 343px;
   }
 
   form {
-    width: 360px;
-    margin-top: 3rem;
+    width: 343px;
+    margin-top: 62px;
     display: flex;
     flex-direction: column;
 
     span {
-      margin: 0 0.5rem;
+      margin: 0 4px;
     }
 
     .input-box select {
@@ -28,20 +30,30 @@
     }
 
     .input-box p {
-      color: #b6b7b7;
+      color: #828c94;
+      font-weight: 400;
       font-size: 14px;
+      line-height: 18px;
+      margin: 0 0 2px 0;
     }
 
     label {
-      margin: 1rem 0 1rem 0;
-      font-weight: 600;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .input-box input::placeholder {
+      color: #ced3d6;
+      font-size: 14px;
+      font-weight: 400;
     }
 
     input,
     select {
       height: 40px;
-      border: 1px solid #b6b7b7;
-      margin-bottom: 1rem;
+      border: 1px solid #eaedef;
+      margin-bottom: 30px;
     }
   }
 
