@@ -5,6 +5,7 @@
   align-items: center;
   width: 300px;
   height: 928px;
+  background-color: #fafafa;
 
   header {
     display: flex;
@@ -12,7 +13,7 @@
     align-items: center;
     width: 147px;
     height: 50px;
-    padding: 40px 0 40px 0;
+    padding: 70px 0 70px 0;
   }
 
   form {
@@ -21,21 +22,17 @@
     justify-content: center;
     align-items: center;
 
-    .form__input-box {
-      padding: 14px 15px 14px 15px;
-    }
-
     input {
       padding: 14px 15px;
-      border: 1px solid #b6b7b7;
-      border-radius: 5px;
+      border: 1px solid #eaedef;
+      border-radius: 4px;
       width: 300px;
       height: 49px;
     }
 
     button {
       width: 300px;
-      height: 52px;
+      height: 50px;
       margin: 20px 0 20px 0;
     }
   }
@@ -46,10 +43,16 @@
     align-items: center;
     width: 300px;
     height: 15px;
-    margin-bottom: 15px;
-
+    margin-bottom: 35px;
+    color: #424242;
+    font-size: 15px;
+    line-height: 20px;
     a {
       margin: 1rem;
+      color: #424242;
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: 400;
     }
   }
 }

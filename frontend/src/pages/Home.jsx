@@ -1,5 +1,6 @@
-import MainImage from '../components/home/MainImage';
-import Articles from '../components/home/Articles';
+import MainImage from "../components/home/MainImage";
+import Articles from "../components/home/Articles";
+import Articles_simple from "../components/home/Articles_simple";
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
       <MainImage />
 
       {/* //* 게시글들 */}
-      <Articles />
+      <Articles_simple />
     </>
   );
 };
