@@ -38,24 +38,6 @@ module.exports = function (sequelize, DataTypes) {
 				allowNull: false,
 				comment: "대표이미지경로",
 			},
-			view_count: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
-				comment: "조회수",
-				defaultValue: 0,
-			},
-			like_count: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
-				comment: "좋아요수",
-				defaultValue: 0,
-			},
-			comment_count: {
-				type: DataTypes.INTEGER,
-				allowNull: false,
-				comment: "댓글수",
-				defaultValue: 0,
-			},
 			ip_address: {
 				type: DataTypes.STRING(100),
 				allowNull: false,

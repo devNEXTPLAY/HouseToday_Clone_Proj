@@ -15,6 +15,11 @@ module.exports = function (sequelize, DataTypes) {
 				unique: true,
 				comment: "사용자 이메일 / 아이디",
 			},
+			is_email_verified: {
+				type: DataTypes.TINYINT,
+				allowNull: false,
+				comment: "이메일 인증 여부 0:미인증 1:인증",
+			},
 			password: {
 				type: DataTypes.STRING(500),
 				allowNull: false,
@@ -34,6 +39,11 @@ module.exports = function (sequelize, DataTypes) {
 				type: DataTypes.STRING(300),
 				allowNull: true,
 				comment: "이미지경로",
+			},
+			intro_msg: {
+				type: DataTypes.STRING(500),
+				allowNull: true,
+				comment: "사용자 소개메세지",
 			},
 			phone: {
 				type: DataTypes.STRING(500),

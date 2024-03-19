@@ -2,16 +2,10 @@ module.exports = function (sequelize, DataTypes) {
 	return sequelize.define(
 		"BlogLike",
 		{
-			like_id: {
-				type: DataTypes.INTEGER,
-				autoIncrement: true,
-				primaryKey: true,
-				allowNull: false,
-				comment: "좋아요 고유번호",
-			},
 			user_id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
+				primaryKey: true,
 				comment: "사용자 고유번호",
 				references: {
 					model: "Users",
@@ -21,6 +15,7 @@ module.exports = function (sequelize, DataTypes) {
 			blog_id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
+				primaryKey: true,
 				comment: "게시글 고유번호",
 				references: {
 					model: "Blogs",
@@ -41,20 +36,9 @@ module.exports = function (sequelize, DataTypes) {
 			comment: "블로그 게시글 좋아요 테이블",
 			indexes: [
 				{
-					name: "PRIMARY",
 					unique: true,
 					using: "BTREE",
-					fields: [{ name: "like_id" }],
-				},
-				{
-					name: "idx_blog_like_user_id",
-					using: "BTREE",
-					fields: [{ name: "user_id" }],
-				},
-				{
-					name: "idx_blog_like_blog_id",
-					using: "BTREE",
-					fields: [{ name: "blog_id" }],
+					fields: ["user_id", "blog_id"],
 				},
 			],
 		}

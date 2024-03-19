@@ -48,12 +48,12 @@ router.get("/main", async (req, res, next) => {
 // http://localhost:3005/api/blog/create
 // Status: 201 Created / 400 Bad Request / 500 Internal Server Error
 router.post("/create", isLoggedIn, async (req, res, next) => {
-	const { blog_type_code, title, contents, preview_img } = req.body;
+	const { blog_type_code, title, contents, preview_img, hashtags } = req.body;
 	const user_id = req.user.user_id;
 	const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
 	try {
-		await db.Blogs.create({
+		var blog = await db.Blogs.create({
 			user_id,
 			blog_type_code,
 			title,
@@ -63,6 +63,34 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 			blog_status_code: enums.BLOG_STATUS_CODE.APPLIED,
 			reg_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
 		});
+
+		if (hashtags) {
+			const hashtagList = hashtags.split(",");
+			for (let i = 0; i < hashtagList.length; i++) {
+				const hashtag = await db.Hashtags.findOne({
+					where: {
+						hashtag_name: hashtagList[i],
+					},
+				});
+				if (!hashtag) {
+					await db.Hashtags.create({
+						hashtag_name: hashtagList[i],
+						reg_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+					});
+				}
+				const hashtag_id = await db.Hashtags.findOne({
+					attributes: ["hashtag_id"],
+					where: {
+						hashtag_name: hashtagList[i],
+					},
+				});
+				await db.BlogHashtags.create({
+					blog_id: blog.blog_id,
+					hashtag_id: hashtag_id.hashtag_id,
+				});
+			}
+		}
+
 		res.status(201).json({
 			message: "블로그 글 등록에 성공하였습니다.",
 		});
@@ -242,6 +270,8 @@ router.post("/like/:bid", isLoggedIn, async (req, res, next) => {
 		next(error);
 	}
 });
+
+// 내 글
 
 router.use(errorMiddleware);
 module.exports = router;
