@@ -72,7 +72,7 @@ router.post("/register", async (req, res, next) => {
 			use_state_code: enums.USE_STATE_CODE.NORMAL,
 			reg_date: moment().format("YYYY-MM-DD HH:mm:ss"),
 		});
-		res.status(201).json({
+		res.status(200).json({
 			message: "회원가입에 성공하였습니다.",
 		});
 	} catch (error) {
@@ -272,33 +272,6 @@ router.get("/nickname", async (req, res, next) => {
 		res.status(200).json({
 			message: "사용 가능한 닉네임입니다.",
 		});
-	} catch (error) {
-		next(error);
-	}
-});
-
-// 사용자 정보 조회 API
-// http://localhost:3005/api/users/profile
-// Status: 200 OK / 500 Internal Server Error
-router.get("/profile", isLoggedIn, async (req, res, next) => {
-	const token = req.headers.authorization.split("Bearer ")[1];
-	const decoded = jwt.verify(token, process.env.JWT_SECRET);
-	const user_id = decoded.id;
-	try {
-		const user = await db.Users.findOne({
-			where: {
-				user_id: user_id,
-			},
-			attributes: {
-				exclude: ["password"],
-			},
-		});
-		if (!user) {
-			return res.status(400).json({
-				message: "존재하지 않는 사용자입니다.",
-			});
-		}
-		res.status(200).json(user);
 	} catch (error) {
 		next(error);
 	}
