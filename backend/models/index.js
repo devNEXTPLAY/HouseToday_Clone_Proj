@@ -3,7 +3,12 @@ const env = process.env.NODE_ENV || "development";
 const config = require("../config/config.js")[env];
 
 const db = {};
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  config
+);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -29,8 +34,14 @@ db.Blogs.hasMany(db.Comments, { foreignKey: "blog_id" });
 db.Comments.belongsTo(db.Blogs, { foreignKey: "blog_id" });
 
 // Blog Hashtags
-db.Blogs.belongsToMany(db.Hashtags, { through: db.BlogHashtags, foreignKey: "blog_id" });
-db.Hashtags.belongsToMany(db.Blogs, { through: db.BlogHashtags, foreignKey: "hashtag_id" });
+db.Blogs.belongsToMany(db.Hashtags, {
+  through: db.BlogHashtags,
+  foreignKey: "blog_id",
+});
+db.Hashtags.belongsToMany(db.Blogs, {
+  through: db.BlogHashtags,
+  foreignKey: "hashtag_id",
+});
 
 // Comment Replies
 db.Comments.hasMany(db.Comments, { as: "Replies", foreignKey: "parent_id" });
@@ -38,26 +49,26 @@ db.Comments.belongsTo(db.Comments, { as: "Parent", foreignKey: "parent_id" });
 
 // Blog Likes
 db.Users.belongsToMany(db.Blogs, {
-	through: db.BlogLike,
-	foreignKey: "user_id",
-	otherKey: "blog_id",
+  through: db.BlogLikes,
+  foreignKey: "user_id",
+  otherKey: "blog_id",
 });
 db.Blogs.belongsToMany(db.Users, {
-	through: db.BlogLike,
-	foreignKey: "blog_id",
-	otherKey: "user_id",
+  through: db.BlogLikes,
+  foreignKey: "blog_id",
+  otherKey: "user_id",
 });
 
 // Comment Likes
 db.Users.belongsToMany(db.Comments, {
-	through: db.CommentLikes,
-	foreignKey: "user_id",
-	otherKey: "comment_id",
+  through: db.CommentLikes,
+  foreignKey: "user_id",
+  otherKey: "comment_id",
 });
 db.Comments.belongsToMany(db.Users, {
-	through: db.CommentLikes,
-	foreignKey: "comment_id",
-	otherKey: "user_id",
+  through: db.CommentLikes,
+  foreignKey: "comment_id",
+  otherKey: "user_id",
 });
 
 module.exports = db;
