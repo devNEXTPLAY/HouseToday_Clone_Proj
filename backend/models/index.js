@@ -37,16 +37,8 @@ db.Comments.hasMany(db.Comments, { as: "Replies", foreignKey: "parent_id" });
 db.Comments.belongsTo(db.Comments, { as: "Parent", foreignKey: "parent_id" });
 
 // Blog Likes
-db.Users.belongsToMany(db.Blogs, {
-	through: db.BlogLikes,
-	foreignKey: "user_id",
-	otherKey: "blog_id",
-});
-db.Blogs.belongsToMany(db.Users, {
-	through: db.BlogLikes,
-	foreignKey: "blog_id",
-	otherKey: "user_id",
-});
+db.Users.belongsToMany(db.Blogs, { through: db.BlogLikes, foreignKey: "user_id" });
+db.Blogs.belongsToMany(db.Users, { through: db.BlogLikes, foreignKey: "blog_id" });
 
 // Comment Likes
 db.Users.belongsToMany(db.Comments, {
