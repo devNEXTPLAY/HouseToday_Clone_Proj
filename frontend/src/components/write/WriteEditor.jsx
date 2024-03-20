@@ -165,7 +165,7 @@ const WriteEditor = ({ id, onSubmit }) => {
           </ul>
         )}
 
-        {userValues.hashtag.length >= 0 && userValues.hashtag.length < 3 && (
+        {userValues.hashtag.length < 3 && (
           <input
             type='text'
             id='hashtag'
