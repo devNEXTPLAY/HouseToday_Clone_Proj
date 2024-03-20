@@ -77,6 +77,20 @@
   }
 
   .agree-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h4 {
+      margin-bottom: 1rem;
+    }
+
+    .section__container {
+      border: 1px solid #c2c8cc;
+      border-radius: 5px;
+      padding: 20px 10px 10px 10px;
+    }
+
     .agree__chackbox {
       display: flex;
       align-items: center;
@@ -85,8 +99,9 @@
 
       input {
         margin-top: 15px;
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
+        border: 1px solid #c2c8cc;
       }
 
       .agree_all {
@@ -98,7 +113,8 @@
       label {
         display: flex;
         align-items: center;
-        font-weight: 400;
+        font-weight: 200;
+        font-size: 15px;
 
         span {
           color: #35c5f0;
@@ -107,6 +123,7 @@
     }
 
     .agree__chackbox:first-child,
+    .agree__chackbox:nth-child(6),
     .agree__chackbox:last-child {
       span {
         color: #828c94;
