@@ -75,4 +75,42 @@
   p a:hover {
     color: #8a8a8a;
   }
+
+  .agree-section {
+    .agree__chackbox {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      margin-bottom: 5px;
+
+      input {
+        margin-top: 15px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .agree_all {
+        span {
+          color: #828c94;
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+
+        span {
+          color: #35c5f0;
+        }
+      }
+    }
+
+    .agree__chackbox:first-child,
+    .agree__chackbox:last-child {
+      span {
+        color: #828c94;
+      }
+    }
+  }
 }
