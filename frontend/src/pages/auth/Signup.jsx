@@ -9,6 +9,12 @@ import Button from '../../components/ui/Button';
 
 // * 회원가입
 const Signup = () => {
+  const [isAllChecked, setIsAllChecked] = useState(false);
+
+  const handleIsAllCheck = () => {
+    setIsAllChecked(prevState => !prevState);
+  };
+
   const navigate = useNavigate();
 
   const [emailLocal, setEmailLocal] = useState('');
@@ -108,6 +114,58 @@ const Signup = () => {
           value={user.nickname}
           onChange={onRegistChange}
         />
+
+        {/* // Todo 체크박스 스타일링 및 전체 선택 기능 */}
+        <section className='agree-section'>
+          <div className='agree__chackbox'>
+            <input
+              type='checkbox'
+              id='agree_all'
+              name='agree_all'
+              onClick={handleIsAllCheck}
+            />
+            <label htmlFor='agree_all'>
+              <strong>전체 동의</strong> <span>선택항목에 대한 동의 포함</span>
+            </label>
+          </div>
+          <hr />
+
+          <div className='agree__chackbox'>
+            <input
+              type='checkbox'
+              id='agree_age'
+              name='agree_age'
+              checked={isAllChecked}
+            />
+            <label htmlFor='agree_age'>
+              만14세이상입니다 <span>(필수)</span>
+            </label>
+          </div>
+
+          <div className='agree__chackbox'>
+            <input
+              type='checkbox'
+              id='agree_promotion'
+              name='agree_promotion'
+              checked={isAllChecked}
+            />
+            <label htmlFor='agree_promotion'>
+              개인정보수집 및 이용 동의 <span>(필수)</span>
+            </label>
+          </div>
+          <div className='agree__chackbox'>
+            <input
+              type='checkbox'
+              id='agree_marketing'
+              name='agree_marketing'
+              checked={isAllChecked}
+            />
+
+            <label htmlFor='agree_marketing'>
+              마케팅 정보 수신 동의 <span>(선택)</span>
+            </label>
+          </div>
+        </section>
 
         {/* //* reCAPTCHA */}
         <Button type='submit'>회원가입하기</Button>
