@@ -17,12 +17,14 @@ const WriteEdit = () => {
 
         <div className='header__button-box'>
           <Button>임시저장</Button>
-          <Button>업로드</Button>
+          <Button type='submit' form='edit-write'>
+            업로드
+          </Button>
         </div>
       </header>
 
       {/* //* 게시글 에디터 */}
-      <WriteEditor />
+      <WriteEditor id='edit-write' />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // ! 레아이웃
 import HomeLayout from './layout/HomeLayout';
@@ -27,6 +28,8 @@ const Post = lazy(() => import('./pages/community/Post'));
 // ! 사용자 설정 관련 화면
 const User = lazy(() => import('./pages/user/User'));
 const Setting = lazy(() => import('./pages/user/Setting'));
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   // ! 홈 화면
@@ -85,7 +88,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

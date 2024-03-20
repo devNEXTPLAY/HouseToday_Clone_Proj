@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useMediaQuery } from 'react-responsive';
 import { Swiper, SwiperSlide } from 'swiper/react';
 

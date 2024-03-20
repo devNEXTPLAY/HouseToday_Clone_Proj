@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 import './css/Write.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { TextLogo } from '../../assets/TextLogo';
 import WriteEditor from '../../components/write/WriteEditor';
@@ -11,9 +12,26 @@ import { IoIosArrowDown } from 'react-icons/io';
 
 // * 게시글 작성
 const Write = () => {
+  const navigate = useNavigate();
+
   const [isGuide, setIsGuide] = useState(false);
 
   const handleGuide = () => setIsGuide(prevState => !prevState);
+
+  const handleSubmit = async (event, userValues) => {
+    event.preventDefault();
+
+    try {
+      const response = axios.post(
+        'http://localhost:3005/api/blog/create',
+        userValues
+      );
+      console.log(response);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -24,7 +42,9 @@ const Write = () => {
 
         <div className='header__button-box'>
           <Button>임시저장</Button>
-          <Button>업로드</Button>
+          <Button type='submiy' form='create-write'>
+            업로드
+          </Button>
         </div>
       </header>
 
@@ -84,7 +104,7 @@ const Write = () => {
       </section>
 
       {/* //* 게시글 에디터 */}
-      <WriteEditor />
+      <WriteEditor id='create-write' onSubmit={handleSubmit} />
     </>
   );
 };
