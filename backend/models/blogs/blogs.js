@@ -33,6 +33,24 @@ module.exports = function (sequelize, DataTypes) {
 				allowNull: false,
 				comment: "내용",
 			},
+			like_count: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				defaultValue: 0,
+				comment: "좋아요수",
+			},
+			comment_count: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				defaultValue: 0,
+				comment: "댓글수",
+			},
+			view_count: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				defaultValue: 0,
+				comment: "조회수",
+			},
 			preview_img: {
 				type: DataTypes.STRING(300),
 				allowNull: false,

@@ -1,11 +1,14 @@
+// user behaviors data model
+// page views
+// collect which blog page is viewed by which user
 module.exports = function (sequelize, DataTypes) {
 	return sequelize.define(
-		"BlogLike",
+		"PageView",
 		{
 			user_id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
-				comment: "좋아요 누른 사용자 고유번호",
+				comment: "사용자 고유번호",
 				references: {
 					model: "Users",
 					key: "user_id",
@@ -14,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
 			blog_id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
-				comment: "좋아요 누른 블로그 게시글 고유번호",
+				comment: "블로그 게시글 고유번호",
 				references: {
 					model: "Blogs",
 					key: "blog_id",
@@ -24,17 +27,17 @@ module.exports = function (sequelize, DataTypes) {
 				type: DataTypes.DATE,
 				allowNull: false,
 				defaultValue: DataTypes.NOW,
-				comment: "좋아요 누른 시간",
+				comment: "조회한 시각",
 			},
 		},
 		{
 			sequelize,
 			timestamps: false,
-			tableName: "BlogLikes",
-			comment: "블로그 게시글 좋아요 테이블",
+			tableName: "PageViews",
+			comment: "블로그 게시글 조회 테이블",
 			indexes: [
 				{
-					name: "idx_blog_like",
+					name: "idx_page_view",
 					using: "BTREE",
 					fields: ["user_id", "blog_id"],
 				},
