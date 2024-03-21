@@ -15,6 +15,12 @@ module.exports = function (sequelize, DataTypes) {
 				unique: true,
 				comment: "해시태그 이름",
 			},
+			click_count: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				defaultValue: 0,
+				comment: "해시태그 클릭 횟수",
+			},
 		},
 		{
 			sequelize,
