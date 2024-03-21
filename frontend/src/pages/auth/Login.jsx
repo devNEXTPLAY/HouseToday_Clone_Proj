@@ -59,14 +59,16 @@ const Login = () => {
       {/* //* 로그인 입력 폼 */}
       <form onSubmit={onLogin}>
         <div className="form__input-box">
-          <Input
+          <input
+            className="input__email"
             placeholder="이메일"
             type="email"
             name="email"
             value={user.email}
             onChange={onLoginChange}
           />
-          <Input
+          <input
+            className="input__password"
             placeholder="비밀번호"
             type="password"
             name="password"

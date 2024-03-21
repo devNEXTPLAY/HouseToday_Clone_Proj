@@ -11,6 +11,9 @@
   border-bottom: 1px solid #eaedef;
   height: 85px;
   width: 100vw;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
 
   .hamburger {
     display: flex;
@@ -49,6 +52,8 @@
         border: none;
         outline: none;
         background-color: #ffffff00;
+        color: #c2c8cc;
+        font-size: 16px;
       }
       span {
         display: flex;
@@ -158,9 +163,16 @@
       padding: 0 15px 0 15px;
       width: 90px;
       height: 40px;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 18px;
+    }
+  }
+  .header__auth {
+    color: #2f3438;
+    line-height: 18px;
+    width: 104px;
+    margin: 0 20px 0 96px;
+
+    .link__margin {
+      margin-left: 20px;
     }
   }
 }
