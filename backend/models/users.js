@@ -30,6 +30,11 @@ module.exports = function (sequelize, DataTypes) {
 				allowNull: true,
 				comment: "사용자 이름",
 			},
+			gender: {
+				type: DataTypes.TINYINT,
+				allowNull: true,
+				comment: "사용자 성별 0:남자 1:여자",
+			},
 			nickname: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
