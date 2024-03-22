@@ -18,10 +18,20 @@ const Setting = () => {
   );
 
   const onChangeImage = (e) => {
+    const formData = new FormData();
     if (e.target.files[0]) {
       const file = e.target.files[0];
-      const imageURL = URL.createObjectURL(file);
-      setImage(imageURL);
+      formData.append("file", file);
+      axios
+        .post("http://localhost:3005/api/common/upload", formData)
+        .then((res) => {
+          console.log(res);
+          const imageUrl = `http://localhost:3005/${res.data.filePath}`;
+          setImage(imageUrl);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       // 업로드 취소할 시
       setImage(
@@ -49,21 +59,25 @@ const Setting = () => {
     }
   }, []);
 
+  const onSettingChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
   const onSetting = (e) => {
     const settingData = {
-      profile_image: image,
-      name: user.name,
+      profile_img: image,
+      nickname: user.nickname,
       email: user.email,
       phone: user.phone,
       birth_date: user.birth_date,
       intro_msg: user.intro_msg,
     };
+    console.log(settingData);
     axios
-      .post("http://localhost:5173/api/users/profile", {
+      .post("http://localhost:3005/api/users/profile", settingData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        settingData,
       })
       .then((res) => {
         console.log(res);
@@ -79,7 +93,7 @@ const Setting = () => {
       <form className="form" onSubmit={onSetting}>
         <div className="form__image-box">
           <img
-            src={image}
+            src={user.profile_img}
             alt="image"
             name="profile_image"
             onClick={() => {
@@ -88,6 +102,7 @@ const Setting = () => {
           />
           <input
             type="file"
+            name="profile_image"
             style={{ display: "none" }}
             onChange={onChangeImage}
             ref={fileRef}
@@ -95,22 +110,40 @@ const Setting = () => {
           <button>이미지 삭제</button>
         </div>
 
-        <Input label="닉네임" name="name" value={user.name} />
-        <Input label="이메일" type="email" name="email" value={user.email} />
+        <Input
+          label="닉네임"
+          name="nickname"
+          value={user.nickname}
+          onChange={onSettingChange}
+        />
+        <Input
+          label="이메일"
+          type="email"
+          name="email"
+          value={user.email}
+          onChange={onSettingChange}
+        />
         <hr />
 
-        <Input label="휴대전화번호" name="phone" value={user.phone} />
+        <Input
+          label="휴대전화번호"
+          name="phone"
+          value={user.phone}
+          onChange={onSettingChange}
+        />
         <Input
           label="생년월일"
           type="date"
           name="birth_date"
           value={user.birth_date}
+          onChange={onSettingChange}
         />
         <Input
           label="1줄 소개"
           placeholder="짧은 글로 자신을 소개해보세요. (최대 150자)"
           name="intro_msg"
           value={user.intro_msg}
+          onChange={onSettingChange}
         />
 
         <nav className="nav">

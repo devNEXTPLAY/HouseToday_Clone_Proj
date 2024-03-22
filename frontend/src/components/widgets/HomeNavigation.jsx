@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../redux/actions";
@@ -14,6 +16,26 @@ import { CiBellOn } from "react-icons/ci";
 
 // * 헤더 네비게이션
 const HomeNavigation = () => {
+  const [user, setUser] = useState({});
+
+  const token = useSelector((state) => state.Auth.token);
+
+  useEffect(() => {
+    if (token) {
+      axios
+        .get("http://localhost:3005/api/users/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setUser(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
   // * 사용자 프로필 드롭다운 메뉴 상태
   const [isSettings, setIsSettings] = useState(false);
 
@@ -49,10 +71,7 @@ const HomeNavigation = () => {
           {/* //* 사용자 프로필 */}
           <div className="header__profile-box">
             <Button className="header__profile" onClick={handleShowNav}>
-              <img
-                src="https://d12zq4w4guyljn.cloudfront.net/750_750_20220126102336280_photo_32b06416ea97.jpg"
-                alt="profile-image"
-              />
+              <img src={user.profile_img} alt="profile-image" />
             </Button>
 
             {/* //* 사용자 프로필 드롭다운 메뉴 */}

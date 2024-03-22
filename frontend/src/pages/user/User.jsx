@@ -34,12 +34,7 @@ const User = () => {
       <main>
         <section className="uesr-profile">
           <div className="profile__card">
-            <img
-              src={
-                "https://d12zq4w4guyljn.cloudfront.net/750_750_20220126102336280_photo_32b06416ea97.jpg"
-              }
-              alt="프로필 사진"
-            />
+            <img src={user.profile_img} alt="프로필 사진" />
             <h2>{user.nickname}</h2>
             <div>
               <span>팔로워 0</span>
