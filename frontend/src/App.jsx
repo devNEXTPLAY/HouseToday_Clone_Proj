@@ -79,7 +79,8 @@ const router = createBrowserRouter([
       // * 글 읽기 화면 http://localhost:5173/post/:aid
       {
         path: "post/:aid",
-        element: <Post />,
+        element: <Layout />,
+        children: [{ index: true, element: <Post /> }],
       },
 
       // ! 게시글 쓰기, 수정
