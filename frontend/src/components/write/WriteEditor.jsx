@@ -1,14 +1,37 @@
-import Resizer from "./resizer";
-import { useState } from "react";
+// import Resizer from "./resizer";
+import { useState, useMemo, useRef } from "react";
+import axios from "axios";
 import "./css/WriteEditor.scss";
 
 // * TinyMCE: 텍스트 에디터 라이브러리
-import { Editor } from "@tinymce/tinymce-react";
+// import { Editor } from "@tinymce/tinymce-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Input from "../ui/Input";
-import axios from "axios";
+import HashtagForm from "./\bHashtagForm";
+import MainImageForm from "./MainImageForm";
+
+const formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "align",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "background",
+  "color",
+  "link",
+  "image",
+  "video",
+  "width",
+];
 
 // const resizeFile = file =>
 //   new Promise(resolve => {
@@ -36,90 +59,58 @@ const WriteEditor = ({ id, onSubmit }) => {
     hashtags: [],
   });
 
-  const [hashtagValeue, setHashTagValue] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+  const quillRef = useRef();
 
-  const handleUpload = async e => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
+  const imageHandler = () => {
+    const input = document.createElement("input");
 
-    // 이미지 프리뷰
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result;
-      setImagePreview(base64);
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.addEventListener("change", async () => {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        axios.post("http://localhost:3005/api/common/upload", formData).then(
+          res => {
+            const imageUrl = `http://localhost:3005/${res.data.filePath}`;
+
+            const editor = quillRef.current.getEditor();
+            const range = editor.getSelection();
+            editor.insertEmbed(range.index, "image", imageUrl);
+            editor.setSelection(range.index + 1);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
+
+  const modules = useMemo(() => {
+    return {
+      toolbar: {
+        container: [
+          ["image"],
+          [{ header: [1, 2, 3, false] }],
+          ["bold", "italic", "underline", "strike", "blockquote"],
+        ],
+        handlers: {
+          image: imageHandler,
+        },
+      },
     };
-    reader.readAsDataURL(file);
+  }, []);
 
-    axios
-      .post("http://localhost:3005/api/common/upload", formData)
-      .then(res => {
-        const imageUrl = `http://localhost:3005/${res.data.filePath}`;
-        setUserValues(prevValues => {
-          return { ...prevValues, preview_img: imageUrl };
-        });
-      });
-    // const file = await e.target.files[0]; //사용자가 업로드한 이미지를 비동기적으로 가져온다.
-    // // console.log("imgae incoding before : ", file);
-    // const suppertedFormats = ["image/jpeg", "image/png", "image/svg+xml"]; //허용한 이미지 형식 정의
-    // if (!e.target.files[0]) {
-    //   //만약 업로드한 이미지가 존재하지 않는다면 함수를 종료
-    //   return;
-    // }
-    // if (!suppertedFormats.includes(file.type)) {
-    //   //업로드한 이미지가 정의된 형식에 맞지 않는다면 경고창 띄우기
-    //   alert(
-    //     "지원되지 않은 이미지 형식입니다. JPEG, PNG형식의 이미지를 업로드해주세요."
-    //   );
-    //   return;
-    // }
-    // try {
-    //   const compressedFile = await resizeFile(file); //"resizeFile"함수를 통해서 업로드한 이미지 리사이징 및 인코딩
-    //   console.log("imgae incoding after : ", compressedFile);
-    //   setImagePreview(String(compressedFile)); //인코딩한 이미지를 브라우저에 프리뷰 하기 위해 state 정의
-    //   setUserValues(prevValues => {
-    //     return { ...prevValues, preview_img: String(compressedFile) };
-    //   });
-    // } catch (error) {
-    //   //리사이징에 실패했을시 console에 출력하게 한다.
-    //   console.log("file resizing failed");
-    //   console.log(error);
-    // }
-  };
-
-  // 해시태그 입력
-  const handleChangeHashTagValue = event => setHashTagValue(event.target.value);
-
-  // 해시태그 추가
-  const handleAddHashTag = event => {
-    // 중복 방지
-    const duplicateHashtag = userValues.hashtags.includes(hashtagValeue);
-
-    if (duplicateHashtag) {
-      return;
-    }
-
-    if (event.key === "Enter" && hashtagValeue.length > 1) {
-      setUserValues(prevValues => {
-        const updateHashtags = [...prevValues.hashtags, hashtagValeue];
-        return {
-          ...prevValues,
-          hashtags: updateHashtags,
-        };
-      });
-
-      setHashTagValue("");
-    }
-  };
-
-  // 해시태그 삭제
-  const handleRemoveHashTag = hashtagKey => {
+  const handleUpdateContent = event => {
     setUserValues(prevValues => {
-      return {
-        ...prevValues,
-        hashtags: prevValues.hashtags.filter(tag => tag !== hashtagKey),
-      };
+      return { ...prevValues, contents: event };
     });
   };
 
@@ -140,34 +131,7 @@ const WriteEditor = ({ id, onSubmit }) => {
     >
       {/* //* 대표 이미지 업로드 */}
       <section className="form__main-image-upload">
-        <input
-          type="file"
-          name="preview_img"
-          id="preview_img"
-          onChange={handleUpload}
-          accept="image/*"
-        />
-
-        {/* 이미지 추가 전 */}
-        {!imagePreview && (
-          <>
-            <p>
-              드래그앤 드롭이나 추가하기 버튼으로 <br /> 대표사진을 업로드
-              해주세요.
-            </p>
-            <button>대표사진 추가하기</button>
-          </>
-        )}
-
-        {/* 이미지 추가 후 추가한 이미지 보여주기 */}
-        {imagePreview && (
-          <>
-            <button className="button-change" type="button">
-              대표 이미지 변경하기
-            </button>
-            <img src={imagePreview} alt="대표 이미지" />
-          </>
-        )}
+        <MainImageForm onUserValues={setUserValues} />
       </section>
 
       {/* 제목 */}
@@ -199,39 +163,21 @@ const WriteEditor = ({ id, onSubmit }) => {
           </select>
         </div>
 
-        {userValues.hashtags.length > 0 && (
-          <ul className="hashtag-list">
-            {userValues.hashtags.map(tag => {
-              return (
-                <li key={tag}>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveHashTag(tag)}
-                  >{`# ${tag}`}</button>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-
-        {userValues.hashtags.length < 3 && (
-          <input
-            type="text"
-            id="hashtag"
-            placeholder="태그를 입력하세요."
-            value={hashtagValeue}
-            onChange={handleChangeHashTagValue}
-            onKeyDown={handleAddHashTag}
-          />
-        )}
+        {/* 해시태그 입력 폼 */}
+        <HashtagForm userValues={userValues} onUserValues={setUserValues} />
       </div>
 
       {/* TinyMCE API 사용량 초과로 ReactQuill 변경 주말 중 업데이트 예정 */}
       {/* 구현 기술, 드래그앤 드랍 이미지 추가 ......... */}
       <ReactQuill
+        ref={quillRef}
         theme="snow"
+        placeholder="내용을 입력해주세요."
         value={userValues.contents}
-        style={{ width: "600px", height: "600px" }}
+        style={{ width: "720px", height: "300px" }}
+        onChange={handleUpdateContent}
+        formats={formats}
+        modules={modules}
       />
     </form>
   );
