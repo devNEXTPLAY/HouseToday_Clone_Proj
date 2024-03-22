@@ -1,33 +1,42 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import axios from "axios";
 
-import './css/Write.scss';
-import { Link, useNavigate } from 'react-router-dom';
+import "./css/Write.scss";
+import { Link, json, useNavigate } from "react-router-dom";
 
-import { TextLogo } from '../../assets/TextLogo';
-import WriteEditor from '../../components/write/WriteEditor';
-import Button from '../../components/ui/Button';
+import { TextLogo } from "../../assets/TextLogo";
+import WriteEditor from "../../components/write/WriteEditor";
+import Button from "../../components/ui/Button";
 
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown } from "react-icons/io";
 
 // * 게시글 작성
 const Write = () => {
-  const navigate = useNavigate();
-
   const [isGuide, setIsGuide] = useState(false);
 
   const handleGuide = () => setIsGuide(prevState => !prevState);
 
   const handleSubmit = async (event, userValues) => {
     event.preventDefault();
+    const token = localStorage.getItem("token");
 
     try {
-      const response = axios.post(
-        'http://localhost:3005/api/blog/create',
-        userValues
-      );
-      console.log(response);
-      navigate('/');
+      axios({
+        method: "post",
+        url: "http://localhost:3005/api/blog/create",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${token}`,
+        },
+        data: {
+          blog_type_code: userValues.blog_type_code,
+          title: userValues.title,
+          contents: userValues.contents,
+          preview_img: userValues.preview_img,
+          hashtags: userValues.hashtags,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -35,32 +44,32 @@ const Write = () => {
 
   return (
     <>
-      <header className='header'>
-        <Link to='/'>
+      <header className="header">
+        <Link to="/">
           <TextLogo />
         </Link>
 
-        <div className='header__button-box'>
+        <div className="header__button-box">
           <Button>임시저장</Button>
-          <Button type='submiy' form='create-write'>
+          <Button type="submiy" form="create-write">
             업로드
           </Button>
         </div>
       </header>
 
-      <section className='guide'>
-        <button className='guide__button' onClick={handleGuide}>
-          <div className='button__inner-text'>
+      <section className="guide">
+        <button className="guide__button" onClick={handleGuide}>
+          <div className="button__inner-text">
             <strong>집들이 작성 가이드</strong>
             <span>원할한 집들이 발행을 위해 꼭 읽어주세요.</span>
           </div>
 
-          <span className={isGuide ? 'rotate180' : 'button__inner-icon'}>
+          <span className={isGuide ? "rotate180" : "button__inner-icon"}>
             <IoIosArrowDown />
           </span>
         </button>
 
-        <ul className={isGuide ? 'open' : 'close'}>
+        <ul className={isGuide ? "open" : "close"}>
           <li>
             에디터 컨택 없이 집들이를 작성하는 경우,
             <strong>집들이 피드나 홈에서는 공개되지 않을 수 있습니다.</strong>
@@ -104,7 +113,7 @@ const Write = () => {
       </section>
 
       {/* //* 게시글 에디터 */}
-      <WriteEditor id='create-write' onSubmit={handleSubmit} />
+      <WriteEditor id="create-write" onSubmit={handleSubmit} />
     </>
   );
 };
