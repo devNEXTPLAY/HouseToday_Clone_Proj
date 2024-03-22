@@ -1,3 +1,4 @@
+import Resizer from "./resizer";
 import { useState } from "react";
 import "./css/WriteEditor.scss";
 
@@ -5,34 +6,68 @@ import "./css/WriteEditor.scss";
 import { Editor } from "@tinymce/tinymce-react";
 import Input from "../ui/Input";
 
-// * 게시글 에디터
+const resizeFile = file =>
+  new Promise(resolve => {
+    Resizer.imageFileResizer(
+      file,
+      300,
+      300,
+      "JPEG",
+      100,
+      0,
+      uri => {
+        resolve(uri);
+      },
+      "base64"
+    );
+  });
 
+// * 게시글 에디터
 const WriteEditor = ({ id, onSubmit }) => {
   const [userValues, setUserValues] = useState({
     blog_type_code: 0,
     title: "",
     contents: "",
-    preview_img: null,
+    preview_img: "",
     hashtags: [],
   });
 
   const [hashtagValeue, setHashTagValue] = useState("");
-  const [uploadedImage, setUploadedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  // 업로드한 사진 화면에 표시
-  const handleUpload = event => {
-    const file = event.target.files[0];
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result;
-      setUploadedImage(base64);
-    };
-    reader.readAsDataURL(file);
-
-    setUserValues(prevValues => {
-      return { ...prevValues, preview_img: file };
-    });
+  const handleUpload = async e => {
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   const base64 = reader.result;
+    //   setUploadedImage(base64);
+    // };
+    // reader.readAsDataURL(file);
+    const file = await e.target.files[0]; //사용자가 업로드한 이미지를 비동기적으로 가져온다.
+    // console.log("imgae incoding before : ", file);
+    const suppertedFormats = ["image/jpeg", "image/png", "image/svg+xml"]; //허용한 이미지 형식 정의
+    if (!e.target.files[0]) {
+      //만약 업로드한 이미지가 존재하지 않는다면 함수를 종료
+      return;
+    }
+    if (!suppertedFormats.includes(file.type)) {
+      //업로드한 이미지가 정의된 형식에 맞지 않는다면 경고창 띄우기
+      alert(
+        "지원되지 않은 이미지 형식입니다. JPEG, PNG형식의 이미지를 업로드해주세요."
+      );
+      return;
+    }
+    try {
+      const compressedFile = await resizeFile(file); //"resizeFile"함수를 통해서 업로드한 이미지 리사이징 및 인코딩
+      console.log("imgae incoding after : ", compressedFile);
+      setImagePreview(String(compressedFile)); //인코딩한 이미지를 브라우저에 프리뷰 하기 위해 state 정의
+      setUserValues(prevValues => {
+        return { ...prevValues, preview_img: String(compressedFile) };
+      });
+    } catch (error) {
+      //리사이징에 실패했을시 console에 출력하게 한다.
+      console.log("file resizing failed");
+      console.log(error);
+    }
   };
 
   // 해시태그 입력
@@ -96,7 +131,7 @@ const WriteEditor = ({ id, onSubmit }) => {
         />
 
         {/* 이미지 추가 전 */}
-        {!uploadedImage && (
+        {!imagePreview && (
           <>
             <p>
               드래그앤 드롭이나 추가하기 버튼으로 <br /> 대표사진을 업로드
@@ -107,12 +142,12 @@ const WriteEditor = ({ id, onSubmit }) => {
         )}
 
         {/* 이미지 추가 후 추가한 이미지 보여주기 */}
-        {uploadedImage && (
+        {imagePreview && (
           <>
             <button className="button-change" type="button">
               대표 이미지 변경하기
             </button>
-            <img src={uploadedImage} alt="대표 이미지" />
+            <img src={imagePreview} alt="대표 이미지" />
           </>
         )}
       </section>
