@@ -20,7 +20,19 @@ router.post("/login", (req, res, next) => {
 	passport.authenticate("local", (err, user, info) => {
 		if (err) return next(err);
 		if (!user) {
-			return res.status(400).json({ message: info.message });
+			if (info.message === "존재하지 않는 사용자입니다.") {
+				return res.status(404).json({
+					message: "존재하지 않는 사용자입니다.",
+				});
+			} else if (info.message === "비밀번호가 일치하지 않습니다.") {
+				return res.status(400).json({
+					message: "비밀번호가 일치하지 않습니다.",
+				});
+			} else {
+				return res.status(400).json({
+					message: "로그인에 실패하였습니다.",
+				});
+			}
 		}
 		req.logIn(user, (err) => {
 			if (err) return next(err);
@@ -309,7 +321,7 @@ router.get("/profile", async (req, res, next) => {
 // 사용자 정보 수정 API
 // http://localhost:3005/api/users/profile
 router.post("profile", async (req, res, next) => {
-	const { nickname, email, phone, birth_date, intro_msg } = req.body;
+	const { nickname, email, phone, birth_date, intro_msg, profile_img } = req.body;
 	const token = req.headers.authorization.split("Bearer ")[1];
 	const decoded = jwt.verify(token, process.env.JWT_SECRET);
 	const user_id = decoded.id;
@@ -331,6 +343,7 @@ router.post("profile", async (req, res, next) => {
 				phone: phone,
 				birth_date: birth_date,
 				intro_msg: intro_msg,
+				profile_img: profile_img,
 			},
 			{
 				where: {
@@ -338,6 +351,8 @@ router.post("profile", async (req, res, next) => {
 				},
 			}
 		);
+		if (profile_img) {
+		}
 		res.status(200).json({
 			message: "사용자 정보 수정에 성공하였습니다.",
 		});
