@@ -58,7 +58,19 @@ const Setting = () => {
       birth_date: user.birth_date,
       intro_msg: user.intro_msg,
     };
-    axios.post().then().catch();
+    axios
+      .post("http://localhost:5173/api/users/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        settingData,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     e.preventDefault();
   };
 
