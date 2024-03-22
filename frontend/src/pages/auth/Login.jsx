@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../redux/actions";
@@ -53,7 +54,7 @@ const Login = () => {
   return (
     <main className="login">
       <header>
-        <MainLogo />
+        <MainLogo />S
       </header>
 
       {/* //* 로그인 입력 폼 */}

@@ -1,37 +1,110 @@
-import './css/Setting.scss';
-import Header from '../../components/widgets/Header';
-import { Link } from 'react-router-dom';
-import Input from '../../components/ui/Input';
-import Button from '../../components/ui/Button';
+import { useSelector } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+
+import "./css/Setting.scss";
+import Header from "../../components/widgets/Header";
+import { Link } from "react-router-dom";
+import Input from "../../components/ui/Input";
+import Button from "../../components/ui/Button";
 
 // * 사용자 설정
 const Setting = () => {
+  const [user, setUser] = useState({});
+
+  const fileRef = useRef(null);
+  const [image, setImage] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
+
+  const onChangeImage = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      const imageURL = URL.createObjectURL(file);
+      setImage(imageURL);
+    } else {
+      // 업로드 취소할 시
+      setImage(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
+      return;
+    }
+  };
+
+  const token = useSelector((state) => state.Auth.token);
+
+  useEffect(() => {
+    if (token) {
+      axios
+        .get("http://localhost:3005/api/users/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setUser(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  const onSetting = (e) => {
+    const settingData = {
+      profile_image: image,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      birth_date: user.birth_date,
+      intro_msg: user.intro_msg,
+    };
+    axios.post().then().catch();
+    e.preventDefault();
+  };
+
   return (
     <>
-      <form className='form'>
-        <div className='form__image-box'>
+      <form className="form" onSubmit={onSetting}>
+        <div className="form__image-box">
           <img
-            src='https://d12zq4w4guyljn.cloudfront.net/750_750_20220126102336280_photo_32b06416ea97.jpg'
-            alt='image'
+            src={image}
+            alt="image"
+            name="profile_image"
+            onClick={() => {
+              fileRef.current.click();
+            }}
+          />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            onChange={onChangeImage}
+            ref={fileRef}
           />
           <button>이미지 삭제</button>
         </div>
 
-        <Input label='닉네임' value='정민영' />
-        <Input label='이메일' type='email' value='myjeong19@naver.com' />
+        <Input label="닉네임" name="name" value={user.name} />
+        <Input label="이메일" type="email" name="email" value={user.email} />
         <hr />
 
-        <Input label='휴대전화번호' value='010-3957-3540' />
-        <Input label='생년월일' type='date' value='1998-03-19' />
+        <Input label="휴대전화번호" name="phone" value={user.phone} />
         <Input
-          label='1줄 소개'
-          placeholder='짧은 글로 자신을 소개해보세요. (최대 150자)'
+          label="생년월일"
+          type="date"
+          name="birth_date"
+          value={user.birth_date}
+        />
+        <Input
+          label="1줄 소개"
+          placeholder="짧은 글로 자신을 소개해보세요. (최대 150자)"
+          name="intro_msg"
+          value={user.intro_msg}
         />
 
-        <nav className='nav'>
+        <nav className="nav">
           <Link>탈퇴하기</Link>
 
-          <Button>완료</Button>
+          <Button type="submit">완료</Button>
         </nav>
       </form>
     </>
