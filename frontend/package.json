@@ -23,6 +23,7 @@
     "react-responsive": "^9.0.2",
     "react-router-dom": "^6.22.3",
     "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "sass": "^1.71.1",
     "swiper": "^11.0.7",
     "uuidv4": "^6.2.13",

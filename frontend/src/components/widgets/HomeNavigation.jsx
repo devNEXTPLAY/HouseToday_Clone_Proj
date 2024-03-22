@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/actions";
 
 import "./css/HomeNavigation.scss";
 
@@ -17,6 +19,12 @@ const HomeNavigation = () => {
 
   // * 사용자 프로필 드롭다운 메뉴 토글
   const handleShowNav = () => setIsSettings((prevState) => !prevState);
+
+  // * 사용자 로그아웃 토큰 삭제
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(userLogin());
+  };
 
   return (
     <header className="main-header">
@@ -52,6 +60,9 @@ const HomeNavigation = () => {
               className={isSettings ? "header__profile-dropdown" : "isDisplay"}
             >
               <Link to="/users/1">마이 페이지</Link>
+              <Link to="/login" onClick={handleLogout}>
+                로그아웃
+              </Link>
             </nav>
           </div>
 

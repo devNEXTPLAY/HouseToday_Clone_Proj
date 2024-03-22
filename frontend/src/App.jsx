@@ -1,9 +1,11 @@
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 // ! 레아이웃
 import HomeLayout from "./layout/HomeLayout";
+import NonAuthHomeLayout from "./layout/NonAuthHomeLayout";
 import SettingLayout from "./layout/SettingLayout";
 
 // ! 홈 화면
@@ -31,6 +33,13 @@ const Setting = lazy(() => import("./pages/user/Setting"));
 
 const queryClient = new QueryClient();
 
+// 인증 여부에 따라 레이아웃 변경
+const Layout = () => {
+  const loggedIn = useSelector((state) => !!state.Auth.token);
+  console.log("token", loggedIn);
+  return loggedIn ? <HomeLayout /> : <NonAuthHomeLayout />;
+};
+
 const router = createBrowserRouter([
   // ! 홈 화면
   {
@@ -44,7 +53,7 @@ const router = createBrowserRouter([
 
       // ! 홈 화면
       {
-        element: <HomeLayout />,
+        element: <Layout />,
         children: [
           // * 홈 화면 http://localhost:5173/
           { index: true, element: <Home /> },
