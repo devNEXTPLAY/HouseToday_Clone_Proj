@@ -140,6 +140,9 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
 	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } = req.body;
+	var jwt = req.headers.authorization.split("Bearer ")[1];
+	var decoded = jwt.verify(jwt, process.env.JWT_SECRET);
+	var user_id = decoded.id;
 	if (phone) {
 		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
 	}
@@ -149,15 +152,12 @@ router.patch("/modify", isLoggedIn, async (req, res, next) => {
 	try {
 		const user = await db.Users.findOne({
 			where: {
-				nickname: nickname,
-				user_id: {
-					[Op.ne]: req.user.user_id,
-				},
+				user_id: user_id,
 			},
 		});
-		if (user) {
+		if (!user) {
 			return res.status(400).json({
-				message: "이미 존재하는 닉네임입니다.",
+				message: "존재하지 않는 사용자입니다.",
 			});
 		}
 		await db.Users.update(
@@ -168,12 +168,12 @@ router.patch("/modify", isLoggedIn, async (req, res, next) => {
 				phone: phone,
 				address: address,
 				profile_img: profile_img,
-				birth_date: Date.parse(birth_date) ? moment(birth_date).format("YYYY-MM-DD") : null,
+				birth_date: birth_date,
 				edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
 			},
 			{
 				where: {
-					user_id: req.user.user_id,
+					user_id: user_id,
 				},
 			}
 		);
@@ -294,7 +294,7 @@ router.get("/nickname", async (req, res, next) => {
 // http://localhost:3005/api/users/profile
 // Status: 200 OK / 500 Internal Server Error
 // isLogedIn 잠깐 뺐슴돠
-router.get("/profile", async (req, res, next) => {
+router.get("/profile", isLoggedIn, async (req, res, next) => {
 	const token = req.headers.authorization.split("Bearer ")[1];
 	const decoded = jwt.verify(token, process.env.JWT_SECRET);
 	const user_id = decoded.id;
@@ -313,49 +313,6 @@ router.get("/profile", async (req, res, next) => {
 			});
 		}
 		res.status(200).json(user);
-	} catch (error) {
-		next(error);
-	}
-});
-
-// 사용자 정보 수정 API
-// http://localhost:3005/api/users/profile
-router.post("profile", async (req, res, next) => {
-	const { nickname, email, phone, birth_date, intro_msg, profile_img } = req.body;
-	const token = req.headers.authorization.split("Bearer ")[1];
-	const decoded = jwt.verify(token, process.env.JWT_SECRET);
-	const user_id = decoded.id;
-	try {
-		const user = await db.Users.findOne({
-			where: {
-				user_id: user_id,
-			},
-		});
-		if (!user) {
-			return res.status(400).json({
-				message: "존재하지 않는 사용자입니다.",
-			});
-		}
-		await db.Users.update(
-			{
-				nickname: nickname,
-				email: email,
-				phone: phone,
-				birth_date: birth_date,
-				intro_msg: intro_msg,
-				profile_img: profile_img,
-			},
-			{
-				where: {
-					user_id: user_id,
-				},
-			}
-		);
-		if (profile_img) {
-		}
-		res.status(200).json({
-			message: "사용자 정보 수정에 성공하였습니다.",
-		});
 	} catch (error) {
 		next(error);
 	}
