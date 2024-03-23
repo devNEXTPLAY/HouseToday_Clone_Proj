@@ -1,6 +1,5 @@
-import axios from "axios";
-
 import { useState } from "react";
+import { fetchMainImageUpload } from "../../util/http";
 
 const MainImageForm = ({ onUserValues }) => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -18,14 +17,7 @@ const MainImageForm = ({ onUserValues }) => {
     };
     reader.readAsDataURL(file);
 
-    axios
-      .post("http://localhost:3005/api/common/upload", formData)
-      .then(res => {
-        const imageUrl = `http://localhost:3005/${res.data.filePath}`;
-        onUserValues(prevValues => {
-          return { ...prevValues, preview_img: imageUrl };
-        });
-      });
+    fetchMainImageUpload(formData, onUserValues);
     // const file = await e.target.files[0]; //사용자가 업로드한 이미지를 비동기적으로 가져온다.
     // // console.log("imgae incoding before : ", file);
     // const suppertedFormats = ["image/jpeg", "image/png", "image/svg+xml"]; //허용한 이미지 형식 정의

@@ -1,26 +1,11 @@
-import './css/Loading.scss';
+import Loadingindicator from "./Loadingindicator";
+import "./css/Loading.scss";
 
 //* 로딩 화면
-const Loading = () => {
+const Loading = ({ title = "Loading . . ." }) => {
   return (
-    <main className='main'>
-      <div className='card'>
-        <div className='banter-loader'>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-          <div className='banter-loader__box'></div>
-        </div>
-
-        <div className='card-info'>
-          <h1>Loading . . .</h1>
-        </div>
-      </div>
+    <main className="main">
+      <Loadingindicator title={title} />
     </main>
   );
 };

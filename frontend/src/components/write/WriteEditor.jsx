@@ -12,26 +12,23 @@ import Input from "../ui/Input";
 import HashtagForm from "./HashtagForm";
 import MainImageForm from "./MainImageForm";
 
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "align",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "background",
-  "color",
-  "link",
-  "image",
-  "video",
-  "width",
-];
+import { formats } from "../../util/formats";
+import { fetchPostUploadImage } from "../../util/http";
+
+const initialUserValues = {
+  blog_type_code: 0,
+  title: "",
+  contents: "",
+  preview_img: "",
+  hashtags: [],
+};
+
+const handleStopSubmit = event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    return false;
+  }
+};
 
 // const resizeFile = file =>
 //   new Promise(resolve => {
@@ -51,16 +48,9 @@ const formats = [
 
 // * 게시글 에디터
 const WriteEditor = ({ id, onSubmit }) => {
-  const [userValues, setUserValues] = useState({
-    blog_type_code: 0,
-    title: "",
-    contents: "",
-    preview_img: "",
-    hashtags: [],
-  });
+  const [userValues, setUserValues] = useState(initialUserValues);
 
   const quillRef = useRef();
-
   const imageHandler = () => {
     const input = document.createElement("input");
 
@@ -74,19 +64,7 @@ const WriteEditor = ({ id, onSubmit }) => {
       formData.append("file", file);
 
       try {
-        axios.post("http://localhost:3005/api/common/upload", formData).then(
-          res => {
-            const imageUrl = `http://localhost:3005/${res.data.filePath}`;
-
-            const editor = quillRef.current.getEditor();
-            const range = editor.getSelection();
-            editor.insertEmbed(range.index, "image", imageUrl);
-            editor.setSelection(range.index + 1);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+        fetchPostUploadImage(formData, quillRef);
       } catch (error) {
         console.log(error);
       }
@@ -108,19 +86,12 @@ const WriteEditor = ({ id, onSubmit }) => {
     };
   }, []);
 
-  const handleUpdateContent = event => {
+  const handleUpdateContent = event =>
     setUserValues(prevValues => {
       return { ...prevValues, contents: event };
     });
-  };
 
   // 해시태그 추가시, 엔터키로 인한 폼 전송 방지
-  const handleStopSubmit = event => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      return false;
-    }
-  };
 
   return (
     <form
