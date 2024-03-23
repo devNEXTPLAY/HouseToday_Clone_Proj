@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 
   .card__image {
     width: 365px;
@@ -62,7 +62,7 @@
       }
     }
 
-    .card__count {
+    .card__counter-container {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -70,13 +70,18 @@
       color: #828c94;
       font-size: 14px;
       font-weight: 400;
-    }
-    .circle {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background-color: #828c94;
-      margin: 0.3rem;
+
+      span {
+        margin: 0;
+      }
+
+      .circle {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background-color: #828c94;
+        margin: 8px;
+      }
     }
   }
 }
