@@ -9,7 +9,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Input from "../ui/Input";
-import HashtagForm from "./\bHashtagForm";
+import HashtagForm from "./HashtagForm";
 import MainImageForm from "./MainImageForm";
 
 const formats = [

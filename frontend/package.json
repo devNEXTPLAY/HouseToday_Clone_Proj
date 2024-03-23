@@ -26,6 +26,7 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.71.1",
     "swiper": "^11.0.7",
+    "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },
   "devDependencies": {
