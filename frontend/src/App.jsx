@@ -16,7 +16,7 @@ const Login = lazy(() => import("./pages/auth/Login"));
 const Signup = lazy(() => import("./pages/auth/Signup"));
 
 // ! 게시글 화면
-const Community = lazy(() => import("./pages/community/Community"));
+const KnowHow = lazy(() => import("./pages/know-how/KnowHow"));
 const HousePhoto = lazy(() => import("./pages/house-photo/HousePhoto"));
 const HousewraimngParty = lazy(() =>
   import("./pages/housewarming-party/HousewarmingParty")
@@ -35,7 +35,7 @@ const queryClient = new QueryClient();
 
 // 인증 여부에 따라 레이아웃 변경
 const Layout = () => {
-  const loggedIn = useSelector((state) => !!state.Auth.token);
+  const loggedIn = useSelector(state => !!state.Auth.token);
   console.log("token", loggedIn);
   return loggedIn ? <HomeLayout /> : <NonAuthHomeLayout />;
 };
@@ -61,8 +61,8 @@ const router = createBrowserRouter([
           { path: "housewarming_party", element: <HousewraimngParty /> },
           // * 집 사진 화면 http://localhost:5173/house_photo
           { path: "house_photo", element: <HousePhoto /> },
-          // * 글 목록 화면 http://localhost:5173/comunity
-          { path: "community", element: <Community /> },
+          // * 노하우 화면 http://localhost:5173/comunity
+          { path: "know_how", element: <KnowHow /> },
         ],
       },
       // ! 사용자 설정 관련 화면
