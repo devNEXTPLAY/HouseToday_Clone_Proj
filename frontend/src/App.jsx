@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import HomeLayout from "./layout/HomeLayout";
 import NonAuthHomeLayout from "./layout/NonAuthHomeLayout";
 import SettingLayout from "./layout/SettingLayout";
+import KnowHow from "./pages/know-how/KnowHow";
 
 // ! 홈 화면
 const Home = lazy(() => import("./pages/Home"));
@@ -35,7 +36,7 @@ const queryClient = new QueryClient();
 
 // 인증 여부에 따라 레이아웃 변경
 const Layout = () => {
-  const loggedIn = useSelector((state) => !!state.Auth.token);
+  const loggedIn = useSelector(state => !!state.Auth.token);
   console.log("token", loggedIn);
   return loggedIn ? <HomeLayout /> : <NonAuthHomeLayout />;
 };
@@ -61,8 +62,8 @@ const router = createBrowserRouter([
           { path: "housewarming_party", element: <HousewraimngParty /> },
           // * 집 사진 화면 http://localhost:5173/house_photo
           { path: "house_photo", element: <HousePhoto /> },
-          // * 글 목록 화면 http://localhost:5173/comunity
-          { path: "community", element: <Community /> },
+          // * 노하우 화면 http://localhost:5173/comunity
+          { path: "know_how", element: <KnowHow /> },
         ],
       },
       // ! 사용자 설정 관련 화면

@@ -1,10 +1,10 @@
-import "./css/Community.scss";
+import "./css/KnowHow.scss";
 
 import Articles_simple from "../../components/home/Articles_simple";
 
 ``;
 
-const Community = () => {
+const KnowHow = () => {
   return (
     <>
       {/* //* 게시글 목록 화면  */}
@@ -21,4 +21,4 @@ const Community = () => {
   );
 };
 
-export default Community;
+export default KnowHow;

@@ -1,21 +1,26 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { Link, json, useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 import "./css/Write.scss";
-import { Link, json, useNavigate } from "react-router-dom";
 
 import { TextLogo } from "../../assets/TextLogo";
 import WriteEditor from "../../components/write/WriteEditor";
 import Button from "../../components/ui/Button";
+import Modal from "../../components/ui/Modal";
 
 import { IoIosArrowDown } from "react-icons/io";
 
 // * 게시글 작성
 const Write = () => {
-  const [isGuide, setIsGuide] = useState(false);
-  const token = useSelector(state => state.Auth.token);
+  const navigate = useNavigate();
 
+  const [isGuide, setIsGuide] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const token = useSelector(state => state.Auth.token);
   const handleGuide = () => setIsGuide(prevState => !prevState);
 
   const handleSubmit = async (event, userValues) => {
@@ -39,10 +44,19 @@ const Write = () => {
           hashtags: userValues.hashtags,
         },
       });
+      setIsFetching(true);
+
+      switch (userValues.blog_type_code) {
+        case 1:
+          navigate("/community/");
+          break;
+      }
     } catch (error) {
-      console.error(error);
+      new Error("오류가 발생했습니다.", error);
     }
   };
+
+  const handleClose = () => {};
 
   return (
     <>
@@ -115,6 +129,11 @@ const Write = () => {
       </section>
 
       {/* //* 게시글 에디터 */}
+      {isFetching && (
+        <Modal>
+          <h3>성공적으로 업로드 되었습니다.</h3>
+        </Modal>
+      )}
       <WriteEditor id="create-write" onSubmit={handleSubmit} />
     </>
   );
