@@ -1,6 +1,6 @@
-import './css/MainSubNav.scss';
+import "./css/MainSubNav.scss";
 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 // * 메인 서브 네비게이션
 
@@ -8,32 +8,32 @@ import { NavLink } from 'react-router-dom';
 //* 예) select='home' 서브 네비게이션에서 "홈" 강조
 const MainSubNav = () => {
   return (
-    <nav className='main-nav'>
-      <div className='nav__container'>
+    <nav className="main-nav">
+      <div className="nav__container">
         <div>
           <NavLink
-            to=''
-            className={({ isActive }) => (isActive ? 'select' : null)}
+            to=""
+            className={({ isActive }) => (isActive ? "select" : null)}
           >
             홈
           </NavLink>
           <NavLink
-            to='community'
-            className={({ isActive }) => (isActive ? 'select' : null)}
-          >
-            게시글
-          </NavLink>
-          <NavLink
-            to='housewarming_party'
-            className={({ isActive }) => (isActive ? 'select' : null)}
+            to="housewarming_party"
+            className={({ isActive }) => (isActive ? "select" : null)}
           >
             집들이
           </NavLink>
           <NavLink
-            to='house_photo'
-            className={({ isActive }) => (isActive ? 'select' : null)}
+            to="know_how"
+            className={({ isActive }) => (isActive ? "select" : null)}
           >
-            집사진
+            노하우
+          </NavLink>
+          <NavLink
+            to="house_photo"
+            className={({ isActive }) => (isActive ? "select" : null)}
+          >
+            사진
           </NavLink>
         </div>
       </div>
