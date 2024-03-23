@@ -150,60 +150,50 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // update whatever is changed:
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
-  var {
-    nickname,
-    agree_marketing,
-    agree_promotion,
-    phone,
-    address,
-    profile_img,
-    birth_date,
-  } = req.body;
-  if (phone) {
-    phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
-  }
-  if (address) {
-    address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
-  }
-  try {
-    const user = await db.Users.findOne({
-      where: {
-        nickname: nickname,
-        user_id: {
-          [Op.ne]: req.user.user_id,
-        },
-      },
-    });
-    if (user) {
-      return res.status(400).json({
-        message: "이미 존재하는 닉네임입니다.",
-      });
-    }
-    await db.Users.update(
-      {
-        nickname: nickname,
-        agree_marketing: agree_marketing,
-        agree_promotion: agree_promotion,
-        phone: phone,
-        address: address,
-        profile_img: profile_img,
-        birth_date: Date.parse(birth_date)
-          ? moment(birth_date).format("YYYY-MM-DD")
-          : null,
-        edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
-      },
-      {
-        where: {
-          user_id: req.user.user_id,
-        },
-      }
-    );
-    res.status(200).json({
-      message: "회원정보 수정에 성공하였습니다.",
-    });
-  } catch (error) {
-    next(error);
-  }
+	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } = req.body;
+	var jwt = req.headers.authorization.split("Bearer ")[1];
+	var decoded = jwt.verify(jwt, process.env.JWT_SECRET);
+	var user_id = decoded.id;
+	if (phone) {
+		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
+	}
+	if (address) {
+		address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
+	}
+	try {
+		const user = await db.Users.findOne({
+			where: {
+				user_id: user_id,
+			},
+		});
+		if (!user) {
+			return res.status(400).json({
+				message: "존재하지 않는 사용자입니다.",
+			});
+		}
+		await db.Users.update(
+			{
+				nickname: nickname,
+				agree_marketing: agree_marketing,
+				agree_promotion: agree_promotion,
+				phone: phone,
+				address: address,
+				profile_img: profile_img,
+				birth_date: birth_date,
+				edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
+			},
+			{
+				where: {
+					user_id: user_id,
+				},
+			}
+		);
+		res.status(200).json({
+			message: "회원정보 수정에 성공하였습니다.",
+		});
+	} catch (error) {
+		next(error);
+	}
 });
 
 // 비밀번호 수정 API
@@ -334,50 +324,6 @@ router.get("/profile", async (req, res, next) => {
       });
     }
     res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// 사용자 정보 수정 API
-// http://localhost:3005/api/users/profile
-router.post("/profile", async (req, res, next) => {
-  const { nickname, email, phone, birth_date, intro_msg, profile_img } =
-    req.body;
-  const token = req.headers.authorization.split("Bearer ")[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const user_id = decoded.id;
-  try {
-    const user = await db.Users.findOne({
-      where: {
-        user_id: user_id,
-      },
-    });
-    if (!user) {
-      return res.status(400).json({
-        message: "존재하지 않는 사용자입니다.",
-      });
-    }
-    await db.Users.update(
-      {
-        nickname: nickname,
-        email: email,
-        phone: phone,
-        birth_date: birth_date,
-        intro_msg: intro_msg,
-        profile_img: profile_img,
-      },
-      {
-        where: {
-          user_id: user_id,
-        },
-      }
-    );
-    if (profile_img) {
-    }
-    res.status(200).json({
-      message: "사용자 정보 수정에 성공하였습니다.",
-    });
   } catch (error) {
     next(error);
   }

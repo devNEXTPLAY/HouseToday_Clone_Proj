@@ -7,6 +7,7 @@ var moment = require("moment");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 const getComments = require("../public/js/getComments.js");
+var jwt = require("jsonwebtoken");
 
 // 메인 블로그 글 반환 API
 // 미리보기 정보만 반환
@@ -49,8 +50,21 @@ router.get("/main", async (req, res, next) => {
 // Status: 201 Created / 400 Bad Request / 500 Internal Server Error
 router.post("/create", isLoggedIn, async (req, res, next) => {
 	const { blog_type_code, title, contents, preview_img, hashtags } = req.body;
-	const user_id = req.user.user_id;
+	const jwt = req.headers.authorization.split("Bearer ")[1];
+	const decoded = jwt.verify(jwt, process.env.JWT_SECRET);
+	const user_id = decoded.id;
 	const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+	if (preview_img === "") {
+		await uploadFile(req, res, next);
+		if (res.status === 400) {
+			return res.status(400).json({
+				message: "이미지 업로드에 실패하였습니다.",
+			});
+		} else {
+			preview_img = res;
+		}
+	}
 
 	try {
 		var blog = await db.Blogs.create({
@@ -65,7 +79,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 		});
 
 		if (hashtags) {
-			const hashtagList = hashtags.split(",");
+			const hashtagList = hashtags;
 			for (let i = 0; i < hashtagList.length; i++) {
 				const hashtag = await db.Hashtags.findOne({
 					where: {

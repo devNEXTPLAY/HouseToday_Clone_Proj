@@ -2,13 +2,6 @@ module.exports = (sequelize, DataTypes) => {
 	return sequelize.define(
 		"Follow",
 		{
-			follow_id: {
-				type: DataTypes.INTEGER,
-				primaryKey: true,
-				allowNull: false,
-				autoIncrement: true,
-				comment: "팔로우고유번호",
-			},
 			follower_id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
@@ -18,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 				},
 				comment: "팔로우하는사람고유번호",
 			},
-			following_id: {
+			followee_id: {
 				type: DataTypes.INTEGER,
 				allowNull: false,
 				references: {
