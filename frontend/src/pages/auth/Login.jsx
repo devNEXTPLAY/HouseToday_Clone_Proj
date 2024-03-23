@@ -30,14 +30,16 @@ const Login = () => {
 
   const [user, setUser] = useState({ email: "", password: "" });
 
-  const onLoginChange = (e) => {
+  const onLoginChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onLogin = (e) => {
+  const onLogin = e => {
     axios
-      .post("http://localhost:3005/api/users/login", user)
-      .then((res) => {
+      .post("http://localhost:3005/api/users/login", user, {
+        withCredentials: true,
+      })
+      .then(res => {
         console.log(res.data);
         console.log(res.status);
         if (res.status === 200) {
@@ -46,7 +48,7 @@ const Login = () => {
         }
         navigate("/");
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         if (err.response.status === 404) {
           alert("존재하지 않는 사용자입니다.");

@@ -14,20 +14,22 @@ import { IoIosArrowDown } from "react-icons/io";
 // * 게시글 작성
 const Write = () => {
   const [isGuide, setIsGuide] = useState(false);
+  const token = useSelector(state => state.Auth.token);
 
   const handleGuide = () => setIsGuide(prevState => !prevState);
 
   const handleSubmit = async (event, userValues) => {
     event.preventDefault();
-    const token = localStorage.getItem("token");
 
     try {
-      axios({
+      // credentials: "include",
+      await axios({
         method: "post",
         url: "http://localhost:3005/api/blog/create",
+        withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         data: {
           blog_type_code: userValues.blog_type_code,
@@ -38,7 +40,7 @@ const Write = () => {
         },
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
