@@ -39,6 +39,7 @@ const Login = () => {
       .post("http://localhost:3005/api/users/login", user)
       .then((res) => {
         console.log(res.data);
+        console.log(res.status);
         if (res.status === 200) {
           // 전역데이터에 토큰/로그인 정보 저장
           dispatch(userLogin(res.data.token, res.data.user));
@@ -47,6 +48,11 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 404) {
+          alert("존재하지 않는 사용자입니다.");
+        } else if (err.response.status === 400) {
+          alert("비밀번호가 일치하지 않습니다.");
+        }
       });
     e.preventDefault();
   };
@@ -54,7 +60,7 @@ const Login = () => {
   return (
     <main className="login">
       <header>
-        <MainLogo />S
+        <MainLogo />
       </header>
 
       {/* //* 로그인 입력 폼 */}
