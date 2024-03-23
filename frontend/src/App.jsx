@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 import HomeLayout from "./layout/HomeLayout";
 import NonAuthHomeLayout from "./layout/NonAuthHomeLayout";
 import SettingLayout from "./layout/SettingLayout";
-import KnowHow from "./pages/know-how/KnowHow";
 
 // ! 홈 화면
 const Home = lazy(() => import("./pages/Home"));
@@ -17,7 +16,7 @@ const Login = lazy(() => import("./pages/auth/Login"));
 const Signup = lazy(() => import("./pages/auth/Signup"));
 
 // ! 게시글 화면
-const Community = lazy(() => import("./pages/community/Community"));
+const KnowHow = lazy(() => import("./pages/know-how/KnowHow"));
 const HousePhoto = lazy(() => import("./pages/house-photo/HousePhoto"));
 const HousewraimngParty = lazy(() =>
   import("./pages/housewarming-party/HousewarmingParty")
