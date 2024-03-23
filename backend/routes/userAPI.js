@@ -19,7 +19,7 @@ const errorMiddleware = require("../middlewares/errorMiddleware.js");
 // Status: 200 OK / 404 Not Found / 400 Bad Request / 500 Internal Server Error
 // return token if success / return message if fail
 // token: JWT token { id, email } / 1h
-router.post("/login", (req, res, next) => {
+router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
     if (!user) {
@@ -61,7 +61,7 @@ router.post("/login", (req, res, next) => {
 // http://localhost:3005/api/users/register
 // Status: 201 Created / 400 Bad Request / 500 Internal Server Error
 // return message if success / return message if fail
-router.post("/register", async (req, res, next) => {
+router.post("/register", isNotLoggedIn, async (req, res, next) => {
   const {
     email,
     password,
@@ -151,9 +151,7 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
 	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } = req.body;
-	var jwt = req.headers.authorization.split("Bearer ")[1];
-	var decoded = jwt.verify(jwt, process.env.JWT_SECRET);
-	var user_id = decoded.id;
+  var user_id = req.user.user_id;
 	if (phone) {
 		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
 	}
@@ -246,12 +244,18 @@ router.post("/password", isLoggedIn, async (req, res, next) => {
 // http://localhost:3005/api/users/logout
 // Status: 200 OK / 500 Internal Server Error
 router.get("/logout", isLoggedIn, (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.status(200).json({
-    message: "로그아웃에 성공하였습니다.",
+  req.logout(function(err) {
+    if (err) { 
+      return res.status(500).json({
+        message: "로그아웃 과정에서 문제가 발생하였습니다.",
+      });
+    }
+    res.status(200).json({
+      message: "로그아웃에 성공하였습니다.",
+    });
   });
 });
+
 
 // 이메일 중복확인 API
 // http://localhost:3005/api/users/email
@@ -305,10 +309,8 @@ router.get("/nickname", async (req, res, next) => {
 // http://localhost:3005/api/users/profile
 // Status: 200 OK / 500 Internal Server Error
 // isLogedIn 잠깐 뺐슴돠
-router.get("/profile", async (req, res, next) => {
-  const token = req.headers.authorization.split("Bearer ")[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const user_id = decoded.id;
+router.get("/profile", isLoggedIn, async (req, res, next) => {
+  const user_id = req.user.user_id;
   try {
     const user = await db.Users.findOne({
       where: {

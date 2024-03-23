@@ -46,6 +46,16 @@ const HomeNavigation = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(userLogin());
+    localStorage.removeItem("token");
+    axios({
+      method: "get",
+      url: "http://localhost:3005/api/users/logout",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .catch((err) => console.log(err));
   };
 
   return (

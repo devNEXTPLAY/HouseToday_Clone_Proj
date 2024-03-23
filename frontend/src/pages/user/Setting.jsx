@@ -50,12 +50,14 @@ const Setting = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
           setUser(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
 
