@@ -1,15 +1,17 @@
 var express = require("express");
 var router = express.Router();
-const mainBlog = require("../public/js/mainBlog.js");
 var db = require("../models/index.js");
 var enums = require("../common/enums.js");
 var moment = require("moment");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
-const getComments = require("../public/js/getComments.js");
 
-// 메인 블로그 글 반환 API
-// 미리보기 정보만 반환
+// 자체 모듈 함수
+const getComments = require("../public/js/getComments.js");
+const mainBlog = require("../public/js/mainBlog.js");
+const getRecommendedBlogs = require("../public/js/getRecommendedBlogs.js");
+
+// 메인 페이지 대문 블로그 글 반환 API
 // http://localhost:3005/api/blog/main
 // Status: 200 OK / 404 Not Found / 500 Internal Server Error
 router.get("/main", async (req, res, next) => {
@@ -37,6 +39,97 @@ router.get("/main", async (req, res, next) => {
 		} else {
 			res.status(404).json({
 				message: "메인 블로그 글이 존재하지 않습니다.",
+			});
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 메인 페이지 추천 블로그 글 반환 API
+// http://localhost:3005/api/blog/recommended
+// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+// recommendedBlogs return 8 blog_ids
+router.get("/recommended", async (req, res, next) => {
+	try {
+		const recommendedBlogs = await getRecommendedBlogs();
+		const blogs = await db.Blogs.findAll({
+			attributes: ["blog_id", "title", "preview_img", "user_id"],
+			where: {
+				blog_id: recommendedBlogs,
+			},
+			include: [
+				{
+					model: db.Users,
+					attributes: ["nickname"],
+					as: "User",
+				},
+			],
+		});
+		if (blogs.length > 0) {
+			const data = blogs.map((blog) => {
+				return {
+					blog_id: blog.blog_id,
+					title: blog.title,
+					preview_img: blog.preview_img,
+					nickname: blog.User.nickname,
+				};
+			});
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				message: "추천 블로그 글이 존재하지 않습니다.",
+			});
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 게시판별 블로그 전체 글 반환 API
+// http://localhost:3005/api/blog/list/:type
+// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+router.get("/list", async (req, res, next) => {
+	const { type } = req.query;
+	try {
+		const blogs = await db.Blogs.findAll({
+			attributes: [
+				"blog_id",
+				"title",
+				"preview_img",
+				"user_id",
+				"view_count",
+				"like_count",
+				"comment_count",
+				"reg_date",
+			],
+			where: { blog_type_code: type },
+			include: [
+				{
+					model: db.Users,
+					attributes: ["nickname", "profile_img"],
+					as: "User",
+				},
+			],
+		});
+		if (blogs.length > 0) {
+			const data = blogs.map((blog) => {
+				return {
+					blog_id: blog.blog_id,
+					title: blog.title,
+					preview_img: blog.preview_img,
+					nickname: blog.User.nickname,
+					profile_img: blog.User.profile_img,
+					view_count: blog.view_count,
+					like_count: blog.like_count,
+					comment_count: blog.comment_count,
+					reg_date: blog.reg_date,
+				};
+			});
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				message: "게시판별 블로그 글이 존재하지 않습니다.",
 			});
 		}
 	} catch (error) {
@@ -300,34 +393,32 @@ router.get("/search", async (req, res, next) => {
 					attributes: ["nickname"],
 					as: "User",
 				},
-        {
-          model: db.Hashtags,
-          attributes: ["hashtag_name"],
-          through: {
-            attributes: [],
-          },
-        }
+				{
+					model: db.Hashtags,
+					attributes: ["hashtag_name"],
+					through: {
+						attributes: [],
+					},
+				},
 			],
 		});
 
 		if (blogs.length > 0) {
-      const data = blogs.map((blog) => {
-        return {
-          blog_id: blog.blog_id,
-          title: blog.title,
-          preview_img: blog.preview_img,
-          nickname: blog.User.nickname,
-          hashtag: blog.Hashtags.map((hashtag) => hashtag.hashtag_name),
-        };
-      });
-      res.status(200).json(data);
+			const data = blogs.map((blog) => {
+				return {
+					blog_id: blog.blog_id,
+					title: blog.title,
+					preview_img: blog.preview_img,
+					nickname: blog.User.nickname,
+					hashtag: blog.Hashtags.map((hashtag) => hashtag.hashtag_name),
+				};
+			});
+			res.status(200).json(data);
 		}
 	} catch (error) {
 		next(error);
 	}
 });
-
-
 
 router.use(errorMiddleware);
 module.exports = router;

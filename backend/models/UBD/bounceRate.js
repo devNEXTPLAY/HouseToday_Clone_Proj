@@ -1,4 +1,3 @@
-// user behaviors data model
 // bounce rate
 // collect the number of leaving users from the website after viewing a certain blog
 module.exports = function (sequelize, DataTypes) {

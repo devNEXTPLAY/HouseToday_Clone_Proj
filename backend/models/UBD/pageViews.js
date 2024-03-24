@@ -1,4 +1,3 @@
-// user behaviors data model
 // page views
 // collect which blog page is viewed by which user
 module.exports = function (sequelize, DataTypes) {
