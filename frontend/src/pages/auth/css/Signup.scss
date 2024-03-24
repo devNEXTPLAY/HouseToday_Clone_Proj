@@ -53,7 +53,7 @@
     select {
       height: 40px;
       border: 1px solid #eaedef;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
   }
 
@@ -129,5 +129,43 @@
         color: #828c94;
       }
     }
+  }
+
+  .nickname-box {
+    position: relative;
+  }
+
+  .success,
+  .error {
+    position: absolute;
+    left: 0px;
+    bottom: -10px;
+    font-size: 14px;
+    opacity: 0;
+  }
+
+  .success {
+    color: #34c5f0;
+    animation: fadeIn 1s forwards;
+  }
+  .success::before {
+    content: "사용 가능한 닉네임입니다.";
+  }
+
+  .error {
+    color: red;
+    animation: fadeIn 1s forwards;
+  }
+  .error::before {
+    content: "이미 사용중인 닉네임입니다.";
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
