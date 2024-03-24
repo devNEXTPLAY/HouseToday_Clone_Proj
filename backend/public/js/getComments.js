@@ -1,4 +1,4 @@
-var db = require("../../models/index.js");
+const db = require("../../models/index.js");
 
 // 댓글과 대댓글을 재귀적으로 조회
 // 삭제되지 않은 댓글만 조회

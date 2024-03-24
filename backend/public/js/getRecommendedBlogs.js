@@ -1,8 +1,8 @@
 // 메인페이지 추천 블로그 가져오기 모듈 함수
 // 최근 24시간 내에 작성된 블로그 중 조회수, 좋아요 수, 댓글 수를 고려하여 가장 높은 점수를 가진
 // 8개의 블로그를 추천하는 함수
-import db from "../../models/index.js";
-var enums = require("../../common/enums.js");
+const db = require("../../models");
+const enums = require("../../common/enums.js");
 
 async function getRecommendedBlogs() {
     try {
