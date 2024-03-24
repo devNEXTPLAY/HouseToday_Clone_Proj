@@ -1,24 +1,26 @@
 import "./css/Signup.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import SnsLogin from "../../components/widgets/SnsLogin";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-import AgreeInput from "../../components/ui/AgreeInput";
 import Agree from "./Agree";
 
 // 동의 항목 리스트
 
 // * 회원가입
 const Signup = () => {
-  const [isNickName, setIsNickName] = useState(false);
-
   const navigate = useNavigate();
 
   const [emailLocal, setEmailLocal] = useState("");
   const [domain, setDomain] = useState("");
+
+  const [isInvalid, setIsInvalid] = useState({
+    nickname: false,
+    passwordConfirm: false,
+  });
 
   const [user, setUser] = useState({
     email: "",
@@ -27,19 +29,26 @@ const Signup = () => {
     nickname: "",
   });
 
+  useEffect(() => {}, [user.password, user.passwordConfirm]);
+
   // 이메일 로컬 파트 변경 핸들러
-  const onEmailLocalChange = e => {
+  const onEmailLocalChange = (e) => {
     setEmailLocal(e.target.value);
   };
 
   // 도메인 변경 핸들러
-  const onDomainChange = e => {
+  const onDomainChange = (e) => {
     setDomain(e.target.value);
   };
 
   // 기타 사용자 입력 처리
-  const onRegistChange = e => {
+  const onRegistChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+
+    // 비밀번호 일치 여부
+    if (e.target.name === "passwordConfirm") {
+      handleInvalidPasword(e);
+    }
 
     // 닉네임 중복 검사
     if (e.target.name === "nickname") {
@@ -47,7 +56,7 @@ const Signup = () => {
     }
   };
 
-  const onRegist = e => {
+  const onRegist = (e) => {
     const registData = {
       email: `${emailLocal}@${domain}`,
       password: user.password,
@@ -58,28 +67,44 @@ const Signup = () => {
     };
     axios
       .post("http://localhost:3005/api/users/register", registData)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         if (res.status === 200) {
           navigate("/login");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     e.preventDefault();
   };
 
-  const handleDuplication = async e => {
+  const handleInvalidPasword = (e) => {
+    if (user.password === e.target.value) {
+      setIsInvalid((prevInvalid) => {
+        return { ...prevInvalid, passwordConfirm: false };
+      });
+    } else {
+      setIsInvalid((prevInvalid) => {
+        return { ...prevInvalid, passwordConfirm: true };
+      });
+    }
+  };
+
+  const handleDuplication = async (e) => {
     if (e.target.name === "nickname") {
       try {
         await axios.post("http://localhost:3005/api/users/nickname", {
           [e.target.name]: e.target.value,
         });
-        setIsNickName(false);
+        setIsInvalid((prevInvalid) => {
+          return { ...prevInvalid, nickname: false };
+        });
       } catch (error) {
         if (error.response.status === 409) {
-          setIsNickName(true);
+          setIsInvalid((prevInvalid) => {
+            return { ...prevInvalid, nickname: true };
+          });
         }
       }
     }
@@ -119,16 +144,27 @@ const Signup = () => {
           value={user.password}
           onChange={onRegistChange}
         />
-        <Input
-          type="password"
-          label="비밀번호 확인"
-          placeholder="비밀번호 확인"
-          name="passwordConfirm"
-          value={user.passwordConfirm}
-          onChange={onRegistChange}
-        />
+        <div className="warning-box">
+          <Input
+            type="password"
+            label="비밀번호 확인"
+            placeholder="비밀번호 확인"
+            name="passwordConfirm"
+            value={user.passwordConfirm}
+            onChange={onRegistChange}
+          />
+          {user.passwordConfirm !== "" && (
+            <p
+              className={
+                !isInvalid.passwordConfirm
+                  ? "success success-password"
+                  : "error error-password"
+              }
+            ></p>
+          )}
+        </div>
 
-        <div className="nickname-box">
+        <div className="warning-box">
           <Input
             label="닉네임"
             placeholder="별명 (2~20자)"
@@ -138,7 +174,13 @@ const Signup = () => {
             onChange={onRegistChange}
           />
           {user.nickname !== "" && (
-            <p className={!isNickName ? "success" : "error"}></p>
+            <p
+              className={
+                !isInvalid.nickname
+                  ? `success success-nickname`
+                  : `error error-nickname`
+              }
+            ></p>
           )}
         </div>
 

@@ -53,7 +53,7 @@
     select {
       height: 40px;
       border: 1px solid #eaedef;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
   }
 
@@ -131,7 +131,7 @@
     }
   }
 
-  .nickname-box {
+  .warning-box {
     position: relative;
   }
 
@@ -139,7 +139,7 @@
   .error {
     position: absolute;
     left: 0px;
-    bottom: -10px;
+    bottom: 0px;
     font-size: 14px;
     opacity: 0;
   }
@@ -148,15 +148,24 @@
     color: #34c5f0;
     animation: fadeIn 1s forwards;
   }
-  .success::before {
-    content: "사용 가능한 닉네임입니다.";
-  }
-
   .error {
     color: red;
     animation: fadeIn 1s forwards;
   }
-  .error::before {
+
+  .success-password::before {
+    content: "사용 가능한 비밀번호입니다.";
+  }
+
+  .error-password::before {
+    content: "비밀번호가 일치하지 않습니다.";
+  }
+
+  .success-nickname::before {
+    content: "사용 가능한 닉네임입니다.";
+  }
+
+  .error-nickname::before {
     content: "이미 사용중인 닉네임입니다.";
   }
 }
