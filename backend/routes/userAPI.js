@@ -150,48 +150,56 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // update whatever is changed:
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
-	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } = req.body;
+  var {
+    nickname,
+    agree_marketing,
+    agree_promotion,
+    phone,
+    address,
+    profile_img,
+    birth_date,
+  } = req.body;
   var user_id = req.user.user_id;
-	if (phone) {
-		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
-	}
-	if (address) {
-		address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
-	}
-	try {
-		const user = await db.Users.findOne({
-			where: {
-				user_id: user_id,
-			},
-		});
-		if (!user) {
-			return res.status(400).json({
-				message: "존재하지 않는 사용자입니다.",
-			});
-		}
-		await db.Users.update(
-			{
-				nickname: nickname,
-				agree_marketing: agree_marketing,
-				agree_promotion: agree_promotion,
-				phone: phone,
-				address: address,
-				profile_img: profile_img,
-				birth_date: birth_date,
-				edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
-			},
-			{
-				where: {
-					user_id: user_id,
-				},
-			}
-		);
-		res.status(200).json({
-			message: "회원정보 수정에 성공하였습니다.",
-		});
-	} catch (error) {
-		next(error);
-	}
+  if (phone) {
+    phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
+  }
+  if (address) {
+    address = AES.encrypt(address, process.env.MYSQL_AES_KEY);
+  }
+  try {
+    const user = await db.Users.findOne({
+      where: {
+        user_id: user_id,
+      },
+    });
+    if (!user) {
+      return res.status(400).json({
+        message: "존재하지 않는 사용자입니다.",
+      });
+    }
+    await db.Users.update(
+      {
+        nickname: nickname,
+        agree_marketing: agree_marketing,
+        agree_promotion: agree_promotion,
+        phone: phone,
+        address: address,
+        profile_img: profile_img,
+        birth_date: birth_date,
+        edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
+      },
+      {
+        where: {
+          user_id: user_id,
+        },
+      }
+    );
+    res.status(200).json({
+      message: "회원정보 수정에 성공하였습니다.",
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // 비밀번호 수정 API
@@ -244,8 +252,8 @@ router.post("/password", isLoggedIn, async (req, res, next) => {
 // http://localhost:3005/api/users/logout
 // Status: 200 OK / 500 Internal Server Error
 router.get("/logout", isLoggedIn, (req, res) => {
-  req.logout(function(err) {
-    if (err) { 
+  req.logout(function (err) {
+    if (err) {
       return res.status(500).json({
         message: "로그아웃 과정에서 문제가 발생하였습니다.",
       });
@@ -255,7 +263,6 @@ router.get("/logout", isLoggedIn, (req, res) => {
     });
   });
 });
-
 
 // 이메일 중복확인 API
 // http://localhost:3005/api/users/email
@@ -284,8 +291,8 @@ router.get("/email", async (req, res, next) => {
 // 닉네임 중복확인 API
 // http://localhost:3005/api/users/nickname
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-router.get("/nickname", async (req, res, next) => {
-  const { nickname } = req.query;
+router.post("/nickname", async (req, res, next) => {
+  const { nickname } = req.body;
   try {
     const user = await db.Users.findOne({
       where: {
@@ -293,7 +300,7 @@ router.get("/nickname", async (req, res, next) => {
       },
     });
     if (user) {
-      return res.status(400).json({
+      return res.status(409).json({
         message: "이미 존재하는 닉네임입니다.",
       });
     }

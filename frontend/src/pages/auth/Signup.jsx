@@ -1,96 +1,26 @@
-import { v4 as uuidv4 } from "uuid";
-
 import "./css/Signup.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import SnsLogin from "../../components/widgets/SnsLogin";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-import AgreeInput from "../../components/ui/AgreeInput";
+import Agree from "./Agree";
 
 // 동의 항목 리스트
-const agreeList = [
-  {
-    state: "age",
-    checked: false,
-    title: "만 14세이상입니다",
-    condition: "필수",
-  },
-  {
-    state: "service",
-    checked: false,
-    title: "이용약관",
-    condition: "필수",
-  },
-  {
-    state: "privacy",
-    checked: false,
-    title: "개인정보 수집 및 이용동의",
-    condition: "필수",
-  },
-  {
-    state: "agree_promotion",
-    checked: false,
-    title: "개인정보 마케팅 활용 동의",
-    condition: "선택",
-  },
-  {
-    state: "agree_promotion",
-    checked: false,
-    title: "이벤트, 쿠폰, 특가, 알림 메일 및 SMS 수신",
-    condition: "선택",
-  },
-];
 
 // * 회원가입
 const Signup = () => {
-  const [isAgreeAll, setIsAgreeAll] = useState(false);
-  const [isAgree, setIsAgree] = useState(agreeList);
-
-  // * 전체 동의 핸들러
-  const handleIsAgreeAll = () => {
-    if (isAgreeAll === false) {
-      setIsAgreeAll(true);
-      setIsAgree((prevIsAgree) => {
-        const updateIsAgree = prevIsAgree.map((agree) => {
-          return { ...agree, checked: true };
-        });
-
-        return updateIsAgree;
-      });
-    } else {
-      setIsAgreeAll(false);
-      setIsAgree((prevIsAgree) => {
-        const updateIsAgree = prevIsAgree.map((agree) => {
-          return { ...agree, checked: false };
-        });
-
-        return updateIsAgree;
-      });
-    }
-  };
-
-  // * 개별 동의 핸들러
-  const handleIsAgree = (agree) => {
-    setIsAgree((prevIsAgree) => {
-      const updateIsAgree = prevIsAgree.map((item) => {
-        if (item.title === agree.title) {
-          return { ...item, checked: !item.checked };
-        }
-        return item;
-      });
-      return updateIsAgree;
-    });
-
-    console.log(isAgree);
-  };
-
   const navigate = useNavigate();
 
   const [emailLocal, setEmailLocal] = useState("");
   const [domain, setDomain] = useState("");
+
+  const [isInvalid, setIsInvalid] = useState({
+    nickname: false,
+    passwordConfirm: false,
+  });
 
   const [user, setUser] = useState({
     email: "",
@@ -98,6 +28,8 @@ const Signup = () => {
     passwordConfirm: "",
     nickname: "",
   });
+
+  useEffect(() => {}, [user.password, user.passwordConfirm]);
 
   // 이메일 로컬 파트 변경 핸들러
   const onEmailLocalChange = (e) => {
@@ -112,6 +44,16 @@ const Signup = () => {
   // 기타 사용자 입력 처리
   const onRegistChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
+
+    // 비밀번호 일치 여부
+    if (e.target.name === "passwordConfirm") {
+      handleInvalidPasword(e);
+    }
+
+    // 닉네임 중복 검사
+    if (e.target.name === "nickname") {
+      handleDuplication(e);
+    }
   };
 
   const onRegist = (e) => {
@@ -135,6 +77,37 @@ const Signup = () => {
         console.log(err);
       });
     e.preventDefault();
+  };
+
+  const handleInvalidPasword = (e) => {
+    if (user.password === e.target.value) {
+      setIsInvalid((prevInvalid) => {
+        return { ...prevInvalid, passwordConfirm: false };
+      });
+    } else {
+      setIsInvalid((prevInvalid) => {
+        return { ...prevInvalid, passwordConfirm: true };
+      });
+    }
+  };
+
+  const handleDuplication = async (e) => {
+    if (e.target.name === "nickname") {
+      try {
+        await axios.post("http://localhost:3005/api/users/nickname", {
+          [e.target.name]: e.target.value,
+        });
+        setIsInvalid((prevInvalid) => {
+          return { ...prevInvalid, nickname: false };
+        });
+      } catch (error) {
+        if (error.response.status === 409) {
+          setIsInvalid((prevInvalid) => {
+            return { ...prevInvalid, nickname: true };
+          });
+        }
+      }
+    }
   };
 
   return (
@@ -171,55 +144,49 @@ const Signup = () => {
           value={user.password}
           onChange={onRegistChange}
         />
-        <Input
-          type="password"
-          label="비밀번호 확인"
-          placeholder="비밀번호 확인"
-          name="passwordConfirm"
-          value={user.passwordConfirm}
-          onChange={onRegistChange}
-        />
-        <Input
-          label="닉네임"
-          placeholder="별명 (2~20자)"
-          description="다른 유저와 겹치지 않도록 입력해주세요.(2~20자)"
-          name="nickname"
-          value={user.nickname}
-          onChange={onRegistChange}
-        />
+        <div className="warning-box">
+          <Input
+            type="password"
+            label="비밀번호 확인"
+            placeholder="비밀번호 확인"
+            name="passwordConfirm"
+            value={user.passwordConfirm}
+            onChange={onRegistChange}
+          />
+          {user.passwordConfirm !== "" && (
+            <p
+              className={
+                !isInvalid.passwordConfirm
+                  ? "success success-password"
+                  : "error error-password"
+              }
+            ></p>
+          )}
+        </div>
 
-        <section className="agree-section">
-          <h4>약관 동의</h4>
-          <div className="section__container">
-            <div className="agree__chackbox">
-              <input
-                type="checkbox"
-                id="agree_all"
-                name="agree_all"
-                onChange={handleIsAgreeAll}
-              />
-              <label htmlFor="all">
-                <strong>전체 동의</strong>{" "}
-                <span>선택항목에 대한 동의 포함</span>
-              </label>
-            </div>
+        <div className="warning-box">
+          <Input
+            label="닉네임"
+            placeholder="별명 (2~20자)"
+            description="다른 유저와 겹치지 않도록 입력해주세요.(2~20자)"
+            name="nickname"
+            value={user.nickname}
+            onChange={onRegistChange}
+          />
+          {user.nickname !== "" && (
+            <p
+              className={
+                !isInvalid.nickname
+                  ? `success success-nickname`
+                  : `error error-nickname`
+              }
+            ></p>
+          )}
+        </div>
 
-            <hr />
+        {/* //* 약관 동의 */}
+        <Agree />
 
-            {isAgree.map((agree) => (
-              <AgreeInput
-                key={agree.title}
-                id={agree.state}
-                title={agree.title}
-                condition={agree.condition}
-                checked={agree.checked}
-                onChange={() => handleIsAgree(agree)}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* //* reCAPTCHA */}
         <Button type="submit">회원가입하기</Button>
       </form>
       <p>
