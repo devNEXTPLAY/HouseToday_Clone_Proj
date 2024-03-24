@@ -1,4 +1,3 @@
-// user behaviors data model
 // search queries
 // collect the search queries from the users
 module.exports = function (sequelize, DataTypes) {

@@ -1,4 +1,3 @@
-// user behaviors data model
 // session duration
 // collect how long user stays on the website
 module.exports = function (sequelize, DataTypes) {
