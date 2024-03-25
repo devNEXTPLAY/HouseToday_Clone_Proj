@@ -6,9 +6,9 @@ import { NavLink } from "react-router-dom";
 
 // * props select: 사용자가 선택한 화면 강조
 //* 예) select='home' 서브 네비게이션에서 "홈" 강조
-const MainSubNav = () => {
+const MainSubNav = ({ onClass }) => {
   return (
-    <nav className="main-nav">
+    <nav className={`main-nav ${onClass}`}>
       <div className="nav__container">
         <div>
           <NavLink
