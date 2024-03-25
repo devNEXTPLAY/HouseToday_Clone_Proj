@@ -14,6 +14,7 @@ const Home = lazy(() => import("./pages/Home"));
 // ! 사용자 인증 화면
 const Login = lazy(() => import("./pages/auth/Login"));
 const Signup = lazy(() => import("./pages/auth/Signup"));
+const Oauth = lazy(() => import("./pages/auth/Oauth"));
 
 // ! 게시글 화면
 const KnowHow = lazy(() => import("./pages/know-how/KnowHow"));
@@ -35,7 +36,7 @@ const queryClient = new QueryClient();
 
 // 인증 여부에 따라 레이아웃 변경
 const Layout = () => {
-  const loggedIn = useSelector(state => !!state.Auth.token);
+  const loggedIn = useSelector((state) => !!state.Auth.token);
   console.log("token", loggedIn);
   return loggedIn ? <HomeLayout /> : <NonAuthHomeLayout />;
 };
@@ -50,6 +51,8 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       // * 회원가입 화면 http://localhost:5173/signup
       { path: "signup", element: <Signup /> },
+      // * 카카오 로그인 화면 http://localhost:5173/oauth
+      { path: "oauth", element: <Oauth /> },
 
       // ! 홈 화면
       {
