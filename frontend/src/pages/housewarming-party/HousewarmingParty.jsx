@@ -1,9 +1,11 @@
+import { useLoaderData, Await } from "react-router-dom";
 import "./css/HousewarmingParty.scss";
 
-import { HOUSEWARMING_PARTY_DATA } from "../../assets/housewarming-party";
 import HousewarmingPartyArticle from "./HousewarmingPartyArticle";
 
 const HousewarmingParty = () => {
+  const { data } = useLoaderData();
+
   return (
     <>
       <div className="housewarming-party">
@@ -14,19 +16,9 @@ const HousewarmingParty = () => {
 
         <span>조회 12,453</span>
 
-        <ul className="card-list">
-          {HOUSEWARMING_PARTY_DATA.map((article) => (
-            <HousewarmingPartyArticle
-              key={article.id}
-              title={article.title}
-              author={article.author}
-              likeCount={article.likeCount}
-              viewCount={article.viewCount}
-              coverImage={article.coverImage}
-              profileImage={article.profileImage}
-            />
-          ))}
-        </ul>
+        <Await resolve={data}>
+          {(loadedData) => <HousewarmingPartyArticle data={loadedData} />}
+        </Await>
       </div>
     </>
   );
