@@ -83,6 +83,7 @@ module.exports = function (sequelize, DataTypes) {
 			use_state_code: {
 				type: DataTypes.TINYINT,
 				allowNull: false,
+				defaultValue: 0,
 				comment: "사용자상태 0:정상 1:탈퇴 2:정지",
 			},
 			reg_date: {

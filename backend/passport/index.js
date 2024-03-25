@@ -1,4 +1,5 @@
 const local = require("./localStrategy");
+const kakao = require("./kakaoStrategy");
 const db = require("../models/index");
 
 // serializeUser: pass user_id
@@ -31,4 +32,5 @@ module.exports = (passport) => {
 	});
 
 	local(passport);
+	kakao(passport);
 };
