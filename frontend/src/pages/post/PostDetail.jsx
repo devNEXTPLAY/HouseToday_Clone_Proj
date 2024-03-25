@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 import { useInput } from "../../components/hooks/useInput";
@@ -103,7 +104,7 @@ const PostDetail = ({ data }) => {
                 </Link>
 
                 <div>
-                  <strong>작성자</strong>
+                  <strong>{data.User.nickname}</strong>
                   <span>안녕하세요.</span>
                 </div>
               </div>
