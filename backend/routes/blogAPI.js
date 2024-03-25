@@ -87,11 +87,22 @@ router.get("/recommended", async (req, res, next) => {
 });
 
 // 게시판별 블로그 전체 글 반환 API
-// http://localhost:3005/api/blog/list/:type
+// 게시판코드 - 파라미터 type: 0: 집들이 1: 노하우 2: 사진/영상
+// 정렬 코드 -쿼리스트링 code: 0: 최신순, 1: 좋아요순
+// http://localhost:3005/api/blog/list/0?code=1
 // Status: 200 OK / 404 Not Found / 500 Internal Server Error
-router.get("/list", async (req, res, next) => {
-	const { type } = req.query;
+router.get("/list/:type", async (req, res, next) => {
+	const { type } = req.params;
+	const { code } = req.query;
+
 	try {
+		let order;
+		if (code === "0") {
+			order = [["reg_date", "DESC"]]; // 최신순 정렬
+		} else if (code === "1") {
+			order = [["like_count", "DESC"]]; // 좋아요순 정렬
+		}
+
 		const blogs = await db.Blogs.findAll({
 			attributes: [
 				"blog_id",
@@ -111,22 +122,9 @@ router.get("/list", async (req, res, next) => {
 					as: "User",
 				},
 			],
+			order,
 		});
 		if (blogs.length > 0) {
-			const data = blogs.map((blog) => {
-				return {
-					blog_id: blog.blog_id,
-					title: blog.title,
-					preview_img: blog.preview_img,
-					nickname: blog.User.nickname,
-					profile_img: blog.User.profile_img,
-					view_count: blog.view_count,
-					like_count: blog.like_count,
-					comment_count: blog.comment_count,
-					reg_date: blog.reg_date,
-				};
-			});
-			res.status(200).json(data);
 		} else {
 			res.status(404).json({
 				message: "게시판별 블로그 글이 존재하지 않습니다.",
