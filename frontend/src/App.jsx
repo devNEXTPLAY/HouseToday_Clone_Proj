@@ -22,11 +22,13 @@ const HousePhoto = lazy(() => import("./pages/house-photo/HousePhoto"));
 const HousewraimngParty = lazy(() =>
   import("./pages/housewarming-party/HousewarmingParty")
 );
+import { loader as housewarmingLoader } from "./pages/housewarming-party/loader";
 
 // ! 게시글 쓰기, 수정, 상세
 const Write = lazy(() => import("./pages/community/Write"));
 const WriteEdit = lazy(() => import("./pages/community/WriteEdit"));
-const Post = lazy(() => import("./pages/community/Post"));
+const Post = lazy(() => import("./pages/post/Post"));
+import { loader as postLoader } from "./pages/post/loader";
 
 // ! 사용자 설정 관련 화면
 const User = lazy(() => import("./pages/user/User"));
@@ -61,7 +63,11 @@ const router = createBrowserRouter([
           // * 홈 화면 http://localhost:5173/
           { index: true, element: <Home /> },
           // * 집들이 화면 http://localhost:5173/housewarming_party
-          { path: "housewarming_party", element: <HousewraimngParty /> },
+          {
+            path: "housewarming_party",
+            element: <HousewraimngParty />,
+            loader: housewarmingLoader,
+          },
           // * 집 사진 화면 http://localhost:5173/house_photo
           { path: "house_photo", element: <HousePhoto /> },
           // * 노하우 화면 http://localhost:5173/comunity
@@ -69,6 +75,13 @@ const router = createBrowserRouter([
         ],
       },
       // ! 사용자 설정 관련 화면
+      // * 글 읽기 화면 http://localhost:5173/post/:aid
+      {
+        path: "post/:id",
+        element: <Layout />,
+        children: [{ index: true, element: <Post />, loader: postLoader }],
+      },
+
       {
         path: "users/:uid",
         element: <SettingLayout />,
@@ -78,12 +91,6 @@ const router = createBrowserRouter([
           // * 설정 화면 http://localhost:5173/users/:uid/push
           { path: "edit", element: <Setting /> },
         ],
-      },
-      // * 글 읽기 화면 http://localhost:5173/post/:aid
-      {
-        path: "post/:aid",
-        element: <Layout />,
-        children: [{ index: true, element: <Post /> }],
       },
 
       // ! 게시글 쓰기, 수정
