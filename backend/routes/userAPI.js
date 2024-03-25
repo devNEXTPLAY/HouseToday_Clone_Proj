@@ -63,21 +63,53 @@ router.get(
 		failureRedirect: "#!/login",
 	}),
 	(req, res) => {
-    res.redirect("/");
-  }
+		req.logIn(req.user, (err) => {
+			if (err) return next(err);
+			const token = jwt.sign(
+				{
+					id: req.user.user_id,
+					email: req.user.email,
+				},
+				process.env.JWT_SECRET,
+				{
+					expiresIn: "1h",
+				}
+			);
+			return res.status(200).json({
+				token: token,
+				message: "로그인에 성공하였습니다.",
+			});
+		});
+	}
 );
 
 // 카카오 로그인 콜백 API
 // http://localhost:3005/api/users/oauth/kakao
 // Status: 200 OK / 500 Internal Server Error
 router.get(
-  "/oauth/kakao",
-  passport.authenticate("kakao", {
-    failureRedirect: "#!/login",
-  }),
-  (req, res) => {
-    res.redirect("/");
-  }
+	"/oauth/kakao",
+	passport.authenticate("kakao", {
+		failureRedirect: "#!/login",
+	}),
+	(req, res) => {
+		req.logIn(req.user, (err) => {
+			if (err) return next(err);
+			const token = jwt.sign(
+				{
+					id: req.user.user_id,
+					email: req.user.email,
+				},
+				process.env.JWT_SECRET,
+				{
+					expiresIn: "1h",
+				}
+			);
+			return res.status(200).json({
+				token: token,
+				message: "로그인에 성공하였습니다.",
+			});
+		});
+	}
 );
 
 // 회원가입 API
