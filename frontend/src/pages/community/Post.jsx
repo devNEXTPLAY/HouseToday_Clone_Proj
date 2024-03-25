@@ -1,6 +1,8 @@
-import "./css/Post.scss";
-
+import axios from "axios";
+import { useInput } from "../../components/hooks/useInput";
 import { Link } from "react-router-dom";
+
+import "./css/Post.scss";
 
 import Button from "../../components/ui/Button";
 
@@ -12,6 +14,13 @@ import { PiShareNetworkLight } from "react-icons/pi";
 
 // * 게시글 상세 화면
 const Post = () => {
+  const { value: commentValue, handleInputChange: handleCommentChange } =
+    useInput("");
+
+  const handleSubmit = async () => {
+    // todo: 댓글 작성 API 호출
+  };
+
   return (
     <>
       <main className="main">
@@ -139,6 +148,18 @@ const Post = () => {
 
             {/* //* 게시글 댓글 */}
             <section className="comment">
+              <div className="comment__input">
+                <textarea
+                  name="comment"
+                  id="comment"
+                  placeholder="댓글을 입력해주세요"
+                  rows={50}
+                  value={commentValue}
+                  onChange={handleCommentChange}
+                ></textarea>
+                <button onClick={handleSubmit}>입력</button>
+              </div>
+
               <div className="comment__title-box">
                 <span className="title-box__title">댓글</span>
                 <span className="title-box__count">2</span>
