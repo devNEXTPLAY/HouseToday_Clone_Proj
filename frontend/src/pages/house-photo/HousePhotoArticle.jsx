@@ -18,7 +18,7 @@ const HousePhotoArticle = ({
         <img src={profileImage} alt="프로필 사진" />
         <div className="profile__description">
           <div className="description__nickname">
-            <stong>{nickname}</stong>
+            <strong>{nickname}</strong>
             <span></span>
             <button>팔로우</button>
           </div>
