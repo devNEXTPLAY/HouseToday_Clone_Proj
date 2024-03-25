@@ -18,7 +18,6 @@ const Oauth = () => {
       redirect_uri: REDIRECT_URI,
       code: code,
       client_secret: CLIENT_SECRET,
-      // 이것들은 kakao 측에서 정해준 형식이므로 key값은 꼭 똑같이 써야합니다!
     });
 
     try {
@@ -27,6 +26,8 @@ const Oauth = () => {
         .then((res) => {
           console.log("토큰", res);
           const { access_token } = res.data;
+          // 백엔드로 access_token 보내기
+          // 밑 부분은 백엔드에서 진행해야함
           axios
             .post(
               `https://kapi.kakao.com/v2/user/me`,
