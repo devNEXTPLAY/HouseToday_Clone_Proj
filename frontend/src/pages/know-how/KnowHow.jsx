@@ -1,10 +1,14 @@
+import { useLoaderData, Await } from 'react-router-dom';
+
 import "./css/KnowHow.scss";
+import KnowHowArticles from "./KnowHowArticles";
 
-import Articles_simple from "../../components/home/Articles_simple";
 
-``;
 
 const KnowHow = () => {
+  const { data } = useLoaderData();
+
+
   return (
     <>
       {/* //* 게시글 목록 화면  */}
@@ -14,8 +18,11 @@ const KnowHow = () => {
           <option value="like">좋아요순</option>
         </select>
 
-        <span>전체 12,544</span>
-        <Articles_simple />
+
+        <Await resolve={data}>
+          {(loadedData) => <KnowHowArticles data={loadedData}/>}
+        </Await>
+        
       </main>
     </>
   );
