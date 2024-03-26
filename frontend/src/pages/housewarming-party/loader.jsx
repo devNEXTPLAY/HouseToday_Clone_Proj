@@ -1,7 +1,7 @@
 import { defer } from "react-router-dom";
 
 const loadData = async () => {
-  const response = await fetch("http://localhost:3005/api/blog/list?type=0");
+  const response = await fetch("http://localhost:3005/api/blog/list/0/?code=1");
 
   if (!response.ok) {
     throw new Error("서버 오류");
