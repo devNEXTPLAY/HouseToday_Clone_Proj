@@ -18,6 +18,7 @@ import Comment from "./Comment";
 const PostDetail = ({ data }) => {
   const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
   const token = useSelector((state) => state.Auth.token);
+  const [isReply, setIsReply] = useState(false);
 
   const handleComment = async () => {
     await axios({
@@ -149,9 +150,13 @@ const PostDetail = ({ data }) => {
                 <span className="title-box__count">{data.comments.length}</span>
               </div>
               <ul>
-                {data.comments.map((comment) => (
-                  <Comment key={comment.comment_id} comment={comment} />
-                ))}
+                {data.comments.map((comment) => {
+                  return (
+                    <div key={comment.comment_id}>
+                      <Comment comment={comment} />
+                    </div>
+                  );
+                })}
               </ul>
             </section>
           </section>

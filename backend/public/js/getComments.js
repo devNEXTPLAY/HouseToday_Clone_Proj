@@ -4,9 +4,7 @@ const db = require("../../models/index.js");
 // 삭제되지 않은 댓글만 조회
 async function fetchComments(commentId, blogId) {
   const comments = await db.Comments.findAll({
-    where: commentId
-      ? { parent_id: commentId }
-      : { blog_id: blogId, parent_id: null, comment_status_code: 0 },
+    where: commentId ? { parent_id: commentId } : { blog_id: blogId, parent_id: null, comment_status_code: 0 },
     include: [
       {
         model: db.Users,
@@ -32,7 +30,7 @@ async function fetchComments(commentId, blogId) {
   // 각 댓글에 대한 대댓글을 재귀적으로 조회
   for (let comment of comments) {
     if (comment.Replies) {
-      comment.Replies = await fetchComments(comment.comment_id);
+      comment.Replies = await fetchComments(comment.comment_id, comment.blog_id);
     }
   }
 
