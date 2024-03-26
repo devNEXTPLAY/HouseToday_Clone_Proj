@@ -7,13 +7,8 @@ import "./css/Post.scss";
 
 const Post = () => {
   const { data } = useLoaderData();
-  console.log(data);
 
-  return (
-    <Await resolve={data}>
-      {(loadedData) => <PostDetail data={loadedData} />}
-    </Await>
-  );
+  return <Await resolve={data}>{(loadedData) => <PostDetail data={loadedData} key={loadedData} />}</Await>;
 };
 
 export default Post;
