@@ -197,7 +197,7 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // update whatever is changed:
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
-	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date, intro_msg} = req.body;
+	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date, intro_msg } = req.body;
 	var user_id = req.user.user_id;
 	if (phone) {
 		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
@@ -355,7 +355,6 @@ router.post("/nickname", async (req, res, next) => {
 // 사용자 정보 조회 API
 // http://localhost:3005/api/users/profile
 // Status: 200 OK / 500 Internal Server Error
-// isLogedIn 잠깐 뺐슴돠
 router.get("/profile", isLoggedIn, async (req, res, next) => {
 	const user_id = req.user.user_id;
 	try {
@@ -372,10 +371,51 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
 				message: "존재하지 않는 사용자입니다.",
 			});
 		}
-		if(user.phone){
+		if (user.phone) {
 			user.phone = AES.decrypt(user.phone, process.env.MYSQL_AES_KEY);
 		}
 		res.status(200).json(user);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 사용자 작성 게시글 조회 API
+// http://localhost:3005/api/users/blogs
+// Status: 200 OK / 500 Internal Server Error
+router.get("/blogs", isLoggedIn, async (req, res, next) => {
+	const user_id = req.user.user_id;
+	try {
+		const blogs = await db.Blogs.findAll({
+			where: {
+				user_id: user_id,
+			},
+			order: [["reg_date", "DESC"]],
+		});
+		res.status(200).json(blogs);
+	} catch (error) {
+		next(error);
+	}
+});
+
+// 사용자가 좋아요를 누른 게시글 조회 API
+// http://localhost:3005/api/users/likes
+// Status: 200 OK / 500 Internal Server Error
+router.get("/likes", isLoggedIn, async (req, res, next) => {
+	const user_id = req.user.user_id;
+	try {
+		const likes = await db.BlogLikes.findAll({
+			where: {
+				user_id: user_id,
+			},
+			include: [
+				{
+					model: db.Blogs,
+				},
+			],
+			order: [["reg_date", "DESC"]],
+		});
+		res.status(200).json(likes);
 	} catch (error) {
 		next(error);
 	}
