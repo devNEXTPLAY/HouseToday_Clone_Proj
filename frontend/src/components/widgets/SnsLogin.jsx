@@ -12,9 +12,7 @@ import { Naver } from "../../assets/Naver.jsx";
 //* props text: text 로고 상단에 표시할 텍스트
 const SnsLogin = ({ text, children }) => {
   const handleKakao = () => {
-    axios.get("http://localhost:3005/api/users/kakao").then((res)=>{
-      console.log(res);
-    }).catch();
+    window.location.href = "http://localhost:3005/api/users/kakao";
   }
   
 

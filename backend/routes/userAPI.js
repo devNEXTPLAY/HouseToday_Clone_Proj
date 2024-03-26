@@ -60,7 +60,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 router.get(
 	"/kakao",
 	passport.authenticate("kakao", {
-		failureRedirect: "#!/login",
+		failureRedirect: "/login",
 	}),
 	(req, res) => {
 		req.logIn(req.user, (err) => {
@@ -75,10 +75,7 @@ router.get(
 					expiresIn: "1h",
 				}
 			);
-			return res.status(200).json({
-				token: token,
-				message: "로그인에 성공하였습니다.",
-			});
+			res.redirect(`http://localhost:5173/?token=${token}`);
 		});
 	}
 );
@@ -89,7 +86,7 @@ router.get(
 router.get(
 	"/oauth/kakao",
 	passport.authenticate("kakao", {
-		failureRedirect: "#!/login",
+		failureRedirect: "/login",
 	}),
 	(req, res) => {
 		req.logIn(req.user, (err) => {
@@ -104,10 +101,7 @@ router.get(
 					expiresIn: "1h",
 				}
 			);
-			return res.status(200).json({
-				token: token,
-				message: "로그인에 성공하였습니다.",
-			});
+			res.redirect(`http://localhost:5173/?token=${token}`);
 		});
 	}
 );
