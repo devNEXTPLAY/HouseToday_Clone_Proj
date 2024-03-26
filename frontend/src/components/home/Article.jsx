@@ -1,6 +1,9 @@
 import { useMediaQuery } from "react-responsive";
 import { CiBookmark } from "react-icons/ci";
 
+import './css/Articles.scss';
+
+
 import "./css/Article.scss";
 
 // * 게시글 카드

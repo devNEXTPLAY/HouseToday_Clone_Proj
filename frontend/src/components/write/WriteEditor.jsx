@@ -1,6 +1,5 @@
 // import Resizer from "./resizer";
-import { useState, useMemo, useRef } from "react";
-import axios from "axios";
+import { useState, useMemo, useRef, useEffect } from "react";
 import "./css/WriteEditor.scss";
 
 // * TinyMCE: 텍스트 에디터 라이브러리
@@ -49,6 +48,7 @@ const handleStopSubmit = event => {
 // * 게시글 에디터
 const WriteEditor = ({ id, onSubmit }) => {
   const [userValues, setUserValues] = useState(initialUserValues);
+
 
   const quillRef = useRef();
   const imageHandler = () => {
@@ -124,7 +124,7 @@ const WriteEditor = ({ id, onSubmit }) => {
             id="select__option"
             onChange={event =>
               setUserValues(prevValues => {
-                return { ...prevValues, blog_tpye_code: event.target.value };
+                return { ...prevValues, blog_type_code: event.target.value };
               })
             }
           >

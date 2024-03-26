@@ -6,23 +6,18 @@
   justify-content: center;
   align-items: center; /* Center horizontally and vertically */
 
-  img {
-    width: 270px;
-    height: 270px;
-  }
-
   .profile {
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 18px;
 
     img {
       width: 38px;
       height: 38px;
       border-radius: 50%;
-      margin-right: 10px;
+      margin-right: 18px;
     }
 
     .profile__description {
@@ -75,7 +70,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 270px;
+    width: 290px;
     height: 270px;
     border-radius: 4px;
     object-fit: cover;
