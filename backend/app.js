@@ -15,6 +15,7 @@ var indexRouter = require("./routes/index");
 var usersAPIRouter = require("./routes/userAPI");
 var commonAPIRouter = require("./routes/commonAPI");
 var blogAPIRouter = require("./routes/blogAPI");
+var commentAPIRouter = require("./routes/commentAPI");
 
 var sequelize = require("./models/index.js").sequelize;
 var app = express();
@@ -65,6 +66,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/api/users", usersAPIRouter);
 app.use("/api/common", commonAPIRouter);
+app.use("/api/comment", commentAPIRouter);
 app.use("/api/blog", blogAPIRouter);
 app.use("/public", express.static("public"));
 
