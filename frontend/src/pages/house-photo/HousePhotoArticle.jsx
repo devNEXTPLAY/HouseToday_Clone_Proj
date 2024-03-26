@@ -5,7 +5,6 @@ import "./css/HousePhotoArticle.scss";
 import { GrView } from "react-icons/gr";
 
 import { AiOutlineHeart } from "react-icons/ai";
-import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
 
 const HousePhotoArticle = ({ data }) => {
   return (
@@ -14,7 +13,7 @@ const HousePhotoArticle = ({ data }) => {
         <Link key={article.blog_id} to={`/post/${article.blog_id}`}>
           <li className="house-photo-card">
             <section className="profile">
-              <img src={article.preview_img} alt="프로필 사진" />
+              <img src={article.profile_img} alt="프로필 사진" />
               <div className="profile__description">
                 <div className="description__nickname">
                   <strong>{article.nickname}</strong>

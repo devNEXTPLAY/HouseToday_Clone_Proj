@@ -10,7 +10,7 @@ const errorMiddleware = require("../middlewares/errorMiddleware.js");
 //  http://localhost:3005/api/comment/create
 //  Status: 201 Created / 400 Bad Request / 500 Internal Server Error
 router.post("/create", isLoggedIn, async (req, res, next) => {
-	const { blog_id, parent_id, contents } = req.body;
+	const { blog_id, parent_id, content } = req.body;
 	const user_id = req.user.user_id;
 	const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
@@ -28,7 +28,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 		await db.Comments.create({
 			blog_id,
 			user_id,
-			contents,
+			content,
 			parent_id,
 			ip_address,
 			reg_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
