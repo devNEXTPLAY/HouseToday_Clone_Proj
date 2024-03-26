@@ -76,10 +76,11 @@ const Setting = () => {
     };
     console.log(settingData);
     axios
-      .post("http://localhost:3005/api/users/profile", settingData, {
+      .patch("http://localhost:3005/api/users/modify", settingData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       })
       .then((res) => {
         console.log(res);
