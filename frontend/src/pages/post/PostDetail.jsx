@@ -1,4 +1,5 @@
-import parse from 'html-react-parser';
+import { useState } from "react";
+import parse from "html-react-parser";
 
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -12,12 +13,11 @@ import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
 import { PiShareNetworkLight } from "react-icons/pi";
 
 import Button from "../../components/ui/Button";
+import Comment from "./Comment";
 
 const PostDetail = ({ data }) => {
   const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
   const token = useSelector((state) => state.Auth.token);
-
-
 
   const handleComment = async () => {
     await axios({
@@ -30,7 +30,7 @@ const PostDetail = ({ data }) => {
       },
       data: {
         blog_id: data.blog_id,
-        parent_id: 1,
+        parent_id: null,
         content: commentValue,
       },
     }).then((res) => {
@@ -94,9 +94,7 @@ const PostDetail = ({ data }) => {
               <Button>팔로우</Button>
             </div>
 
-            <div>
-               {parse(data.contents)}
-            </div>
+            <div>{parse(data.contents)}</div>
 
             <img
               className="warning"
@@ -146,60 +144,15 @@ const PostDetail = ({ data }) => {
                 ></textarea>
                 <button onClick={handleComment}>입력</button>
               </div>
-
-              {/* <div className="comment__title-box">
-                  <span className="title-box__title">댓글</span>
-                  <span className="title-box__count">2</span>
-                </div> */}
-
-              {/* //* 댓글단 사용자 프로필 */}
-              {/* <div className="comment__user">
-                  <div className="user__profile">
-                    <img
-                      src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D"
-                      alt=""
-                    />
-  
-                    <strong>포케 먹고싶당</strong>
-                  </div>
-  
-                  <p className="comment__text">
-                    구옥을 이렇게 탈바꿈하는게 쉬운일이 아닌데 정말 대단해요! 큰돈
-                    안들이고 실속있게 바꾸신 모습이 멋집니당 ㅎㅎㅎ 저역시
-                    체리몰딩과 싸우는중이라.. 얼마나 구석구석 다 신경쓰셨는지
-                    느껴져요 ㅜㅜ 창문은 시트지 떼시고 흰색 실리콘 다시
-                    쏘신건가요?
-                  </p>
-  
-                  <div className="user__action">
-                    <span>1주</span>
-                    <span>좋아요</span>
-                    <span>답글 달기</span>
-                    <span>신고</span>
-                  </div>
-                </div>
-  
-                <div className="comment__user">
-                  <div className="user__profile">
-                    <img
-                      src="https://plus.unsplash.com/premium_photo-1666919621579-2fc3f6918cf6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8JUVEJThGJUFDJUVDJUJDJTgwfGVufDB8fDB8fHww"
-                      alt=""
-                    />
-  
-                    <strong>포케 먹고싶당</strong>
-                  </div>
-  
-                  <p className="comment__text">
-                    이 글을 읽으니 포케가 먹고싶군요!
-                  </p>
-  
-                  <div className="user__action">
-                    <span>1주</span>
-                    <span>좋아요</span>
-                    <span>답글 달기</span>
-                    <span>신고</span>
-                  </div>
-                </div> */}
+              <div className="comment__title-box">
+                <span className="title-box__title">댓글</span>
+                <span className="title-box__count">{data.comments.length}</span>
+              </div>
+              <ul>
+                {data.comments.map((comment) => (
+                  <Comment key={comment.comment_id} comment={comment} />
+                ))}
+              </ul>
             </section>
           </section>
         </section>
