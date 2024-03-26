@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
+
 import { Link } from "react-router-dom";
 
 import { useInput } from "../../components/hooks/useInput";
@@ -10,12 +13,29 @@ import { PiShareNetworkLight } from "react-icons/pi";
 import Button from "../../components/ui/Button";
 
 const PostDetail = ({ data }) => {
-  console.log(data);
+  const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
+  const token = useSelector((state) => state.Auth.token);
 
-  const { value: commentValue, handleInputChange: handleCommentChange } =
-    useInput("");
 
-  const handleSubmit = async () => {};
+
+  const handleComment = async () => {
+    await axios({
+      method: "post",
+      url: "http://localhost:3005/api/comment/create",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        blog_id: data.blog_id,
+        parent_id: 1,
+        content: commentValue,
+      },
+    }).then((res) => {
+      console.log("res", res);
+    });
+  };
 
   return (
     <>
@@ -73,9 +93,7 @@ const PostDetail = ({ data }) => {
               <Button>팔로우</Button>
             </div>
 
-            <div dangerouslySetInnerHTML={{ __html: data.contents }}>
-              {/* //* 게시글 내용 섹션 제목 */}
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: data.contents }}>{/* //* 게시글 내용 섹션 제목 */}</div>
 
             <img
               className="warning"
@@ -116,14 +134,14 @@ const PostDetail = ({ data }) => {
             <section className="comment">
               <div className="comment__input">
                 <textarea
-                  name="comment"
-                  id="comment"
+                  name="content"
+                  id="content"
                   placeholder="댓글을 입력해주세요"
                   rows={50}
                   value={commentValue}
                   onChange={handleCommentChange}
                 ></textarea>
-                <button onClick={handleSubmit}>입력</button>
+                <button onClick={handleComment}>입력</button>
               </div>
 
               {/* <div className="comment__title-box">
