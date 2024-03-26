@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import parse from 'html-react-parser';
+
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -93,7 +94,9 @@ const PostDetail = ({ data }) => {
               <Button>팔로우</Button>
             </div>
 
-            <div dangerouslySetInnerHTML={{ __html: data.contents }}>{/* //* 게시글 내용 섹션 제목 */}</div>
+            <div>
+               {parse(data.contents)}
+            </div>
 
             <img
               className="warning"
