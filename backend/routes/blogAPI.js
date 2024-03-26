@@ -101,6 +101,10 @@ router.get("/list/:type", async (req, res, next) => {
 			order = [["reg_date", "DESC"]]; // 최신순 정렬
 		} else if (code === "1") {
 			order = [["like_count", "DESC"]]; // 좋아요순 정렬
+		} else {
+			return res.status(400).json({
+				message: "정렬 코드가 올바르지 않습니다.",
+			});
 		}
 
 		const blogs = await db.Blogs.findAll({
@@ -125,6 +129,20 @@ router.get("/list/:type", async (req, res, next) => {
 			order,
 		});
 		if (blogs.length > 0) {
+			const data = blogs.map((blog) => {
+				return {
+					blog_id: blog.blog_id,
+					title: blog.title,
+					preview_img: blog.preview_img,
+					nickname: blog.User.nickname,
+					profile_img: blog.User.profile_img,
+					view_count: blog.view_count,
+					like_count: blog.like_count,
+					comment_count: blog.comment_count,
+					reg_date: blog.reg_date,
+				};
+			});
+			res.status(200).json(data);
 		} else {
 			res.status(404).json({
 				message: "게시판별 블로그 글이 존재하지 않습니다.",
@@ -158,6 +176,7 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 		if (hashtags) {
 			const hashtagList = hashtags;
 			for (let i = 0; i < hashtagList.length; i++) {
+				console.log(hashtagList[i]);
 				const hashtag = await db.Hashtags.findOne({
 					where: {
 						hashtag_name: hashtagList[i],
