@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../redux/actions";
 
@@ -19,6 +19,7 @@ const HomeNavigation = () => {
   const [user, setUser] = useState({});
 
   const token = useSelector((state) => state.Auth.token);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -30,10 +31,12 @@ const HomeNavigation = () => {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res);
           setUser(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          navigate("/login");
+        });
     }
   }, []);
 
@@ -55,8 +58,7 @@ const HomeNavigation = () => {
         Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
-    })
-    .catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
   };
 
   return (
@@ -86,9 +88,7 @@ const HomeNavigation = () => {
             </Button>
 
             {/* //* 사용자 프로필 드롭다운 메뉴 */}
-            <nav
-              className={isSettings ? "header__profile-dropdown" : "isDisplay"}
-            >
+            <nav className={isSettings ? "header__profile-dropdown" : "isDisplay"}>
               <Link to="/users/1">마이 페이지</Link>
               <Link to="/login" onClick={handleLogout}>
                 로그아웃
