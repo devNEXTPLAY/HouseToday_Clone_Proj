@@ -1,27 +1,18 @@
-import './css/HousePhoto.scss';
+import { useLoaderData, Await } from "react-router-dom";
 
-import { HOUSE_PHOTO_DATA } from '../../assets/house-photo';
+import "./css/HousePhoto.scss";
 
-import HousePhotoArticle from './HousePhotoArticle';
+import HousePhotoArticle from "./HousePhotoArticle";
 
 const HousePhoto = () => {
+  const { data } = useLoaderData();
+
   return (
     <>
-      <main className='house-photo'>
-        <ul className='card-list'>
-          {HOUSE_PHOTO_DATA.map(article => (
-            <HousePhotoArticle
-              key={article.id}
-              nickname={article.nickname}
-              description={article.description}
-              profileImage={article.profileImage}
-              likeCount={article.likeCount}
-              commentCount={article.commentCount}
-              coverImage={article.coverImage}
-              content={article.content}
-            />
-          ))}
-        </ul>
+      <main className="house-photo">
+        <Await resolve={data}>
+          <Await resolve={data}>{(loadedData) => <HousePhotoArticle data={loadedData} />}</Await>
+        </Await>
       </main>
     </>
   );

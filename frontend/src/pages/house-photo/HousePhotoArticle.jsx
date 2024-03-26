@@ -1,51 +1,54 @@
+import { Link } from "react-router-dom";
+
 import "./css/HousePhotoArticle.scss";
-import { FcLikePlaceholder } from "react-icons/fc";
+// import { FcLikePlaceholder } from "react-icons/fc";
+import { GrView } from "react-icons/gr";
+
 import { AiOutlineHeart } from "react-icons/ai";
 import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
 
-const HousePhotoArticle = ({
-  nickname,
-  description,
-  profileImage,
-  likeCount,
-  commentCount,
-  coverImage,
-  content,
-}) => {
+const HousePhotoArticle = ({ data }) => {
   return (
-    <li className="house-photo-card">
-      <section className="profile">
-        <img src={profileImage} alt="프로필 사진" />
-        <div className="profile__description">
-          <div className="description__nickname">
-            <strong>{nickname}</strong>
-            <span></span>
-            <button>팔로우</button>
-          </div>
-          <p className="description__introduction">{description}</p>
-        </div>
-      </section>
-      <div className="card__image">
-        <img src={coverImage} alt="" />
-      </div>
-      <div className="card__count">
-        <span>
-          <button>
-            <AiOutlineHeart size="24" />
-          </button>
-          <p>{likeCount}</p>
-        </span>
+    <ul className="card-list">
+      {data?.map((article) => (
+        <Link key={article.blog_id} to={`/post/${article.blog_id}`}>
+          <li className="house-photo-card">
+            <section className="profile">
+              <img src={article.preview_img} alt="프로필 사진" />
+              <div className="profile__description">
+                <div className="description__nickname">
+                  <strong>{article.nickname}</strong>
+                  <span></span>
+                  <button>팔로우</button>
+                </div>
+                {/* 소개 */}
+                <p className="description__introduction">{article.title}</p>
+              </div>
+            </section>
+            <div className="card__image">
+              <img src={article.preview_img} alt="" />
+            </div>
+            <div className="card__count">
+              <span>
+                <button>
+                  <AiOutlineHeart size="24" />
+                </button>
+                <p>{article.like_count}</p>
+              </span>
 
-        <span>
-          <button>
-            <HiOutlineChatBubbleBottomCenter size="24" />
-          </button>
-          <p>{commentCount}</p>
-        </span>
-      </div>
+              <span>
+                <button>
+                  <GrView size="24" />
+                </button>
+                <p>{article.view_count}</p>
+              </span>
+            </div>
 
-      <p className="card__content"> {content}</p>
-    </li>
+            {/* <p className="card__content"> {article}</p> */}
+          </li>
+        </Link>
+      ))}
+    </ul>
   );
 };
 
