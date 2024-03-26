@@ -33,12 +33,6 @@ const Setting = () => {
         .catch((err) => {
           console.log(err);
         });
-    } else {
-      // 업로드 취소할 시
-      setImage(
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-      );
-      return;
     }
   };
 
@@ -55,6 +49,9 @@ const Setting = () => {
         })
         .then((res) => {
           setUser(res.data);
+          // 프로필 로딩 시 이미지 설정
+          // db에 이미지 없을 경우 기본 이미지
+          setImage(res.data.profile_img || image)
         })
         .catch((err) => {
           console.log(err);
@@ -85,6 +82,7 @@ const Setting = () => {
       })
       .then((res) => {
         console.log(res);
+        navigate(`/users/${uid}`);
       })
       .catch((err) => {
         console.log(err);
@@ -153,7 +151,7 @@ const Setting = () => {
         <nav className="nav">
           <Link>탈퇴하기</Link>
 
-          <Button type="submit" onClick={()=>{navigate(`/users/${uid}`)}}>완료</Button>
+          <Button type="submit">완료</Button>
         </nav>
       </form>
     </>
