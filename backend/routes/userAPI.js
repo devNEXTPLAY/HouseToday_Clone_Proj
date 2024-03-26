@@ -197,7 +197,7 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 // update whatever is changed:
 // nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
-	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date } = req.body;
+	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date, intro_msg} = req.body;
 	var user_id = req.user.user_id;
 	if (phone) {
 		phone = AES.encrypt(phone, process.env.MYSQL_AES_KEY);
@@ -224,6 +224,7 @@ router.patch("/modify", isLoggedIn, async (req, res, next) => {
 				phone: phone,
 				address: address,
 				profile_img: profile_img,
+				intro_msg: intro_msg,
 				birth_date: birth_date,
 				edit_date: moment().format("YYYY-MM-DD HH:mm:ss"),
 			},
@@ -370,6 +371,9 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
 			return res.status(400).json({
 				message: "존재하지 않는 사용자입니다.",
 			});
+		}
+		if(user.phone){
+			user.phone = AES.decrypt(user.phone, process.env.MYSQL_AES_KEY);
 		}
 		res.status(200).json(user);
 	} catch (error) {
