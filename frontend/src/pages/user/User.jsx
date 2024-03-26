@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -8,6 +9,8 @@ import { AiOutlineHeart } from "react-icons/ai";
 
 // * 사용자 프로필 설정
 const User = () => {
+  const { uid } = useParams();
+
   const [user, setUser] = useState({});
 
   const token = useSelector((state) => state.Auth.token);
@@ -41,7 +44,9 @@ const User = () => {
               <span>팔로워 0</span>
               <span>팔로잉 0</span>
             </div>
-            <button>설정</button>
+            <button>
+              <Link to={`/users/${uid}/edit`}>설정</Link>
+            </button>
 
             <hr />
 

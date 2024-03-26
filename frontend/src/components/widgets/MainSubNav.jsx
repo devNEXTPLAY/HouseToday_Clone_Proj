@@ -12,25 +12,25 @@ const MainSubNav = ({ onClass }) => {
       <div className="nav__container">
         <div>
           <NavLink
-            to=""
+            to="/"
             className={({ isActive }) => (isActive ? "select" : null)}
           >
             홈
           </NavLink>
           <NavLink
-            to="housewarming_party"
+            to="/housewarming_party"
             className={({ isActive }) => (isActive ? "select" : null)}
           >
             집들이
           </NavLink>
           <NavLink
-            to="know_how"
+            to="/know_how"
             className={({ isActive }) => (isActive ? "select" : null)}
           >
             노하우
           </NavLink>
           <NavLink
-            to="house_photo"
+            to="/house_photo"
             className={({ isActive }) => (isActive ? "select" : null)}
           >
             사진

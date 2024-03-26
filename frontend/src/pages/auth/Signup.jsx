@@ -1,6 +1,6 @@
 import "./css/Signup.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 import SnsLogin from "../../components/widgets/SnsLogin";
@@ -13,9 +13,11 @@ import Agree from "./Agree";
 // * 회원가입
 const Signup = () => {
   const navigate = useNavigate();
+  const domainInputRef = useRef(null);
 
   const [emailLocal, setEmailLocal] = useState("");
   const [domain, setDomain] = useState("");
+  const [isCustomDomain, setIsCustomDomain] = useState(false); // 사용자 정의 도메인 입력 상태
 
   const [isInvalid, setIsInvalid] = useState({
     nickname: false,
@@ -29,15 +31,38 @@ const Signup = () => {
     nickname: "",
   });
 
-  useEffect(() => {}, [user.password, user.passwordConfirm]);
+  useEffect(() => {
+    // 도메인 입력 필드에 포커스
+    if (isCustomDomain) {
+      domainInputRef.current.focus();
+    }
+  }, [isCustomDomain]);
 
   // 이메일 로컬 파트 변경 핸들러
   const onEmailLocalChange = (e) => {
-    setEmailLocal(e.target.value);
+    const value = e.target.value;
+    setEmailLocal(value);
+
+    // @를 입력하면, 도메인 입력 필드 활성화
+    if (value.includes("@")) {
+      const domainPart = value.split("@")[1] || "";
+      setDomain(domainPart);
+      setIsCustomDomain(true);
+
+      setEmailLocal(value.split("@")[0]);
+    } else {
+      setIsCustomDomain(false);
+    }
   };
 
   // 도메인 변경 핸들러
   const onDomainChange = (e) => {
+    setDomain(e.target.value);
+    setIsCustomDomain(e.target.value === "custom"); // "직접 입력"이 선택되면 true로 설정
+  };
+
+  // 도메인 직접 입력 처리
+  const onCustomDomainChange = (e) => {
     setDomain(e.target.value);
   };
 
@@ -127,11 +152,16 @@ const Signup = () => {
           onChange={onEmailLocalChange}
         >
           <span>@</span>
-          <select name="domain" onChange={onDomainChange}>
-            <option value="">직접 입력</option>
-            <option value="naver.com">naver.com</option>
-            <option value="kakao.com">kakao.com</option>
-          </select>
+          {isCustomDomain ? (
+            <input type="text" value={domain} onChange={onCustomDomainChange} ref={domainInputRef} />
+          ) : (
+            <select name="domain" onChange={onDomainChange}>
+              <option value="">선택해주세요</option>
+              <option value="naver.com">naver.com</option>
+              <option value="kakao.com">kakao.com</option>
+              <option value="custom">직접 입력</option>
+            </select>
+          )}
           <Button>이메일 인증하기</Button>
         </Input>
 

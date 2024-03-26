@@ -23,6 +23,8 @@ const HousewraimngParty = lazy(() =>
   import("./pages/housewarming-party/HousewarmingParty")
 );
 import { loader as housewarmingLoader } from "./pages/housewarming-party/loader";
+import { loader as housePhotoLoader } from "./pages/house-photo/loader";
+import { loader as knowHowLoader } from "./pages/know-how/loader";
 
 // ! 게시글 쓰기, 수정, 상세
 const Write = lazy(() => import("./pages/community/Write"));
@@ -69,9 +71,9 @@ const router = createBrowserRouter([
             loader: housewarmingLoader,
           },
           // * 집 사진 화면 http://localhost:5173/house_photo
-          { path: "house_photo", element: <HousePhoto /> },
+          { path: "house_photo", element: <HousePhoto />, loader: housePhotoLoader },
           // * 노하우 화면 http://localhost:5173/comunity
-          { path: "know_how", element: <KnowHow /> },
+          { path: "know_how", element: <KnowHow />, loader: knowHowLoader},
         ],
       },
       // ! 사용자 설정 관련 화면

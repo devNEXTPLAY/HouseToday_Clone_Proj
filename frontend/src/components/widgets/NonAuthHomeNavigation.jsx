@@ -36,7 +36,7 @@ const NonAuthHomeNavigation = () => {
           </div>
 
           {/* //* 글쓰기 이동 링크 */}
-          <Link to="/write">
+          <Link to="/login">
             <Button>글쓰기</Button>
           </Link>
         </section>
