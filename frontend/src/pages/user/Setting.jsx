@@ -4,18 +4,19 @@ import axios from "axios";
 
 import "./css/Setting.scss";
 import Header from "../../components/widgets/Header";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
 // * 사용자 설정
 const Setting = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
-
   const fileRef = useRef(null);
   const [image, setImage] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   );
+  const { uid } = useParams();
 
   const onChangeImage = (e) => {
     const formData = new FormData();
@@ -152,7 +153,7 @@ const Setting = () => {
         <nav className="nav">
           <Link>탈퇴하기</Link>
 
-          <Button type="submit">완료</Button>
+          <Button type="submit" onClick={()=>{navigate(`/users/${uid}`)}}>완료</Button>
         </nav>
       </form>
     </>
