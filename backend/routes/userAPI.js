@@ -133,6 +133,7 @@ router.post("/register", isNotLoggedIn, async (req, res, next) => {
 			agree_marketing: agree_marketing,
 			agree_promotion: agree_promotion,
 			is_email_verified: is_email_verified,
+			profile_img: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
 			entry_type_code: enums.ENTRY_TYPE_CODE.EMAIL,
 			use_state_code: enums.USE_STATE_CODE.NORMAL,
 			reg_date: moment().format("YYYY-MM-DD HH:mm:ss"),
@@ -407,7 +408,7 @@ router.get("/likes", isLoggedIn, async (req, res, next) => {
 					model: db.Blogs,
 				},
 			],
-			order: [["reg_date", "DESC"]],
+			order: [["created_at", "DESC"]],
 		});
 		res.status(200).json(likes);
 	} catch (error) {

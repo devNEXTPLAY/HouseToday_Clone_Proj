@@ -7,18 +7,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 import { useInput } from "../../components/hooks/useInput";
-import { FcLikePlaceholder } from "react-icons/fc";
-import { CiBookmark } from "react-icons/ci";
-import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
-import { PiShareNetworkLight } from "react-icons/pi";
 
 import Button from "../../components/ui/Button";
 import Comment from "./Comment";
+import Aside from "./Aside";
 
 const PostDetail = ({ data }) => {
   const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
   const token = useSelector((state) => state.Auth.token);
-  const [isReply, setIsReply] = useState(false);
 
   const handleComment = async () => {
     await axios({
@@ -47,27 +43,8 @@ const PostDetail = ({ data }) => {
 
         <section className="post">
           {/* //* 게시글 사이드 네비게이션 */}
-          <aside className="sticky-container">
-            <nav className="sticky-container__inner">
-              <Button className="sticky-button">
-                {/* //* 북마크 아이콘 */}
-                <CiBookmark />
-              </Button>
-              <Button className="sticky-button">
-                {/* //* 좋아요 아이콘 */}
-                <FcLikePlaceholder />
-              </Button>
-              <hr />
-              <Button className="sticky-button">
-                {/* //* 댓글 아이콘  */}
-                <HiOutlineChatBubbleBottomCenter />
-              </Button>
-              <Button className="sticky-button">
-                {/* //* 공유 아이콘 */}
-                <PiShareNetworkLight />
-              </Button>
-            </nav>
-          </aside>
+
+          <Aside blogId={data.blog_id} />
 
           {/* //* 게시글 콘텐츠 */}
           <section className="content">
@@ -133,7 +110,7 @@ const PostDetail = ({ data }) => {
             <hr />
 
             {/* //* 게시글 댓글 */}
-            <section className="comment">
+            <section className="comment" id="comment">
               <div className="comment__input">
                 <textarea
                   name="content"
