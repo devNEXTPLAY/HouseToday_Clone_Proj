@@ -11,6 +11,7 @@ const { Op } = require("sequelize");
 const getComments = require("../public/js/getComments.js");
 const mainBlog = require("../public/js/mainBlog.js");
 const getRecommendedBlogs = require("../public/js/getRecommendedBlogs.js");
+const updateHashtags = require("../public/js/updateHashtags.js");
 
 // 메인 페이지 대문 블로그 글 반환 API
 // http://localhost:3005/api/blog/main
@@ -180,34 +181,11 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 		});
 
 		if (hashtags) {
-			const hashtagList = hashtags;
-			for (let i = 0; i < hashtagList.length; i++) {
-				console.log(hashtagList[i]);
-				const hashtag = await db.Hashtags.findOne({
-					where: {
-						hashtag_name: hashtagList[i],
-					},
-				});
-				if (!hashtag) {
-					await db.Hashtags.create({
-						hashtag_name: hashtagList[i],
-						reg_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-					});
-				}
-				const hashtag_id = await db.Hashtags.findOne({
-					attributes: ["hashtag_id"],
-					where: {
-						hashtag_name: hashtagList[i],
-					},
-				});
-				await db.BlogHashtags.create({
-					blog_id: blog.blog_id,
-					hashtag_id: hashtag_id.hashtag_id,
-				});
-			}
+			await updateHashtags(blog.blog_id, hashtags);
 		}
 
 		res.status(201).json({
+			blog_id: blog.blog_id,
 			message: "블로그 글 등록에 성공하였습니다.",
 		});
 	} catch (error) {
@@ -216,11 +194,12 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 });
 
 // 블로그 글 수정 API
+// 해시태그 조회 및 추가/삭제
 // http://localhost:3005/api/blog/update
 // Status: 200 OK / 400 Bad Request / 500 Internal Server Error
 router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 	const blog_id = req.params.bid;
-	const { title, contents, preview_img } = req.body;
+	const { title, contents, preview_img, hashtags } = req.body;
 	const user_id = req.user.user_id;
 	const ip_address = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
@@ -238,13 +217,11 @@ router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 		}
 		await db.Blogs.update(
 			{
-				blog_type_code: blog.blog_type_code,
 				title,
 				contents,
 				preview_img,
 				ip_address,
-				blog_status_code: enums.BLOG_STATUS_CODE.APPLIED,
-				edit_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+				mod_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
 			},
 			{
 				where: {
@@ -252,6 +229,11 @@ router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 				},
 			}
 		);
+
+		if (hashtags) {
+			await updateHashtags(blog_id, hashtags);
+		}
+
 		res.status(200).json({
 			message: "블로그 글 수정에 성공하였습니다.",
 		});
@@ -261,7 +243,7 @@ router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 });
 
 // 단일 블로그 글 조회 API
-// 댓글 및 대댓글 포함
+// 댓글 및 대댓글, 해시태그 포함
 // 조회 시 조회수 증가
 // http://localhost:3005/api/blog/detail/:bid
 // Status: 200 OK / 404 Not Found / 500 Internal Server Error
@@ -288,12 +270,24 @@ router.get("/detail/:bid", async (req, res, next) => {
 
 		if (blog) {
 			const comments = await getComments(blog_id);
+			const hashtags = await db.BlogHashtags.findAll({
+				where: {
+					blog_id,
+				},
+				include: [
+					{
+						model: db.Hashtags,
+						attributes: ["hashtag_name"],
+					},
+				],
+			});
 			blog.view_count += 1;
 
 			const data = {
 				...blog.toJSON(),
 				User: blog.User,
 				comments,
+				hashtags: hashtags.map((hashtag) => hashtag.Hashtag.hashtag_name),
 			};
 
 			await db.Blogs.update(
