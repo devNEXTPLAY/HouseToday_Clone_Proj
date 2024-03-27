@@ -36,6 +36,24 @@ const Setting = () => {
     }
   };
 
+  const onRemoveImage = () => {
+    if(window.confirm("이미지를 삭제하시겠습니까?") === false) return;
+    axios
+      .delete("http://localhost:3005/api/common/delete", {
+        data: { filePath: image },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        setImage(
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const token = useSelector((state) => state.Auth.token);
 
   useEffect(() => {
@@ -49,8 +67,6 @@ const Setting = () => {
         })
         .then((res) => {
           setUser(res.data);
-          // 프로필 로딩 시 이미지 설정
-          // db에 이미지 없을 경우 기본 이미지
           setImage(res.data.profile_img || image)
         })
         .catch((err) => {
@@ -95,7 +111,7 @@ const Setting = () => {
       <form className="form" onSubmit={onSetting}>
         <div className="form__image-box">
           <img
-            src={user.profile_img}
+            src={image}
             alt="image"
             name="profile_image"
             onClick={() => {
@@ -109,7 +125,7 @@ const Setting = () => {
             onChange={onChangeImage}
             ref={fileRef}
           />
-          <button>이미지 삭제</button>
+          <button type="button" onClick={onRemoveImage}>이미지 삭제</button>
         </div>
 
         <Input
