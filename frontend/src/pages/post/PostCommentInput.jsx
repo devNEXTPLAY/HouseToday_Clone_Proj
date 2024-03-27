@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
-
-import axios from "axios";
 import { useInput } from "../../components/hooks/useInput";
+import axios from "axios";
+
 import CommentInput from "../../components/ui/CommentInput";
 
-const ReplyInput = ({ commentBlogId, commentId }) => {
-  const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
+const PostCommentInput = ({ blogId }) => {
   const token = useSelector((state) => state.Auth.token);
+  const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
 
   const handleSubmitComment = async () => {
     await axios({
@@ -18,8 +18,8 @@ const ReplyInput = ({ commentBlogId, commentId }) => {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        blog_id: commentBlogId,
-        parent_id: commentId,
+        blog_id: blogId,
+        parent_id: null,
         content: commentValue,
       },
     }).then((res) => {
@@ -32,4 +32,4 @@ const ReplyInput = ({ commentBlogId, commentId }) => {
   );
 };
 
-export default ReplyInput;
+export default PostCommentInput;

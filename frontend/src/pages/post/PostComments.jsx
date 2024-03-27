@@ -1,11 +1,15 @@
 import { useState } from "react";
+
 import ReplyInput from "./ReplyInput";
 
-const Comment = ({ comment, className }) => {
+import classes from "./css/PostComments.module.css";
+
+const PostComments = ({ comment }) => {
   const [isReply, setIsReply] = useState(false);
   const [isReplyList, setIsReplyList] = useState(false);
 
   const handleToggleComment = () => {
+    console.log("handleToggleComment");
     setIsReply((prevIsReply) => !prevIsReply);
   };
 
@@ -15,24 +19,21 @@ const Comment = ({ comment, className }) => {
 
   return (
     <>
-      <li className={`comment_item ${className}`}>
-        <div className="user__profile">
+      <li className={classes.li}>
+        <div className={classes.user}>
           <img src={comment.User.profile_img} alt="" />
           <strong>{comment.User.nickname}</strong>
         </div>
 
-        <p className="comment__text">{comment.content}</p>
+        <p>{comment.content}</p>
 
-        <div className="user__action">
+        <div className={classes.actions}>
           <span>{comment.reg_date}</span>
           <span>좋아요</span>
           <span>신고</span>
           {comment.Replies?.length > 0 && <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>}
           <span onClick={handleToggleComment}>답글 달기</span>
-          {/* 여기서 toggleReplyInput를 호출합니다. */}
         </div>
-
-        {/* 선택된 댓글에만 ReplyInput을 렌더링합니다. */}
       </li>
 
       {isReply && <ReplyInput commentBlogId={comment.blog_id} commentId={comment.comment_id} />}
@@ -41,7 +42,7 @@ const Comment = ({ comment, className }) => {
           {comment.Replies.map((reply) => {
             return (
               <div key={reply.comment_id}>
-                <Comment comment={reply} className="reply" />
+                <PostComments comment={reply} />
               </div>
             );
           })}
@@ -51,4 +52,4 @@ const Comment = ({ comment, className }) => {
   );
 };
 
-export default Comment;
+export default PostComments;

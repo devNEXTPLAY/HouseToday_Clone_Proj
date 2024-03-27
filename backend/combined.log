@@ -4,6 +4,7 @@
 {"level":"info","message":"파일 업로드 성공: public/upload/images/20240326-6f255bcc-0daf-4f7f-8573-e2e7ecb90e92-áá³áá³ááµá«áá£áº 2024-03-22 áá©áá® 10.43.14.png"
 {"level":"info","message":"파일 업로드 성공: public/upload/images/20240326-af5f0faf-851f-43c1-8cf7-3daaa086a9aa-_MG_6209.JPG"}
 {"level":"info","message":"파일 업로드 성공: public/upload/images/20240326-04597237-d5ed-4e75-943d-61481a5d5183-_MG_6210.JPG"}
+
 {"level":"error","message":"파일 삭제 실패: 유효하지 않는 경로 https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
 {"level":"error","message":"파일 삭제 실패: 유효하지 않는 경로 http://localhost:3005/public/upload/images/20240326-b23b26e1-0694-40d6-b5d7-f1de540d405d-_MG_6218.JPG"}
 {"level":"error","message":"파일 삭제 실패: 유효하지 않는 경로 http://localhost:3005/public/upload/images/20240326-b23b26e1-0694-40d6-b5d7-f1de540d405d-_MG_6218.JPG"}
