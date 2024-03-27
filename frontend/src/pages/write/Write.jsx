@@ -17,8 +17,9 @@ const Write = () => {
 
   const handleSubmit = async (event, userValues) => {
     event.preventDefault();
-    const res = fetchPostUpload(userValues, token);
-    navigate(`/post/${res}`);
+    const res = await fetchPostUpload(userValues, token);
+    console.log("res:", res);
+    navigate(`/detail/${res}`);
   };
 
   return (
