@@ -6,6 +6,7 @@ import "./css/UserArticles.scss";
 
 const UserArticles = () => {
   const [articlesImg, setArticlesImg] = useState([]);
+  const [blogId, setBlogId] = useState("");
 
   useEffect(() => {
     axios
@@ -16,6 +17,8 @@ const UserArticles = () => {
         console.log(res);
         const previewImgs = res.data.map((item) => item.preview_img);
         setArticlesImg(previewImgs);
+        const blogIds = res.data.map((item) => item.blog_id);
+        setBlogId(blogIds);
       })
       .catch((err) => {
         console.log(err);
@@ -43,28 +46,28 @@ const UserArticles = () => {
           <section className="user-articles">
             <div className="article-images">
               <div className="image">
-                <a>
+                <a href={`/post/${blogId[0]}`}>
                   {articlesImg[0] && (
                     <img src={articlesImg[0]} alt="Article Image" />
                   )}
                 </a>
               </div>
               <div className="image">
-                <a>
+                <a href={`/post/${blogId[1]}`}>
                   {articlesImg[1] && (
                     <img src={articlesImg[1]} alt="Article Image" />
                   )}
                 </a>
               </div>
               <div className="image">
-                <a>
+                <a href={`/post/${blogId[2]}`}>
                   {articlesImg[2] && (
                     <img src={articlesImg[2]} alt="Article Image" />
                   )}
                 </a>
               </div>
               <div className="image">
-                <a>
+                <a href={`/post/${blogId[3]}`}>
                   {articlesImg[3] && (
                     <img src={articlesImg[3]} alt="Article Image" />
                   )}

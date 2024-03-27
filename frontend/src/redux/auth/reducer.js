@@ -1,9 +1,11 @@
 // 액션 타입 참조
 import { USER_LOGIN } from "../../constants/actionTypes";
+import { UPDATE_PROFILE_IMG } from "../../constants/actionTypes";
 
 const INIT_STATE = {
   token: "",
-  user: {},
+  profile_img:
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
 };
 
 const Auth = (state = INIT_STATE, action) => {
@@ -12,11 +14,14 @@ const Auth = (state = INIT_STATE, action) => {
       return {
         ...state,
         token: action.payload.token,
-        user: action.payload.user,
       };
-    default: {
+    case UPDATE_PROFILE_IMG:
+      return {
+        ...state,
+        profile_img: action.payload.profile_img,
+      };
+    default:
       return state;
-    }
   }
 };
 

@@ -16,6 +16,7 @@ const User = () => {
   const [likes, setLikes] = useState(0);
 
   const token = useSelector((state) => state.Auth.token);
+  const profileImg = useSelector((state) => state.Auth.profile_img);
 
   useEffect(() => {
     if (token) {
@@ -54,7 +55,7 @@ const User = () => {
       <main>
         <section className="uesr-profile">
           <div className="profile__card">
-            <img src={user.profile_img} alt="프로필 사진" />
+            <img src={profileImg} alt="프로필 사진" />
             <h2>{user.nickname}</h2>
             <div>
               <span>팔로워 0</span>
