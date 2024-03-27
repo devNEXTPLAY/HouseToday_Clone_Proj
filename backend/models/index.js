@@ -72,14 +72,6 @@ db.CommentLikes.belongsTo(db.Users, { foreignKey: "user_id" });
 db.Blogs.hasMany(db.CommentLikes, { foreignKey: "blog_id" });
 db.CommentLikes.belongsTo(db.Blogs, { foreignKey: "blog_id" });
 
-// commentBlogLikes
-db.Comments.hasMany(db.BlogLikes, { foreignKey: "comment_id" });
-db.BlogLikes.belongsTo(db.Comments, { foreignKey: "comment_id" });
-
-// hashtagBlogLikes
-db.Hashtags.hasMany(db.BlogLikes, { foreignKey: "hashtag_id" });
-db.BlogLikes.belongsTo(db.Hashtags, { foreignKey: "hashtag_id" });
-
 // hashtagCommentLikes
 db.Hashtags.hasMany(db.CommentLikes, { foreignKey: "hashtag_id" });
 db.CommentLikes.belongsTo(db.Hashtags, { foreignKey: "hashtag_id" });

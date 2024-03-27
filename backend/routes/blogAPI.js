@@ -387,6 +387,43 @@ router.post("/like/:bid", isLoggedIn, async (req, res, next) => {
 	}
 });
 
+// 단일 블로그를 좋아요 누른 사용자 조회 API
+// http://localhost:3005/api/blog/likes/:bid
+// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+router.get("/likes/:bid", async (req, res, next) => {
+	const blog_id = req.params.bid;
+
+	try {
+		const likes = await db.BlogLikes.findAll({
+			where: {
+				blog_id,
+			},
+			include: [
+				{
+					model: db.Users,
+					attributes: ["nickname"],
+					as: "User",
+				},
+			],
+		});
+		if (likes.length > 0) {
+			const data = likes.map((like) => {
+				return {
+					user_id: like.User.user_id,
+					nickname: like.User.nickname,
+				};
+			});
+			res.status(200).json(data);
+		} else {
+			res.status(404).json({
+				message: "좋아요를 누른 사용자가 없습니다.",
+			});
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
 // 블로그 글 검색 API
 // 제목, 내용, 해시태그 검색
 // http://localhost:3005/api/blog/search
