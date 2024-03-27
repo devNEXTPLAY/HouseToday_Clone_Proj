@@ -10,6 +10,7 @@ import Button from "../../components/ui/Button";
 import classes from "./css/PostDetail.module.css";
 import PostWriter from "./PostWriter";
 
+
 const PostDetail = ({ data }) => {
   return (
     <>

@@ -117,6 +117,7 @@ router.get("/list/:type", async (req, res, next) => {
 				"like_count",
 				"comment_count",
 				"reg_date",
+				'blog_status_code'
 			],
 			where: { blog_type_code: type },
 			include: [
@@ -140,6 +141,7 @@ router.get("/list/:type", async (req, res, next) => {
 					like_count: blog.like_count,
 					comment_count: blog.comment_count,
 					reg_date: blog.reg_date,
+					blog_status_code: blog.blog_status_code
 				};
 			});
 			res.status(200).json(data);
