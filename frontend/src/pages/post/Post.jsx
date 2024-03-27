@@ -1,8 +1,6 @@
 import { Await, useLoaderData } from "react-router-dom";
 import PostDetail from "./PostDetail";
 
-import "./css/Post.scss";
-
 // * 게시글 상세 화면
 
 const Post = () => {
