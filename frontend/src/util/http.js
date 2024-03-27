@@ -19,14 +19,15 @@ export const fetchPostUpload = async (userValues, token) => {
         hashtags: userValues.hashtags,
       },
     });
-    return res;
+    console.log(res.data);
+    return res.data.blog_id;
   } catch (error) {
     new Error("오류가 발생했습니다.", error);
   }
 };
 
 // 게시글 수정
-export const fetchPostEdit= async (userValues, token, blogId) => {
+export const fetchPostEdit = async (userValues, token, blogId) => {
   try {
     await axios({
       method: "post",
@@ -48,7 +49,6 @@ export const fetchPostEdit= async (userValues, token, blogId) => {
     new Error("오류가 발생했습니다.", error);
   }
 };
-
 
 // 게시글 대표 이미지 업로드
 export const fetchMainImageUpload = async (formData, onUserValues) => {
