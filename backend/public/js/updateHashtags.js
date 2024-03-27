@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../../models/index.js");
 const moment = require("moment");
 
 async function updateHashtags(blog_id, hashtagList) {
