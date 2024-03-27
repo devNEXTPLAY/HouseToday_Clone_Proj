@@ -48,6 +48,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 			);
 			return res.status(200).json({
 				token: token,
+				userId: user.user_id,
 				message: "로그인에 성공하였습니다.",
 			});
 		});
@@ -116,6 +117,9 @@ router.post("/register", isNotLoggedIn, async (req, res, next) => {
 		const user = await db.Users.findOne({
 			where: {
 				[Op.or]: [{ email: email }, { nickname: nickname }],
+				use_state_code: {
+					[Op.ne]: enums.USE_STATE_CODE.WITHDRAWAL,
+				},
 			},
 		});
 		if (user) {
@@ -162,12 +166,12 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 				message: "존재하지 않는 사용자입니다.",
 			});
 		}
-		const isMatch = await bcrypt.compare(password, user.password);
-		if (!isMatch) {
-			return res.status(400).json({
-				message: "비밀번호가 일치하지 않습니다.",
-			});
-		}
+		// const isMatch = await bcrypt.compare(password, user.password);
+		// if (!isMatch) {
+		// 	return res.status(400).json({
+		// 		message: "비밀번호가 일치하지 않습니다.",
+		// 	});
+		// }
 		await db.Users.update(
 			{
 				use_state_code: enums.USE_STATE_CODE.WITHDRAWAL,
@@ -293,6 +297,7 @@ router.get("/logout", isLoggedIn, (req, res) => {
 				message: "로그아웃 과정에서 문제가 발생하였습니다.",
 			});
 		}
+		console.log("로그아웃 성공");
 		res.status(200).json({
 			message: "로그아웃에 성공하였습니다.",
 		});
@@ -308,6 +313,9 @@ router.get("/email", async (req, res, next) => {
 		const user = await db.Users.findOne({
 			where: {
 				email: email,
+				use_state_code: {
+					[Op.ne]: enums.USE_STATE_CODE.WITHDRAWAL,
+				},
 			},
 		});
 		if (user) {
@@ -332,6 +340,9 @@ router.post("/nickname", async (req, res, next) => {
 		const user = await db.Users.findOne({
 			where: {
 				nickname: nickname,
+				use_state_code: {
+					[Op.ne]: enums.USE_STATE_CODE.WITHDRAWAL,
+				},
 			},
 		});
 		if (user) {

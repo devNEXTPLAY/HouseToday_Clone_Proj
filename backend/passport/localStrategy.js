@@ -1,6 +1,8 @@
 var bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 var db = require("../models/index");
+const enums = require("../common/enums.js");
+const { Op } = require("sequelize");
 
 // passport-local
 // if success, return userSessionData / if fail, return message
@@ -17,6 +19,9 @@ module.exports = (passport) => {
 					const user = await db.Users.findOne({
 						where: {
 							email: email,
+							use_state_code: {
+								[Op.ne]: enums.USE_STATE_CODE.WITHDRAWAL,
+							},
 						},
 					});
 					if (!user) {

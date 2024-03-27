@@ -9,12 +9,6 @@ const winston = require("winston"); // 로깅 라이브러리
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 
-const logger = winston.createLogger({
-	level: "info",
-	format: winston.format.json(),
-	transports: [new winston.transports.File({ filename: "combined.log" })],
-});
-
 var storage = multer.diskStorage({
 	destination(req, file, cb) {
 		cb(null, "public/upload/images/");
@@ -50,13 +44,11 @@ var Upload = multer({
 router.post("/upload", Upload.single("file"), (req, res, next) => {
 	if (req.file) {
 		const filePath = req.file.path.replace(/\\/g, "/");
-		logger.info(`파일 업로드 성공: ${filePath}`);
 		res.status(201).json({
 			filePath: filePath,
 			message: "파일 업로드 성공",
 		});
 	} else {
-		logger.error("파일 업로드 실패: 파일이 존재하지 않거나 허용되지 않는 파일 형식");
 		next(new Error("파일 업로드 실패: 파일이 존재하지 않거나 허용되지 않는 파일 형식입니다."));
 	}
 });
@@ -75,7 +67,6 @@ router.delete("/delete", isLoggedIn, async (req, res, next) => {
 				message: "파일 삭제 성공",
 			});
 		} else {
-			logger.error(`파일 삭제 실패: 유효하지 않는 경로 ${filePath}`);
 			throw new Error("파일 삭제 실패: 파일 경로가 존재하지 않습니다.");
 		}
 	} catch (error) {

@@ -12,7 +12,6 @@ module.exports = function (sequelize, DataTypes) {
 			email: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
-				unique: true,
 				comment: "사용자 이메일 / 아이디",
 			},
 			is_email_verified: {
@@ -108,18 +107,6 @@ module.exports = function (sequelize, DataTypes) {
 					unique: true,
 					using: "BTREE",
 					fields: [{ name: "user_id" }],
-				},
-				{
-					name: "idx_user_email",
-					unique: true,
-					using: "BTREE",
-					fields: [{ name: "email" }],
-				},
-				{
-					name: "idx_user_nickname",
-					unique: true,
-					using: "BTREE",
-					fields: [{ name: "nickname" }],
 				},
 			],
 		}
