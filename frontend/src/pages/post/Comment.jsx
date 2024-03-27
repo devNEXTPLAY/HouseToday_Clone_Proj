@@ -6,6 +6,7 @@ const Comment = ({ comment, className }) => {
   const [isReplyList, setIsReplyList] = useState(false);
 
   const handleToggleComment = () => {
+    console.log("handleToggleComment");
     setIsReply((prevIsReply) => !prevIsReply);
   };
 
@@ -29,10 +30,7 @@ const Comment = ({ comment, className }) => {
           <span>신고</span>
           {comment.Replies?.length > 0 && <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>}
           <span onClick={handleToggleComment}>답글 달기</span>
-          {/* 여기서 toggleReplyInput를 호출합니다. */}
         </div>
-
-        {/* 선택된 댓글에만 ReplyInput을 렌더링합니다. */}
       </li>
 
       {isReply && <ReplyInput commentBlogId={comment.blog_id} commentId={comment.comment_id} />}

@@ -1,40 +1,13 @@
-import { useState } from "react";
 import parse from "html-react-parser";
 
-import { useSelector } from "react-redux";
-import axios from "axios";
-
 import { Link } from "react-router-dom";
-
-import { useInput } from "../../components/hooks/useInput";
 
 import Button from "../../components/ui/Button";
 import Comment from "./Comment";
 import Aside from "./Aside";
+import PostComment from "./PostComment";
 
 const PostDetail = ({ data }) => {
-  const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
-  const token = useSelector((state) => state.Auth.token);
-
-  const handleComment = async () => {
-    await axios({
-      method: "post",
-      url: "http://localhost:3005/api/comment/create",
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        blog_id: data.blog_id,
-        parent_id: null,
-        content: commentValue,
-      },
-    }).then((res) => {
-      console.log("res", res);
-    });
-  };
-
   return (
     <>
       <main className="main">
@@ -111,17 +84,7 @@ const PostDetail = ({ data }) => {
 
             {/* //* 게시글 댓글 */}
             <section className="comment" id="comment">
-              <div className="comment__input">
-                <textarea
-                  name="content"
-                  id="content"
-                  placeholder="댓글을 입력해주세요"
-                  rows={50}
-                  value={commentValue}
-                  onChange={handleCommentChange}
-                ></textarea>
-                <button onClick={handleComment}>입력</button>
-              </div>
+              <PostComment blogId={data.blog_id} />
               <div className="comment__title-box">
                 <span className="title-box__title">댓글</span>
                 <span className="title-box__count">{data.comments.length}</span>
