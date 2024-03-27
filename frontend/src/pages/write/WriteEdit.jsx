@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { TextLogo } from "../../assets/TextLogo";
 import Button from "../../components/ui/Button";
 
-import { fetchPostUpload } from "../../util/http";
+import { fetchPostEdit } from "../../util/http";
 import EditWrite from "../../components/write/EditWrite";
 
 //* 게시글 수정
@@ -17,8 +17,8 @@ const WriteEdit = () => {
 
   const handleSubmit = async (event, userValues) => {
     event.preventDefault();
-    fetchPostUpload(userValues, token, param.id);
-    navigate("../");
+    fetchPostEdit(userValues, token, param.id);
+    navigate("/");
   };
 
   return (

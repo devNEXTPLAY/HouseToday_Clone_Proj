@@ -2,11 +2,10 @@ import "./css/HousewarmingPartyArticle.scss";
 import { Link } from "react-router-dom";
 
 const HousewarmingPartyArticle = ({ data }) => {
-  const filteredData = data?.filter((article) => article.blog_status_code !== 3);
 
   return (
     <ul className="card-list">
-      {filteredData?.map((article) => (
+      {data?.map((article) => (
         <Link to={`/post/${article.blog_id}`} key={article.blog_id}>
           <li className="housewarming-party-card">
             <div className="card__image">
