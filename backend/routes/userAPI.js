@@ -117,6 +117,9 @@ router.post("/register", isNotLoggedIn, async (req, res, next) => {
 		const user = await db.Users.findOne({
 			where: {
 				[Op.or]: [{ email: email }, { nickname: nickname }],
+				use_state_code: {
+					[Op.ne]: enums.USE_STATE_CODE.WITHDRAWAL,
+				},
 			},
 		});
 		if (user) {
