@@ -1,9 +1,35 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link,useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 
 import classes from "./css/PostWriter.module.css";
+import axios from "axios";
 
-const PostWriter = ({ profileImg, nickname }) => {
+const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
+  const token = useSelector((state) => state.Auth.token);
+  const currentUser = useSelector((state) => state.Auth.user);
+  const navigate = useNavigate();
+
+  const handleDletePost = async () => {
+    await axios({
+      method: "delete",
+      url: 'http://localhost:3005/api/blog/delete/' + blogId,
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(() => {
+        navigate('/')
+
+      })
+      .catch((err) => {
+        console.error(err.response);
+      });
+
+  };
+
   return (
     <>
       <div className={classes.writer}>
@@ -18,7 +44,15 @@ const PostWriter = ({ profileImg, nickname }) => {
           </div>
         </div>
 
-        <Button>팔로우</Button>
+        <div className={classes.buttons}>
+          {userId !== currentUser && <Button>팔로우</Button>}
+          {userId === currentUser && <Button className={classes.edit}>수정</Button>}
+          {userId === currentUser && (
+            <Button className={classes.delete} onClick={handleDletePost}>
+              삭제
+            </Button>
+          )}
+        </div>
       </div>
 
       <hr />

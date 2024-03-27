@@ -268,7 +268,7 @@ router.get("/detail/:bid", async (req, res, next) => {
 			include: [
 				{
 					model: db.Users,
-					attributes: ["nickname"],
+					attributes: ["nickname", 'user_id', 'profile_img'],
 					as: "User",
 				},
 			],

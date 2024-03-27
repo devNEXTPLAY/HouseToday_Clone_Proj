@@ -30,7 +30,7 @@ const PostDetail = ({ data }) => {
             <hr />
 
             {/* //* 게시글 작성자 정보: 프로필 사진, 소개말, 팔로우 버튼*/}
-            <PostWriter profileImg={data.User.profile_img} nickname={data.User.nickname} />
+            <PostWriter profileImg={data.User.profile_img} nickname={data.User.nickname} userId={data.User.user_id} blogId={data.blog_id} />
 
             <div>{parse(data.contents)}</div>
 
@@ -51,7 +51,7 @@ const PostDetail = ({ data }) => {
             </div>
 
             {/* //* 게시글 작성자 정보 상단과 동일 */}
-            <PostWriter profileImg={data.User.profile_img} nickname={data.User.nickname} />
+            <PostWriter profileImg={data.User.profile_img} nickname={data.User.nickname} userId={data.User.user_id} blogId={data.blog_id} />
 
             {/* //* 게시글 댓글 */}
             <article className={classes.comments} id="comment">

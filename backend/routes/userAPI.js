@@ -48,6 +48,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 			);
 			return res.status(200).json({
 				token: token,
+				userId: user.user_id,
 				message: "로그인에 성공하였습니다.",
 			});
 		});
