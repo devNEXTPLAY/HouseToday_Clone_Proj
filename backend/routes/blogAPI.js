@@ -5,6 +5,7 @@ var enums = require("../common/enums.js");
 var moment = require("moment");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
+const { Op } = require("sequelize");
 
 // 자체 모듈 함수
 const getComments = require("../public/js/getComments.js");
@@ -117,9 +118,14 @@ router.get("/list/:type", async (req, res, next) => {
 				"like_count",
 				"comment_count",
 				"reg_date",
-				'blog_status_code'
 			],
-			where: { blog_type_code: type },
+			where: {
+				blog_type_code: type,
+				[Op.or]: [
+					{ blog_status_code: enums.BLOG_STATUS_CODE.APPLIED },
+					{ blog_status_code: enums.BLOG_STATUS_CODE.APPROVED },
+				],
+			},
 			include: [
 				{
 					model: db.Users,
@@ -141,14 +147,12 @@ router.get("/list/:type", async (req, res, next) => {
 					like_count: blog.like_count,
 					comment_count: blog.comment_count,
 					reg_date: blog.reg_date,
-					blog_status_code: blog.blog_status_code
 				};
 			});
 			res.status(200).json(data);
 		} else {
-			res.status(404).json({
-				message: "게시판별 블로그 글이 존재하지 않습니다.",
-			});
+			// if (blogs.length === 0) return empty array
+			res.status(200).json([]);
 		}
 	} catch (error) {
 		next(error);
@@ -266,11 +270,17 @@ router.get("/detail/:bid", async (req, res, next) => {
 
 	try {
 		const blog = await db.Blogs.findOne({
-			where: { blog_id },
+			where: {
+				blog_id,
+				[Op.or]: [
+					{ blog_status_code: enums.BLOG_STATUS_CODE.APPLIED },
+					{ blog_status_code: enums.BLOG_STATUS_CODE.APPROVED },
+				],
+			},
 			include: [
 				{
 					model: db.Users,
-					attributes: ["nickname", 'user_id', 'profile_img'],
+					attributes: ["nickname", "user_id", "profile_img"],
 					as: "User",
 				},
 			],
