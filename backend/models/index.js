@@ -52,4 +52,40 @@ db.CommentLikes.belongsTo(db.Comments, { foreignKey: "comment_id" });
 db.Users.belongsToMany(db.Comments, { through: db.CommentLikes, foreignKey: "user_id" });
 db.Comments.belongsToMany(db.Users, { through: db.CommentLikes, foreignKey: "comment_id" });
 
+// blogHashtags
+db.Blogs.hasMany(db.BlogHashtags, { foreignKey: "blog_id" });
+db.BlogHashtags.belongsTo(db.Blogs, { foreignKey: "blog_id" });
+
+// hashtagBlogs
+db.Hashtags.hasMany(db.BlogHashtags, { foreignKey: "hashtag_id" });
+db.BlogHashtags.belongsTo(db.Hashtags, { foreignKey: "hashtag_id" });
+
+// blogComments
+db.Blogs.hasMany(db.Comments, { foreignKey: "blog_id" });
+db.Comments.belongsTo(db.Blogs, { foreignKey: "blog_id" });
+
+// userComments
+db.Users.hasMany(db.Comments, { foreignKey: "user_id" });
+db.Comments.belongsTo(db.Users, { foreignKey: "user_id" });
+
+// userBlogLikes
+db.Users.hasMany(db.BlogLikes, { foreignKey: "user_id" });
+db.BlogLikes.belongsTo(db.Users, { foreignKey: "user_id" });
+
+// blogBlogLikes
+db.Blogs.hasMany(db.BlogLikes, { foreignKey: "blog_id" });
+db.BlogLikes.belongsTo(db.Blogs, { foreignKey: "blog_id" });
+
+// userCommentLikes
+db.Users.hasMany(db.CommentLikes, { foreignKey: "user_id" });
+db.CommentLikes.belongsTo(db.Users, { foreignKey: "user_id" });
+
+// commentCommentLikes
+db.Comments.hasMany(db.CommentLikes, { foreignKey: "comment_id" });
+db.CommentLikes.belongsTo(db.Comments, { foreignKey: "comment_id" });
+
+// blogCommentLikes
+db.Blogs.hasMany(db.CommentLikes, { foreignKey: "blog_id" });
+db.CommentLikes.belongsTo(db.Blogs, { foreignKey: "blog_id" });
+
 module.exports = db;
