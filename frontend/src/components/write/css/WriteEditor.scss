@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
 
+
   .form__main-image-upload {
     display: flex;
     flex-direction: column;
@@ -118,5 +119,10 @@
 
   .tox-editor-container {
     width: 720px !important;
+
+  }
+
+  #quill {
+    margin-bottom: 5rem;
   }
 }

@@ -30,6 +30,10 @@ const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
 
   };
 
+  const handlePostEdit = () => {
+    navigate('/write/edit/' + blogId);
+  };
+
   return (
     <>
       <div className={classes.writer}>
@@ -46,7 +50,7 @@ const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
 
         <div className={classes.buttons}>
           {userId !== currentUser && <Button>팔로우</Button>}
-          {userId === currentUser && <Button className={classes.edit}>수정</Button>}
+          {userId === currentUser && <Button className={classes.edit} onClick={handlePostEdit}>수정</Button>}
           {userId === currentUser && (
             <Button className={classes.delete} onClick={handleDletePost}>
               삭제
