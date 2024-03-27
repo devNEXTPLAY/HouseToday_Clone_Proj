@@ -132,10 +132,11 @@ const WriteEditor = ({ id, onSubmit }) => {
       {/* 구현 기술, 드래그앤 드랍 이미지 추가 ......... */}
       <ReactQuill
         ref={quillRef}
+        id='quill'
         theme="snow"
         placeholder="내용을 입력해주세요."
         value={userValues.contents}
-        style={{ width: "720px", height: "300px" }}
+        style={{ width: "720px", height: "500px" }}
         onChange={handleUpdateContent}
         formats={formats}
         modules={modules}

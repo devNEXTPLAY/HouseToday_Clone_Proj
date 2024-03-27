@@ -134,9 +134,10 @@ const EditWrite = ({ id, onSubmit, paramId }) => {
       <ReactQuill
         ref={quillRef}
         theme="snow"
+        id='quill'
         placeholder="내용을 입력해주세요."
         value={userValues.contents}
-        style={{ width: "720px", height: "300px" }}
+        style={{ width: "720px", height: "1000px" }}
         onChange={handleUpdateContent}
         formats={formats}
         modules={modules}
