@@ -407,7 +407,7 @@ router.get("/likes", isLoggedIn, async (req, res, next) => {
 					model: db.Blogs,
 				},
 			],
-			order: [["reg_date", "DESC"]],
+			order: [["created_at", "DESC"]],
 		});
 		res.status(200).json(likes);
 	} catch (error) {
