@@ -19,7 +19,7 @@ const Write = () => {
     event.preventDefault();
     const res = await fetchPostUpload(userValues, token);
     console.log("res:", res);
-    navigate(`/detail/${res}`);
+    navigate(`/post/${res}`);
   };
 
   return (
