@@ -3,7 +3,7 @@ import axios from "axios";
 // 게시글 업로드
 export const fetchPostUpload = async (userValues, token) => {
   try {
-    await axios({
+    const res = await axios({
       method: "post",
       url: "http://localhost:3005/api/blog/create",
       withCredentials: true,
@@ -19,6 +19,7 @@ export const fetchPostUpload = async (userValues, token) => {
         hashtags: userValues.hashtags,
       },
     });
+    return res;
   } catch (error) {
     new Error("오류가 발생했습니다.", error);
   }
@@ -53,9 +54,9 @@ export const fetchPostEdit= async (userValues, token, blogId) => {
 export const fetchMainImageUpload = async (formData, onUserValues) => {
   await axios
     .post("http://localhost:3005/api/common/upload", formData)
-    .then(res => {
+    .then((res) => {
       const imageUrl = `http://localhost:3005/${res.data.filePath}`;
-      onUserValues(prevValues => {
+      onUserValues((prevValues) => {
         return { ...prevValues, preview_img: imageUrl };
       });
     });
@@ -64,7 +65,7 @@ export const fetchMainImageUpload = async (formData, onUserValues) => {
 // 게시글 콘텐츠 이미지 업로드
 export const fetchPostUploadImage = async (formData, quillRef) => {
   await axios.post("http://localhost:3005/api/common/upload", formData).then(
-    res => {
+    (res) => {
       const imageUrl = `http://localhost:3005/${res.data.filePath}`;
 
       const editor = quillRef.current.getEditor();
@@ -72,7 +73,7 @@ export const fetchPostUploadImage = async (formData, quillRef) => {
       editor.insertEmbed(range.index, "image", imageUrl);
       editor.setSelection(range.index + 1);
     },
-    error => {
+    (error) => {
       console.log(error);
     }
   );
