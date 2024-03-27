@@ -19,16 +19,14 @@ const Oauth = lazy(() => import("./pages/auth/Oauth"));
 // ! 게시글 화면
 const KnowHow = lazy(() => import("./pages/know-how/KnowHow"));
 const HousePhoto = lazy(() => import("./pages/house-photo/HousePhoto"));
-const HousewraimngParty = lazy(() =>
-  import("./pages/housewarming-party/HousewarmingParty")
-);
+const HousewraimngParty = lazy(() => import("./pages/housewarming-party/HousewarmingParty"));
 import { loader as housewarmingLoader } from "./pages/housewarming-party/loader";
 import { loader as housePhotoLoader } from "./pages/house-photo/loader";
 import { loader as knowHowLoader } from "./pages/know-how/loader";
 
 // ! 게시글 쓰기, 수정, 상세
-const Write = lazy(() => import("./pages/community/Write"));
-const WriteEdit = lazy(() => import("./pages/community/WriteEdit"));
+const Write = lazy(() => import("./pages/write/Write"));
+const WriteEdit = lazy(() => import("./pages/write/WriteEdit"));
 const Post = lazy(() => import("./pages/post/Post"));
 import { loader as postLoader } from "./pages/post/loader";
 
@@ -73,7 +71,7 @@ const router = createBrowserRouter([
           // * 집 사진 화면 http://localhost:5173/house_photo
           { path: "house_photo", element: <HousePhoto />, loader: housePhotoLoader },
           // * 노하우 화면 http://localhost:5173/comunity
-          { path: "know_how", element: <KnowHow />, loader: knowHowLoader},
+          { path: "know_how", element: <KnowHow />, loader: knowHowLoader },
         ],
       },
       // ! 사용자 설정 관련 화면
@@ -102,7 +100,7 @@ const router = createBrowserRouter([
           // * 글쓰기 화면 http://localhost:5173/write
           { path: "", element: <Write /> },
           // * 글 수정 화면 http://localhost:5173/write/edit/:aid
-          { path: "edit/:aid", element: <WriteEdit /> },
+          { path: "edit/:id", element: <WriteEdit /> },
         ],
       },
     ],

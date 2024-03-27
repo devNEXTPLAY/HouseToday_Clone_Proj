@@ -8,8 +8,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 import Input from "../ui/Input";
-import HashtagForm from "./HashtagForm";
-import MainImageForm from "./MainImageForm";
+import EditHashtagForm from "./HashtagForm";
+import EditMainImageForm from "./EditMainImageForm";
 
 import { formats } from "../../util/formats";
 import { fetchPostUploadImage } from "../../util/http";
@@ -29,25 +29,23 @@ const handleStopSubmit = (event) => {
   }
 };
 
-// const resizeFile = file =>
-//   new Promise(resolve => {
-//     Resizer.imageFileResizer(
-//       file,
-//       300,
-//       300,
-//       "JPEG",
-//       100,
-//       0,
-//       uri => {
-//         resolve(uri);
-//       },
-//       "base64"
-//     );
-//   });
-
 // * 게시글 에디터
-const WriteEditor = ({ id, onSubmit }) => {
+const EditWrite = ({ id, onSubmit, paramId }) => {
   const [userValues, setUserValues] = useState(initialUserValues);
+
+  useEffect(() => {
+    const getPost = async () => {
+      const response = await fetch("http://localhost:3005/api/blog/detail/" + paramId);
+
+      if (!response.ok) {
+        throw new Error("서버 오류");
+      } else {
+        const responseData = await response.json();
+        setUserValues(responseData);
+      }
+    };
+    getPost();
+  }, [paramId]);
 
   const quillRef = useRef();
   const imageHandler = () => {
@@ -86,19 +84,21 @@ const WriteEditor = ({ id, onSubmit }) => {
       return { ...prevValues, contents: event };
     });
 
+  console.log(userValues);
   // 해시태그 추가시, 엔터키로 인한 폼 전송 방지
 
   return (
     <form className="form" id={id} onKeyDown={handleStopSubmit} onSubmit={(event) => onSubmit(event, userValues)}>
       {/* //* 대표 이미지 업로드 */}
       <section className="form__main-image-upload">
-        <MainImageForm onUserValues={setUserValues} />
+        <EditMainImageForm onUserValues={setUserValues} previewImg={userValues.preview_img} />
       </section>
 
       {/* 제목 */}
       <Input
         name="title"
         placeholder="제목을 입력해주세요."
+        value={userValues.title}
         onChange={(event) =>
           setUserValues((prevValues) => {
             return { ...prevValues, [event.target.name]: event.target.value };
@@ -112,6 +112,7 @@ const WriteEditor = ({ id, onSubmit }) => {
           <label htmlFor="select__option">카테고리</label>
           <select
             id="select__option"
+            value={userValues.blog_type_code}
             onChange={(event) =>
               setUserValues((prevValues) => {
                 return { ...prevValues, blog_type_code: event.target.value };
@@ -125,18 +126,18 @@ const WriteEditor = ({ id, onSubmit }) => {
         </div>
 
         {/* 해시태그 입력 폼 */}
-        <HashtagForm userValues={userValues} onUserValues={setUserValues} />
+        <EditHashtagForm userValues={userValues} onUserValues={setUserValues} />
       </div>
 
       {/* TinyMCE API 사용량 초과로 ReactQuill 변경 주말 중 업데이트 예정 */}
       {/* 구현 기술, 드래그앤 드랍 이미지 추가 ......... */}
       <ReactQuill
         ref={quillRef}
-        id='quill'
         theme="snow"
+        id='quill'
         placeholder="내용을 입력해주세요."
         value={userValues.contents}
-        style={{ width: "720px", height: "500px" }}
+        style={{ width: "720px", height: "1000px" }}
         onChange={handleUpdateContent}
         formats={formats}
         modules={modules}
@@ -145,4 +146,4 @@ const WriteEditor = ({ id, onSubmit }) => {
   );
 };
 
-export default WriteEditor;
+export default EditWrite;
