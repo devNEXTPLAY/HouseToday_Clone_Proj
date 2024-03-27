@@ -12,13 +12,13 @@ import Button from "../../components/ui/Button";
 
 // * 게시글 작성
 const Write = () => {
-  const token = useSelector(state => state.Auth.token);
+  const token = useSelector((state) => state.Auth.token);
   const navigate = useNavigate();
 
   const handleSubmit = async (event, userValues) => {
     event.preventDefault();
-    fetchPostUpload(userValues, token);
-    navigate("../");
+    const res = fetchPostUpload(userValues, token);
+    navigate(`/post/${res}`);
   };
 
   return (
