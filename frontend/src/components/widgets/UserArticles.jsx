@@ -6,7 +6,6 @@ import "./css/UserArticles.scss";
 
 const UserArticles = () => {
   const [articlesImg, setArticlesImg] = useState([]);
-  const [articles, setArticles] = useState(0);
 
   useEffect(() => {
     axios
@@ -17,7 +16,6 @@ const UserArticles = () => {
         console.log(res);
         const previewImgs = res.data.map((item) => item.preview_img);
         setArticlesImg(previewImgs);
-        setArticles(res.data.length);
       })
       .catch((err) => {
         console.log(err);
@@ -26,47 +24,59 @@ const UserArticles = () => {
 
   return (
     <>
-      <section className="post-list">
-        <div className="lilst__title-box">
-          <strong>게시글</strong>
-          <span>{articles}</span>
-        </div>
-        <section className="user-articles">
-          <div className="article-images">
-            <div className="image">
-              <a>
-                {articlesImg[0] && (
-                  <img src={articlesImg[0]} alt="Article Image" />
-                )}
-              </a>
+      {articlesImg.length === 0 ? (
+        <section className="post-list">
+          <div className="card__null">
+            <div className="lilst__title-box">
+              <strong>게시글</strong>
+              <span>{articlesImg.length}</span>
             </div>
-            <div className="image">
-              <a>
-                {articlesImg[1] && (
-                  <img src={articlesImg[1]} alt="Article Image" />
-                )}
-              </a>
-            </div>
-            <div className="image">
-              <a>
-                {articlesImg[2] && (
-                  <img src={articlesImg[2]} alt="Article Image" />
-                )}
-              </a>
-            </div>
-            <div className="image">
-              <a>
-                {articlesImg[3] && (
-                  <img src={articlesImg[3]} alt="Article Image" />
-                )}
-              </a>
-            </div>
+            <article></article>
           </div>
-          <a className="text">
-            <Link to="/write">+ 게시글 올리기</Link>
-          </a>
         </section>
-      </section>
+      ) : (
+        <section className="post-list">
+          <div className="lilst__title-box">
+            <strong>게시글</strong>
+            <span>{articlesImg.length}</span>
+          </div>
+          <section className="user-articles">
+            <div className="article-images">
+              <div className="image">
+                <a>
+                  {articlesImg[0] && (
+                    <img src={articlesImg[0]} alt="Article Image" />
+                  )}
+                </a>
+              </div>
+              <div className="image">
+                <a>
+                  {articlesImg[1] && (
+                    <img src={articlesImg[1]} alt="Article Image" />
+                  )}
+                </a>
+              </div>
+              <div className="image">
+                <a>
+                  {articlesImg[2] && (
+                    <img src={articlesImg[2]} alt="Article Image" />
+                  )}
+                </a>
+              </div>
+              <div className="image">
+                <a>
+                  {articlesImg[3] && (
+                    <img src={articlesImg[3]} alt="Article Image" />
+                  )}
+                </a>
+              </div>
+            </div>
+            <a className="text">
+              <Link to="/write">+ 게시글 올리기</Link>
+            </a>
+          </section>
+        </section>
+      )}
     </>
   );
 };

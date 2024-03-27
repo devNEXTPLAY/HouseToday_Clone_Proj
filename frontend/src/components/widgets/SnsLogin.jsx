@@ -1,7 +1,5 @@
 import "./css/SnsLogin.scss";
-
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 // * SVG 아이콘 참조
 import { Facebook } from "../../assets/Facebook.jsx";
@@ -13,8 +11,7 @@ import { Naver } from "../../assets/Naver.jsx";
 const SnsLogin = ({ text, children }) => {
   const handleKakao = () => {
     window.location.href = "http://localhost:3005/api/users/kakao";
-  }
-  
+  };
 
   return (
     <section className="login-box">
