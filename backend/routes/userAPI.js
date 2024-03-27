@@ -427,5 +427,30 @@ router.get("/likes", isLoggedIn, async (req, res, next) => {
 	}
 });
 
+// 현재 사용자가 단일 게시글 좋아요 여부 조회 API
+// http://localhost:3005/api/users/like/:blog_id
+// Status: 200 OK / 500 Internal Server Error
+// return true if liked / return false if not liked
+router.get("/like/:blog_id", isLoggedIn, async (req, res, next) => {
+	const user_id = req.user.user_id;
+	const blog_id = req.params.blog_id;
+	try {
+		const like = await db.BlogLikes.findOne({
+			where: {
+				user_id: user_id,
+				blog_id: blog_id,
+			},
+		});
+		if (like) {
+			res.status(200).json(true);
+		} else {
+			res.status(200).json(false);
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
+
 router.use(errorMiddleware);
 module.exports = router;

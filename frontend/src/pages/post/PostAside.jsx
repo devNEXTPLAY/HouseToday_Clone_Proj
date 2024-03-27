@@ -22,26 +22,17 @@ const PostAside = ({ blogId }) => {
     const getLike = async () => {
       axios({
         method: "get",
-        url: "http://localhost:3005/api/users/likes",
+        url: `http://localhost:3005/api/users/like/${blogId}`,
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
-          const getLikePost = res.data.filter((like) => like.blog_id === blogId).length;
-          if (getLikePost >= 1) {
-            setIsLike(true);
-            return false;
-          }
-          if (getLikePost <= 0) {
-            setIsLike(false);
-            return false;
-          }
+          console.log("res", res);
+          setIsLike(res.data);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.log(err));
     };
     getLike();
   }, [token, blogId]);
