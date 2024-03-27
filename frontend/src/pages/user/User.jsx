@@ -6,12 +6,14 @@ import axios from "axios";
 import "./css/User.scss";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
+import UserArticles from "../../components/widgets/UserArticles";
 
 // * 사용자 프로필 설정
 const User = () => {
   const { uid } = useParams();
 
   const [user, setUser] = useState({});
+  const [likes, setLikes] = useState(0);
 
   const token = useSelector((state) => state.Auth.token);
 
@@ -27,6 +29,20 @@ const User = () => {
         .then((res) => {
           console.log(res);
           setUser(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      axios
+        .get("http://localhost:3005/api/users/likes", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res);
+          setLikes(res.data.length);
         })
         .catch((err) => console.log(err));
     }
@@ -53,7 +69,7 @@ const User = () => {
             <div className="card__like">
               <AiOutlineHeart size="24" />
               <strong>좋아요</strong>
-              <p>0</p>
+              <p>{likes}</p>
             </div>
           </div>
         </section>
@@ -61,13 +77,7 @@ const User = () => {
         <div className="card__null"></div>
 
         {/* //* 사용자 게시글  */}
-        <section className="post-list">
-          <div className="lilst__title-box">
-            <strong>게시글</strong>
-            <span>0</span>
-          </div>
-          <article></article>
-        </section>
+        <UserArticles />
       </main>
     </>
   );
