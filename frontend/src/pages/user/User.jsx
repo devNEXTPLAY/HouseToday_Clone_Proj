@@ -6,6 +6,7 @@ import axios from "axios";
 import "./css/User.scss";
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
+import UserArticles from "../../components/widgets/UserArticles";
 
 // * 사용자 프로필 설정
 const User = () => {
@@ -61,13 +62,7 @@ const User = () => {
         <div className="card__null"></div>
 
         {/* //* 사용자 게시글  */}
-        <section className="post-list">
-          <div className="lilst__title-box">
-            <strong>게시글</strong>
-            <span>0</span>
-          </div>
-          <article></article>
-        </section>
+        <UserArticles />
       </main>
     </>
   );
