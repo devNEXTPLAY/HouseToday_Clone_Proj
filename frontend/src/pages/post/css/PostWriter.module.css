@@ -26,3 +26,15 @@
   display: flex;
   flex-direction: column;
 }
+
+.buttons button {
+  margin: 5px;
+}
+
+.edit {
+  background-color: #111;
+}
+
+.delete {
+  background-color: #d21616;
+}

@@ -44,7 +44,8 @@ const Login = () => {
         console.log(res.status);
         if (res.status === 200) {
           // 전역데이터에 토큰/로그인 정보 저장
-          dispatch(userLogin(res.data.token, res.data.user));
+  
+          dispatch(userLogin(res.data.token, res.data.userId));
         }
         navigate("/");
       })
