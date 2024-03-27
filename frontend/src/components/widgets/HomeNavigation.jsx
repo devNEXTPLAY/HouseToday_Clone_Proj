@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions";
 
 import "./css/HomeNavigation.scss";
@@ -19,6 +18,7 @@ const HomeNavigation = () => {
   const [user, setUser] = useState({});
 
   const token = useSelector((state) => state.Auth.token);
+  const profileImg = useSelector((state) => state.Auth.profile_img);
 
   useEffect(() => {
     if (token) {
@@ -82,11 +82,13 @@ const HomeNavigation = () => {
           {/* //* 사용자 프로필 */}
           <div className="header__profile-box">
             <Button className="header__profile" onClick={handleShowNav}>
-              <img src={user.profile_img} alt="profile-image" />
+              <img src={profileImg} alt="profile-image" />
             </Button>
 
             {/* //* 사용자 프로필 드롭다운 메뉴 */}
-            <nav className={isSettings ? "header__profile-dropdown" : "isDisplay"}>
+            <nav
+              className={isSettings ? "header__profile-dropdown" : "isDisplay"}
+            >
               <Link to="/users/1">마이 페이지</Link>
               <Link to="/login" onClick={handleLogout}>
                 로그아웃

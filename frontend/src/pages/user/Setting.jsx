@@ -1,4 +1,6 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProfileImg } from "../../redux/actions";
+
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
@@ -11,13 +13,15 @@ import Button from "../../components/ui/Button";
 // * 사용자 설정
 const Setting = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const fileRef = useRef(null);
-  const [image, setImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-  );
   const { uid } = useParams();
 
+  const token = useSelector((state) => state.Auth.token);
+  const profileImge = useSelector((state) => state.Auth.profile_img);
+
+  // 이미지 서버 업로드
   const onChangeImage = (e) => {
     const formData = new FormData();
     if (e.target.files[0]) {
@@ -28,7 +32,7 @@ const Setting = () => {
         .then((res) => {
           console.log(res);
           const imageUrl = `http://localhost:3005/${res.data.filePath}`;
-          setImage(imageUrl);
+          dispatch(updateProfileImg(imageUrl));
         })
         .catch((err) => {
           console.log(err);
@@ -36,17 +40,20 @@ const Setting = () => {
     }
   };
 
+  // 이미지 삭제
   const onRemoveImage = () => {
-    if(window.confirm("이미지를 삭제하시겠습니까?") === false) return;
+    if (window.confirm("이미지를 삭제하시겠습니까?") === false) return;
     axios
       .delete("http://localhost:3005/api/common/delete", {
-        data: { filePath: image },
+        data: { filePath: profileImge },
         withCredentials: true,
       })
       .then((res) => {
         console.log(res);
-        setImage(
-          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        dispatch(
+          updateProfileImg(
+            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+          )
         );
       })
       .catch((err) => {
@@ -54,8 +61,7 @@ const Setting = () => {
       });
   };
 
-  const token = useSelector((state) => state.Auth.token);
-
+  // 사용자 정보 가져오기
   useEffect(() => {
     if (token) {
       axios
@@ -67,7 +73,6 @@ const Setting = () => {
         })
         .then((res) => {
           setUser(res.data);
-          setImage(res.data.profile_img || image)
         })
         .catch((err) => {
           console.log(err);
@@ -79,9 +84,10 @@ const Setting = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  // 사용자 정보 수정
   const onSetting = (e) => {
     const settingData = {
-      profile_img: image,
+      profile_img: profileImge, // 리덕스에서 가져온 이미지
       nickname: user.nickname,
       email: user.email,
       phone: user.phone,
@@ -111,7 +117,7 @@ const Setting = () => {
       <form className="form" onSubmit={onSetting}>
         <div className="form__image-box">
           <img
-            src={image}
+            src={profileImge}
             alt="image"
             name="profile_image"
             onClick={() => {
@@ -125,7 +131,9 @@ const Setting = () => {
             onChange={onChangeImage}
             ref={fileRef}
           />
-          <button type="button" onClick={onRemoveImage}>이미지 삭제</button>
+          <button type="button" onClick={onRemoveImage}>
+            이미지 삭제
+          </button>
         </div>
 
         <Input

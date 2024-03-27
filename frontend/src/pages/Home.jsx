@@ -3,12 +3,14 @@ import Articles_simple from "../components/home/Articles_simple";
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userLogin } from "../redux/actions";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin, updateProfileImg } from "../redux/actions";
 
 const Home = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.Auth.token);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -19,6 +21,25 @@ const Home = () => {
       dispatch(userLogin(token));
     }
   }, [location.search]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/api/users/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        const profileImg = res.data.profile_img;
+        if (profileImg) {
+          dispatch(updateProfileImg(profileImg));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 
   return (
     <>
