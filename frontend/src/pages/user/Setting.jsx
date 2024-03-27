@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { userLogin } from "../../redux/actions";
 
 import "./css/Setting.scss";
 import Header from "../../components/widgets/Header";
@@ -106,6 +108,37 @@ const Setting = () => {
     e.preventDefault();
   };
 
+  const dispatch = useDispatch();
+  const onwithdraw = () => {
+    dispatch(userLogin());
+    if(window.confirm("정말로 탈퇴하시겠습니까?") === false) return;
+    axios
+      .delete("http://localhost:3005/api/users/withdrawal", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      localStorage.removeItem("token");
+      axios({
+        method: "get",
+        url: "http://localhost:3005/api/users/logout",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }).catch((err) => console.log(err));
+      alert("회원탈퇴가 완료되었습니다.");
+      navigate("/");
+  }
+
   return (
     <>
       <form className="form" onSubmit={onSetting}>
@@ -165,8 +198,13 @@ const Setting = () => {
         />
 
         <nav className="nav">
-          <Link>탈퇴하기</Link>
-
+          {/* 회원탈퇴버튼, style은 버튼 boarder 없이 회색 텍스트만 */}
+          <Button 
+            type="button" 
+            style={{color: "gray", backgroundColor:"white", marginBottom:"20px", textAlign:"left"}} 
+            onClick={onwithdraw}>
+              회원탈퇴
+          </Button>
           <Button type="submit">완료</Button>
         </nav>
       </form>

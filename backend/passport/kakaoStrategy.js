@@ -3,6 +3,7 @@ const passport = require("passport");
 const db = require("../models/index.js");
 const enums = require("../common/enums.js");
 const moment = require("moment");
+const { Op } = require("sequelize");
 
 module.exports = (passport) => {
 	passport.use(
@@ -18,6 +19,9 @@ module.exports = (passport) => {
 				try {
 					let user = await db.Users.findOne({
 						where: { email: profile.id },
+						use_state_code: {
+							[Op.ne]: enums.USE_STATE_CODE.WITHDRAWAL,
+						},
 					});
 
 					if (!user) {
