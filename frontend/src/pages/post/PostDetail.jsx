@@ -5,8 +5,6 @@ import PostComments from "./PostComments";
 import PostAside from "./PostAside";
 import PostCommentInput from "./PostCommentInput";
 
-import Button from "../../components/ui/Button";
-
 import classes from "./css/PostDetail.module.css";
 import PostWriter from "./PostWriter";
 
