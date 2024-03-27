@@ -2,7 +2,6 @@ import { useState } from "react";
 
 const HashtagForm = ({ userValues, onUserValues }) => {
   const [hashtagValeue, setHashTagValue] = useState("");
-  console.log(userValues);
 
   // 해시태그 입력
   const handleChangeHashTagValue = (event) => setHashTagValue(event.target.value);

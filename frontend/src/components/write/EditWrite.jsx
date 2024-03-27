@@ -84,7 +84,6 @@ const EditWrite = ({ id, onSubmit, paramId }) => {
       return { ...prevValues, contents: event };
     });
 
-  console.log(userValues);
   // 해시태그 추가시, 엔터키로 인한 폼 전송 방지
 
   return (

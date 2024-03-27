@@ -28,10 +28,11 @@ export const fetchPostUpload = async (userValues, token) => {
 
 // 게시글 수정
 export const fetchPostEdit = async (userValues, token, blogId) => {
+  console.log(userValues, token, blogId)
   try {
     await axios({
-      method: "post",
-      url: "http://localhost:3005/api/blog/edit" + blogId,
+      method: "put",
+      url: "http://localhost:3005/api/blog/update/" + blogId,
       withCredentials: true,
       headers: {
         "Content-Type": "application/json",
