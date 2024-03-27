@@ -19,7 +19,6 @@ const HomeNavigation = () => {
   const [user, setUser] = useState({});
 
   const token = useSelector((state) => state.Auth.token);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -35,7 +34,6 @@ const HomeNavigation = () => {
         })
         .catch((err) => {
           console.log(err);
-          navigate("/login");
         });
     }
   }, []);
