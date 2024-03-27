@@ -10,7 +10,7 @@
     .image {
       position: relative;
       padding-bottom: 0; // 세로 비율을 180으로 설정
-      background-color: #f5f5f5;
+      background-color: #eaedef;
       border-radius: 6px;
       overflow: hidden;
     }
@@ -19,7 +19,7 @@
       display: block;
       position: relative;
       padding-bottom: 100%;
-      background-color: #f5f5f5;
+      background-color: #eaedef;
       border-radius: 6px;
       overflow: hidden;
     }
@@ -45,4 +45,10 @@
     font-weight: 700;
     text-align: center; // 텍스트를 가운데 정렬
   }
+}
+
+article {
+  border: 1px dotted #828c94;
+  width: 700px;
+  height: 180px;
 }
