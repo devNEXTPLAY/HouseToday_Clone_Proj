@@ -235,4 +235,14 @@
   .comment__reply {
     padding-left: 100px;
   }
+
+  .inner__auth-like {
+    position: relative;
+
+    a {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
@@ -25,21 +26,21 @@ const Aside = ({ blogId }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then(res=> {
-        const getLikePost = res.data.filter((like) => like.blog_id === blogId).length
-        if(getLikePost >= 1) {
-          setIsLike(true);
-          return false;
-        } 
-        if(getLikePost <= 0) {
-          setIsLike(false);
-          return false;
-        } 
-      }
-        
-        ).catch((err) => {
-        console.log(err);
-      });
+      })
+        .then((res) => {
+          const getLikePost = res.data.filter((like) => like.blog_id === blogId).length;
+          if (getLikePost >= 1) {
+            setIsLike(true);
+            return false;
+          }
+          if (getLikePost <= 0) {
+            setIsLike(false);
+            return false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     };
     getLike();
   }, [token, blogId]);
@@ -53,18 +54,20 @@ const Aside = ({ blogId }) => {
         Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
-    }).then(() => 
-      setIsLike(prevIsLike => !prevIsLike)
-    );
+    }).then(() => setIsLike((prevIsLike) => !prevIsLike));
   };
 
   return (
     <aside className="sticky-container">
       <nav className="sticky-container__inner">
-        <Button className="sticky-button" onClick={handleLike}>
-          {/* //* 좋아요 아이콘 */}
-          {isLike ? <FaHeart /> : <CiHeart />}
-        </Button>
+        <div className="inner__auth-like">
+          <Button className="sticky-button" onClick={handleLike}>
+            {/* //* 좋아요 아이콘 */}
+            {isLike ? <FaHeart /> : <CiHeart />}
+            {!token && <Link to="/login"></Link>}
+          </Button>
+        </div>
+
         <hr />
         <a className="sticky-button" href="#content">
           {/* //* 댓글 아이콘  */}
