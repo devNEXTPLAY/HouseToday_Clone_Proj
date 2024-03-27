@@ -1,24 +1,25 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+// 아이콘
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
-
 import { HiOutlineChatBubbleBottomCenter } from "react-icons/hi2";
 import { PiShareNetworkLight } from "react-icons/pi";
 
 import Button from "../../components/ui/Button";
 
-const Aside = ({ blogId }) => {
+import classes from "./css/PostAside.module.css";
+
+const PostAside = ({ blogId }) => {
   const token = useSelector((state) => state.Auth.token);
 
   const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
     const getLike = async () => {
-      // http://localhost:3005/api/users/likes
       axios({
         method: "get",
         url: "http://localhost:3005/api/users/likes",
@@ -45,7 +46,6 @@ const Aside = ({ blogId }) => {
     getLike();
   }, [token, blogId]);
 
-  //   http://localhost:3005/api/blog/like/:bid
   const handleLike = () => {
     axios({
       method: "post",
@@ -58,10 +58,10 @@ const Aside = ({ blogId }) => {
   };
 
   return (
-    <aside className="sticky-container">
-      <nav className="sticky-container__inner">
-        <div className="inner__auth-like">
-          <Button className="sticky-button" onClick={handleLike}>
+    <aside className={classes.absolute}>
+      <nav className={classes.sticky}>
+        <div className={classes.auth}>
+          <Button className={classes["sticky-button"]} onClick={handleLike}>
             {/* //* 좋아요 아이콘 */}
             {isLike ? <FaHeart /> : <CiHeart />}
             {!token && <Link to="/login"></Link>}
@@ -69,11 +69,11 @@ const Aside = ({ blogId }) => {
         </div>
 
         <hr />
-        <a className="sticky-button" href="#content">
+        <a className={classes["sticky-button"]} href="#content">
           {/* //* 댓글 아이콘  */}
           <HiOutlineChatBubbleBottomCenter />
         </a>
-        <Button className="sticky-button">
+        <Button className={classes["sticky-button"]}>
           {/* //* 공유 아이콘 */}
           <PiShareNetworkLight />
         </Button>
@@ -82,4 +82,4 @@ const Aside = ({ blogId }) => {
   );
 };
 
-export default Aside;
+export default PostAside;

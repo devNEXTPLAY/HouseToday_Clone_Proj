@@ -1,15 +1,14 @@
 import { useSelector } from "react-redux";
 import { useInput } from "../../components/hooks/useInput";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
-import classes from "./css/PostComment.module.css";
+import CommentInput from "../../components/ui/CommentInput";
 
-const PostComment = ({ blogId }) => {
+const PostCommentInput = ({ blogId }) => {
   const token = useSelector((state) => state.Auth.token);
   const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
 
-  const handleComment = async () => {
+  const handleSubmitComment = async () => {
     await axios({
       method: "post",
       url: "http://localhost:3005/api/comment/create",
@@ -29,21 +28,8 @@ const PostComment = ({ blogId }) => {
   };
 
   return (
-    <>
-      <div className={classes.comment}>
-        <textarea
-          name="content"
-          id="content"
-          placeholder="댓글을 입력해주세요"
-          rows={50}
-          value={commentValue}
-          onChange={handleCommentChange}
-        ></textarea>
-        <button onClick={handleComment}>입력</button>
-        {!token && <Link className={classes.link} to="/login"></Link>}
-      </div>
-    </>
+    <CommentInput commentValue={commentValue} handleCommentChange={handleCommentChange} handleSubmitComment={handleSubmitComment} token={token} />
   );
 };
 
-export default PostComment;
+export default PostCommentInput;

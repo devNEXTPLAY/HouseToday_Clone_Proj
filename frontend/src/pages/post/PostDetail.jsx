@@ -1,60 +1,47 @@
 import parse from "html-react-parser";
-
 import { Link } from "react-router-dom";
 
+import PostComments from "./PostComments";
+import PostAside from "./PostAside";
+import PostCommentInput from "./PostCommentInput";
+
 import Button from "../../components/ui/Button";
-import Comment from "./Comment";
-import Aside from "./Aside";
-import PostComment from "./PostComment";
+
+import classes from "./css/PostDetail.module.css";
+import PostWriter from "./PostWriter";
 
 const PostDetail = ({ data }) => {
   return (
     <>
-      <main className="main">
+      <main className={classes.main}>
         {/* //* 게시글 대표 이미지 */}
-        <img className="main-image" src={data.preview_img} alt="대표 이미지" />
+        <img className={classes["preview-img"]} src={data.preview_img} alt="대표 이미지" />
 
-        <section className="post">
+        <section className={classes.post}>
           {/* //* 게시글 사이드 네비게이션 */}
 
-          <Aside blogId={data.blog_id} />
+          <PostAside blogId={data.blog_id} />
 
           {/* //* 게시글 콘텐츠 */}
-          <section className="content">
+          <section className={classes.section}>
             {/* //* 게시글 제목 */}
             <h2>{data.title}</h2>
 
             <hr />
 
             {/* //* 게시글 작성자 정보: 프로필 사진, 소개말, 팔로우 버튼*/}
-            <div className="information-user">
-              <div className="information-user__profile">
-                <Link to="/">
-                  <img
-                    src="https://images.unsplash.com/photo-1638996970429-389100ca2b48?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="profile"
-                  />
-                </Link>
-
-                <div>
-                  <strong>{data.User.nickname}</strong>
-                  <span>안녕하세요!</span>
-                </div>
-              </div>
-
-              <Button>팔로우</Button>
-            </div>
+            <PostWriter profileImg={data.User.profile_img} nickname={data.User.nickname} />
 
             <div>{parse(data.contents)}</div>
 
             <img
-              className="warning"
+              className={classes["warning-img"]}
               src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/projects/170130919448597544.png?w=720"
               alt="Warning"
             />
 
             {/* //* 게시글 정보: 작성일, 좋아요수, 스크랩수, 조회수 */}
-            <div className="information-post">
+            <div className={classes.actions}>
               <span>{data.reg_date}</span>
               <span>좋아요 {data.like_count}</span>
               <span>조회 {data.view_count}</span>
@@ -64,41 +51,23 @@ const PostDetail = ({ data }) => {
             </div>
 
             {/* //* 게시글 작성자 정보 상단과 동일 */}
-            <div className="information-user">
-              <div className="information-user__profile">
-                <Link to="/">
-                  <img
-                    src="https://images.unsplash.com/photo-1638996970429-389100ca2b48?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="profile"
-                  />
-                </Link>
-
-                <div>
-                  <strong>{data.User.nickname}</strong>
-                  <span>안녕하세요.</span>
-                </div>
-              </div>
-              <Button>팔로우</Button>
-            </div>
-            <hr />
+            <PostWriter profileImg={data.User.profile_img} nickname={data.User.nickname} />
 
             {/* //* 게시글 댓글 */}
-            <section className="comment" id="comment">
-              <PostComment blogId={data.blog_id} />
-              <div className="comment__title-box">
+            <article className={classes.comments} id="comment">
+              <PostCommentInput blogId={data.blog_id} />
+              <div className={classes.information}>
                 <span className="title-box__title">댓글</span>
                 <span className="title-box__count">{data.comments.length}</span>
               </div>
-              <ul>
-                {data.comments.map((comment) => {
-                  return (
-                    <div key={comment.comment_id}>
-                      <Comment comment={comment} />
-                    </div>
-                  );
-                })}
+              <ul className={classes["comment-list"]}>
+                {data.comments.map((comment) => (
+                  <div key={comment.comment_id}>
+                    <PostComments comment={comment} />
+                  </div>
+                ))}
               </ul>
-            </section>
+            </article>
           </section>
         </section>
       </main>

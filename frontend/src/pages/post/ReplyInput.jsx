@@ -2,12 +2,13 @@ import { useSelector } from "react-redux";
 
 import axios from "axios";
 import { useInput } from "../../components/hooks/useInput";
+import CommentInput from "../../components/ui/CommentInput";
 
 const ReplyInput = ({ commentBlogId, commentId }) => {
   const { value: commentValue, handleInputChange: handleCommentChange } = useInput("");
   const token = useSelector((state) => state.Auth.token);
 
-  const handleComment = async () => {
+  const handleSubmitComment = async () => {
     await axios({
       method: "post",
       url: "http://localhost:3005/api/comment/create",
@@ -27,19 +28,7 @@ const ReplyInput = ({ commentBlogId, commentId }) => {
   };
 
   return (
-    <>
-      <div className="comment__input">
-        <textarea
-          name="content"
-          id="content"
-          placeholder="댓글을 입력해주세요"
-          rows={50}
-          value={commentValue}
-          onChange={handleCommentChange}
-        ></textarea>
-        <button onClick={handleComment}>입력</button>
-      </div>
-    </>
+    <CommentInput commentValue={commentValue} handleCommentChange={handleCommentChange} handleSubmitComment={handleSubmitComment} token={token} />
   );
 };
 
