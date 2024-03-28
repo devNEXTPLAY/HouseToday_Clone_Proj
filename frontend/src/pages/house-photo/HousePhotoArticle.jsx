@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 
 import "./css/HousePhotoArticle.scss";
 // import { FcLikePlaceholder } from "react-icons/fc";
@@ -49,7 +50,7 @@ const HousePhotoArticle = ({ data }) => {
             </div>
 
             {/* 게시글 내용 */}
-            {/* <p className="card__content"> {article}</p> */}
+            <p className="card__content"> {parse(article.contents)}</p>
 
             {/* 댓글이 있을 때만 보이도록 */}
             {article.best_comment.content && (
