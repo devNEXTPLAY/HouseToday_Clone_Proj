@@ -27,9 +27,13 @@ async function getRecommendedBlogs(blog_type_code) {
 			return { blog_id: blog.blog_id, score };
 		});
 
+        var ret_number = 4;
+        if (blog_type_code === enums.BLOG_TYPE_CODE.PHOTO_VIDEO) {
+            ret_number = 6;
+        }
 		const recommendedBlogs = blogScores
 			.sort((a, b) => b.score - a.score)
-			.slice(0, 4)
+			.slice(0, ret_number)
 			.map((blog) => blog.blog_id);
 
 		return recommendedBlogs;
