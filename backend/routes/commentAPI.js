@@ -60,12 +60,10 @@ router.patch("/update", isLoggedIn, async (req, res, next) => {
 			});
 		}
 
-		await db.Comments.update(
-			{ contents, ip_address, edit_date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss") },
-			{
-				where: { comment_id, user_id },
-			}
-		);
+		comment.content = contents;
+		comment.edit_date = moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+		comment.ip_address = ip_address;
+		await comment.save();
 		res.status(200).json({
 			message: "댓글이 수정되었습니다.",
 		});
@@ -75,10 +73,10 @@ router.patch("/update", isLoggedIn, async (req, res, next) => {
 });
 
 //  댓글 삭제 API
-//  http://localhost:3005/api/comment/delete:cid
+//  http://localhost:3005/api/comment/delete
 //  Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-router.delete("/delete/:cid", isLoggedIn, async (req, res, next) => {
-	const comment_id = req.params.cid;
+router.delete("/delete", isLoggedIn, async (req, res, next) => {
+	const comment_id = req.body.comment_id;
 	const user_id = req.user.user_id;
 
 	try {

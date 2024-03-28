@@ -451,6 +451,39 @@ router.get("/like/:blog_id", isLoggedIn, async (req, res, next) => {
 	}
 });
 
+// 팔로우 처리 API
+// http://localhost:3005/api/users/follow
+// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+router.post("/follow", isLoggedIn, async (req, res, next) => {
+	const { followee_id } = req.body;
+	const follower_id = req.user.user_id;
+	try {
+		const follow = await db.Follows.findOne({
+			where: {
+				follower_id,
+				followee_id,
+			},
+		});
+		if (follow) {
+			await follow.destroy();
+			res.status(200).json({
+				message: "팔로우를 취소하였습니다.",
+			});
+		} else {
+			await db.Follows.create({
+				follower_id,
+				followee_id,
+				created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+			});
+			res.status(200).json({
+				message: "팔로우를 추가하였습니다.",
+			});
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
 
 router.use(errorMiddleware);
 module.exports = router;
