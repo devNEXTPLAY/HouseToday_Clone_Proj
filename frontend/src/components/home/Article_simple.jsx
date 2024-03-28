@@ -1,5 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 import { CiBookmark } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 import "./css/Article_simple.scss";
 
@@ -13,19 +14,21 @@ import "./css/Article_simple.scss";
 // * viewcount: 조회수
 // * coverImage: 게시글 대표 이미지
 
-const Article = ({ title, coverImage }) => {
+const Article = ({ title, coverImage, href }) => {
   return (
     <li className="article">
-      <div className="article__image-box">
-        <img src={coverImage} alt="coverImage" />
-        <div>
-          <CiBookmark size="36" color="#fff" />
+      <Link to={href}>
+        <div className="article__image-box">
+          <img src={coverImage} alt="coverImage" />
+          <div>
+            <CiBookmark size="36" color="#fff" />
+          </div>
         </div>
-      </div>
 
-      <div className="information__title">
-        <h3>{title}</h3>
-      </div>
+        <div className="information__title">
+          <h3>{title}</h3>
+        </div>
+      </Link>
     </li>
   );
 };

@@ -8,11 +8,15 @@ import { LIST } from "../../assets/data";
 
 // * PC 게시글
 const PcArticles = () => {
+  const [articles, setArticles] = useState([]);
+
+  // * 추천 게시글 가져오기
   useEffect(() => {
     axios
       .get("http://localhost:3005/api/blog/recommended")
       .then((res) => {
         console.log(res.data);
+        setArticles(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -22,11 +26,12 @@ const PcArticles = () => {
   return (
     <>
       <div className="articles__container">
-        {LIST.map((article) => (
+        {articles.map((article) => (
           <Article_simple
-            key={article.id}
+            key={article.blog_id}
             title={article.title}
-            coverImage={article.coverImage}
+            coverImage={article.preview_img}
+            href={`/post/${article.blog_id}`}
           />
         ))}
       </div>
