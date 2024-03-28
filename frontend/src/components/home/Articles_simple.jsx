@@ -1,16 +1,24 @@
-import { useMediaQuery } from "react-responsive";
-import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 import "./css/Articles.scss";
-import { CiBookmark } from "react-icons/ci";
-import { IoIosArrowForward } from "react-icons/io";
 
-import Article from "./Article";
 import Article_simple from "./Article_simple";
 import { LIST } from "../../assets/data";
 
 // * PC 게시글
 const PcArticles = () => {
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/api/blog/recommended")
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <div className="articles__container">
