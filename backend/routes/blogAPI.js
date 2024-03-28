@@ -51,14 +51,15 @@ router.get("/main", async (req, res, next) => {
 // 메인 페이지 추천 블로그 글 반환 API
 // http://localhost:3005/api/blog/recommended
 // Status: 200 OK / 404 Not Found / 500 Internal Server Error
-// recommendedBlogs return 8 blog_ids
+// 집들이 4개, 집 사진 4개를 추천
 router.get("/recommended", async (req, res, next) => {
 	try {
-		const recommendedBlogs = await getRecommendedBlogs();
-		const blogs = await db.Blogs.findAll({
+		const recommended_housewarming = await getRecommendedBlogs(enums.BLOG_TYPE_CODE.HOUSEWARMING);
+		const recommended_photo_video = await getRecommendedBlogs(enums.BLOG_TYPE_CODE.PHOTO_VIDEO);
+		const housewarming = await db.Blogs.findAll({
 			attributes: ["blog_id", "title", "preview_img", "user_id"],
 			where: {
-				blog_id: recommendedBlogs,
+				blog_id: recommended_housewarming,
 			},
 			include: [
 				{
@@ -68,21 +69,39 @@ router.get("/recommended", async (req, res, next) => {
 				},
 			],
 		});
-		if (blogs.length > 0) {
-			const data = blogs.map((blog) => {
+		const photo_video = await db.Blogs.findAll({
+			attributes: ["blog_id", "title", "preview_img", "user_id"],
+			where: {
+				blog_id: recommended_photo_video,
+			},
+			include: [
+				{
+					model: db.Users,
+					attributes: ["nickname"],
+					as: "User",
+				},
+			],
+		});
+
+		const data = {
+			housewarming: housewarming.map((blog) => {
 				return {
 					blog_id: blog.blog_id,
 					title: blog.title,
 					preview_img: blog.preview_img,
 					nickname: blog.User.nickname,
 				};
-			});
-			res.status(200).json(data);
-		} else {
-			res.status(404).json({
-				message: "추천 블로그 글이 존재하지 않습니다.",
-			});
-		}
+			}),
+			photo_video: photo_video.map((blog) => {
+				return {
+					blog_id: blog.blog_id,
+					title: blog.title,
+					preview_img: blog.preview_img,
+					nickname: blog.User.nickname,
+				};
+			}),
+		};
+		res.status(200).json(data);
 	} catch (error) {
 		next(error);
 	}
