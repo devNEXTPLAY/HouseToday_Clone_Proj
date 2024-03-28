@@ -1,0 +1,47 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  background-color: #fff;
+  z-index: 99;
+  border-radius: 10px;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem;
+}
+
+.buttons button {
+  border: none;
+  width: 100px;
+  transition: 1s all;
+  border-radius: 5px;
+}
+
+.buttons button:first-child:hover {
+  color: #fff;
+}
+
+.buttons button:hover {
+  background-color: #111;
+}

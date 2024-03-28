@@ -3,14 +3,18 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useInput } from "../../components/hooks/useInput";
+import { useConfirm } from "../../components/hooks/useConfirm";
 
 import ReplyInput from "./ReplyInput";
 
 import classes from "./css/PostComments.module.css";
 import CommentInput from "../../components/ui/CommentInput";
+import Confirm from "../../components/ui/Confirm";
 
 const PostComments = ({ comment }) => {
   const { value: commentValue, handleInputChange: handleCommentChange } = useInput(comment?.content);
+  const { isConfirm, onConfirm, offConfirm } = useConfirm();
+
   const [isEdit, setIsEdit] = useState(false);
 
   const [isReply, setIsReply] = useState(false);
@@ -81,6 +85,14 @@ const PostComments = ({ comment }) => {
 
   return (
     <>
+      {isConfirm && (
+        <Confirm
+          onSure={handleDeleteComment}
+          offConfirm={offConfirm}
+          title="댓글을 삭제하시겠습니까?"
+          description="삭제된 댓글은 다시 복원할 수 없습니다."
+        />
+      )}
       <li className={classes.li}>
         <div className={classes.user}>
           <img src={comment.User.profile_img} alt="" />
@@ -99,7 +111,7 @@ const PostComments = ({ comment }) => {
           {comment.Replies?.length > 0 && <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>}
           <span onClick={handleToggleComment}>답글 달기</span>
           {currentUser === comment.user_id && <span onClick={handleIsEdit}>수정</span>}
-          {currentUser === comment.user_id && <span onClick={handleDeleteComment}>삭제</span>}
+          {currentUser === comment.user_id && <span onClick={onConfirm}>삭제</span>}
         </div>
       </li>
 
