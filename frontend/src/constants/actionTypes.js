@@ -2,3 +2,5 @@
 export const USER_LOGIN = "USER_LOGIN";
 
 export const UPDATE_PROFILE_IMG = "UPDATE_PROFILE_IMG";
+
+export const USER_ID = "UESR_ID";
