@@ -1,11 +1,11 @@
 // 메인페이지 추천 블로그 가져오기 모듈 함수
 // 최근 24시간 내에 작성된 블로그 중 조회수, 좋아요 수, 댓글 수를 고려하여 가장 높은 점수를 가진
-// 8개의 블로그를 추천하는 함수
+// 집들이 4개, 집 사진 4개를 추천
 const db = require("../../models");
 const enums = require("../../common/enums.js");
 const { Op } = require("sequelize");
 
-async function getRecommendedBlogs() {
+async function getRecommendedBlogs(blog_type_code) {
 	try {
 		const blogs = await db.Blogs.findAll({
 			attributes: ["blog_id", "view_count", "like_count", "comment_count", "reg_date"],
@@ -13,6 +13,7 @@ async function getRecommendedBlogs() {
 				blog_status_code: {
 					[Op.or]: [enums.BLOG_STATUS_CODE.APPROVED, enums.BLOG_STATUS_CODE.APPLIED],
 				},
+                blog_type_code,
 			},
 		});
 
@@ -28,7 +29,7 @@ async function getRecommendedBlogs() {
 
 		const recommendedBlogs = blogScores
 			.sort((a, b) => b.score - a.score)
-			.slice(0, 8)
+			.slice(0, 4)
 			.map((blog) => blog.blog_id);
 
 		return recommendedBlogs;
