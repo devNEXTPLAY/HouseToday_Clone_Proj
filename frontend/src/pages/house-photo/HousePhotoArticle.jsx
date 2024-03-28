@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./css/HousePhotoArticle.scss";
 // import { FcLikePlaceholder } from "react-icons/fc";
 import { GrView } from "react-icons/gr";
+import { IoChatbubbleOutline } from "react-icons/io5";
 
 import { AiOutlineHeart } from "react-icons/ai";
 
@@ -21,11 +22,14 @@ const HousePhotoArticle = ({ data }) => {
                   <button>팔로우</button>
                 </div>
                 {/* 소개 */}
-                <p className="description__introduction">{article.title}</p>
+                {/* <p className="description__introduction">{article.title}</p> */}
               </div>
             </section>
-            <div className="card__image">
-              <img src={article.preview_img} alt="" />
+            <div className="card__image-container">
+              <img src={article.preview_img} alt="" className="card__image" />
+              <div className="image__view-count">
+                조회수 {article.view_count}
+              </div>
             </div>
             <div className="card__count">
               <span>
@@ -35,9 +39,10 @@ const HousePhotoArticle = ({ data }) => {
                 <p>{article.like_count}</p>
               </span>
 
+              {/* 댓글수 */}
               <span>
                 <button>
-                  <GrView size="24" />
+                  <IoChatbubbleOutline size="24" />
                 </button>
                 <p>{article.view_count}</p>
               </span>
