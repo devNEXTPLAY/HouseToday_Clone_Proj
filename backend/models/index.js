@@ -9,6 +9,7 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.Users = require("./users.js")(sequelize, Sequelize);
+db.Follows = require("./follows.js")(sequelize, Sequelize);
 db.Blogs = require("./blogs/blogs.js")(sequelize, Sequelize);
 db.Hashtags = require("./blogs/hashtags.js")(sequelize, Sequelize);
 db.Comments = require("./blogs/comments.js")(sequelize, Sequelize);

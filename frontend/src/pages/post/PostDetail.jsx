@@ -9,6 +9,8 @@ import classes from "./css/PostDetail.module.css";
 import PostWriter from "./PostWriter";
 
 const PostDetail = ({ data }) => {
+  console.log(data);
+
   return (
     <>
       <main className={classes.main}>
