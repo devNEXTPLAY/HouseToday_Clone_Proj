@@ -4,7 +4,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
-import { userLogin } from "../../redux/actions";
+import { userLogin, userOriginalId } from "../../redux/actions";
 
 // * 폼 유효성 검사
 import { useFormik } from "formik";
@@ -45,6 +45,7 @@ const Login = () => {
         if (res.status === 200) {
           // 전역데이터에 토큰/로그인 정보 저장
           dispatch(userLogin(res.data.token));
+          dispatch(userOriginalId(res.data.userId));
         }
         navigate("/");
       })
@@ -68,22 +69,8 @@ const Login = () => {
       {/* //* 로그인 입력 폼 */}
       <form onSubmit={onLogin}>
         <div className="form__input-box">
-          <input
-            className="input__email"
-            placeholder="이메일"
-            type="email"
-            name="email"
-            value={user.email}
-            onChange={onLoginChange}
-          />
-          <input
-            className="input__password"
-            placeholder="비밀번호"
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={onLoginChange}
-          />
+          <input className="input__email" placeholder="이메일" type="email" name="email" value={user.email} onChange={onLoginChange} />
+          <input className="input__password" placeholder="비밀번호" type="password" name="password" value={user.password} onChange={onLoginChange} />
         </div>
 
         <Button type="submit">로그인</Button>
