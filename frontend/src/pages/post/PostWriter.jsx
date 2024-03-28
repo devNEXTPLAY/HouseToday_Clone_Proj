@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useConfirm } from "../../components/hooks/useConfirm";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
 
 import classes from "./css/PostWriter.module.css";
 import axios from "axios";
+import Confirm from "../../components/ui/Confirm";
 
 const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
   const token = useSelector((state) => state.Auth.token);
   const currentUser = useSelector((state) => state.Auth.userId);
   const navigate = useNavigate();
+
+  const { isConfirm, onConfirm, offConfirm } = useConfirm();
 
   const handleDletePost = async () => {
     await axios({
@@ -54,6 +57,14 @@ const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
 
   return (
     <>
+      {isConfirm && (
+        <Confirm
+          onSure={handleDletePost}
+          offConfirm={offConfirm}
+          title="게시글을 삭제하시겠습니까?"
+          description="'삭제된 게시글은 다시 복원할 수 없습니다. "
+        />
+      )}
       <div className={classes.writer}>
         <div className={classes.profile}>
           <Link to="/">
@@ -74,7 +85,7 @@ const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
             </Button>
           )}
           {userId === currentUser && (
-            <Button className={classes.delete} onClick={handleDletePost}>
+            <Button className={classes.delete} onClick={onConfirm}>
               삭제
             </Button>
           )}
