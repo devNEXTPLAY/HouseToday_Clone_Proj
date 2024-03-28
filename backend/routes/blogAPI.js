@@ -8,7 +8,7 @@ const errorMiddleware = require("../middlewares/errorMiddleware.js");
 const { Op } = require("sequelize");
 
 // 자체 모듈 함수
-const getComments = require("../public/js/getComments.js");
+const { getComments, getBestComment } = require("../public/js/getComments.js");
 const mainBlog = require("../public/js/mainBlog.js");
 const getRecommendedBlogs = require("../public/js/getRecommendedBlogs.js");
 const updateHashtags = require("../public/js/updateHashtags.js");
@@ -110,6 +110,7 @@ router.get("/recommended", async (req, res, next) => {
 // 게시판별 블로그 전체 글 반환 API
 // 게시판코드 - 파라미터 type: 0: 집들이 1: 노하우 2: 사진/영상
 // 정렬 코드 -쿼리스트링 code: 0: 최신순, 1: 좋아요순
+// 해시태그, 베스트 댓글, 댓글 작성자 닉네임 프로필 이미지 포함
 // http://localhost:3005/api/blog/list/0?code=1
 // Status: 200 OK / 404 Not Found / 500 Internal Server Error
 router.get("/list/:type", async (req, res, next) => {
@@ -149,31 +150,44 @@ router.get("/list/:type", async (req, res, next) => {
 			include: [
 				{
 					model: db.Users,
-					attributes: ["nickname", "profile_img"],
+					attributes: ["nickname", "profile_img", "intro_msg"],
 					as: "User",
 				},
+				{
+					model: db.Hashtags,
+					attributes: ["hashtag_name"],
+					through: {
+						attributes: [],
+					},
+				}
 			],
 			order,
 		});
-		if (blogs.length > 0) {
-			const data = blogs.map((blog) => {
-				return {
-					blog_id: blog.blog_id,
-					title: blog.title,
-					preview_img: blog.preview_img,
-					nickname: blog.User.nickname,
-					profile_img: blog.User.profile_img,
-					view_count: blog.view_count,
-					like_count: blog.like_count,
-					comment_count: blog.comment_count,
-					reg_date: blog.reg_date,
-				};
-			});
-			res.status(200).json(data);
-		} else {
-			// if (blogs.length === 0) return empty array
-			res.status(200).json([]);
-		}
+
+		const bestComments = [];
+		for (let blog of blogs) {
+			const bestComment = await getBestComment(blog.blog_id);
+			bestComments.push(bestComment);
+		};
+
+		const data = blogs.map((blog, index) => {
+			console.log(bestComments[index])
+			return {
+				blog_id: blog.blog_id,
+				title: blog.title,
+				preview_img: blog.preview_img,
+				nickname: blog.User.nickname,
+				profile_img: blog.User.profile_img,
+				intro_msg: blog.User.intro_msg,
+				view_count: blog.view_count,
+				like_count: blog.like_count,
+				comment_count: blog.comment_count,
+				reg_date: blog.reg_date,
+				hashtag: blog.Hashtags.map((hashtag) => hashtag.hashtag_name),
+				best_comment: bestComments[index],
+			};
+		});
+		res.status(200).json(data);
 	} catch (error) {
 		next(error);
 	}

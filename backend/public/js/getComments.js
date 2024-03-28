@@ -48,4 +48,38 @@ async function getComments(blogId) {
   }
 }
 
-module.exports = getComments;
+// 좋아요 수가 가장 많은 베스트 댓글 1개를 조회하는 함수
+async function getBestComment(blogId) {
+  try {
+    const bestComment = await db.Comments.findOne({
+      where: { blog_id: blogId, parent_id: null, comment_status_code: 0 },
+      order: [["like_count", "DESC"]],
+      include: [
+        {
+          model: db.Users,
+          attributes: ["nickname", "profile_img"],
+          as: "User",
+        },
+      ],
+    });
+
+    if (bestComment) {
+      return {
+        nickname: bestComment.User.nickname,
+        profile_img: bestComment.User.profile_img,
+        content: bestComment.content,
+      };
+    }
+    else {
+      return {
+        nickname: '',
+        profile_img: '',
+        content: '',
+      };
+    }
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports = { getComments, getBestComment };
