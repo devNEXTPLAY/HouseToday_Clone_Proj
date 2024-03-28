@@ -22,7 +22,7 @@ const HousePhotoArticle = ({ data }) => {
                   <button>팔로우</button>
                 </div>
                 {/* 소개 */}
-                {/* <p className="description__introduction">{article.title}</p> */}
+                <p className="description__introduction">{article.intro_msg}</p>
               </div>
             </section>
             <div className="card__image-container">
@@ -44,11 +44,28 @@ const HousePhotoArticle = ({ data }) => {
                 <button>
                   <IoChatbubbleOutline size="24" />
                 </button>
-                <p>{article.view_count}</p>
+                <p>{article.comment_count}</p>
               </span>
             </div>
 
+            {/* 게시글 내용 */}
             {/* <p className="card__content"> {article}</p> */}
+
+            {/* 댓글이 있을 때만 보이도록 */}
+            {article.best_comment.content && (
+              <div className="card__comment-container">
+                <img
+                  src={article.best_comment.profile_img}
+                  alt="댓글 작성자 프로필 사진"
+                />
+                <div className="card__comment">
+                  <p className="card__comment-nickname">
+                    {article.best_comment.nickname}
+                  </p>
+                  <p>{article.best_comment.content}</p>
+                </div>
+              </div>
+            )}
           </li>
         </Link>
       ))}
