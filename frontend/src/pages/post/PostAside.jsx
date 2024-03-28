@@ -29,7 +29,6 @@ const PostAside = ({ blogId }) => {
         },
       })
         .then((res) => {
-          console.log("res", res);
           setIsLike(res.data);
         })
         .catch((err) => console.log(err));

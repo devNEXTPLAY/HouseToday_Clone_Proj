@@ -16,7 +16,7 @@ const PostComments = ({ comment }) => {
   const [isReply, setIsReply] = useState(false);
   const [isReplyList, setIsReplyList] = useState(false);
 
-  const currentUser = useSelector((state) => state.Auth.user);
+  const currentUser = useSelector((state) => state.Auth.userId);
   const token = useSelector((state) => state.Auth.token);
 
   const handleToggleComment = () => setIsReply((prevIsReply) => !prevIsReply);
@@ -38,9 +38,11 @@ const PostComments = ({ comment }) => {
         comment_id: comment.comment_id,
         contents: commentValue,
       },
-    }).then((res) => {
-      console.log("res", res);
-    });
+    })
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleDeleteComment = async () => {
