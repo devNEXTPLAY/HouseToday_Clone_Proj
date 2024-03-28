@@ -8,7 +8,6 @@ import PostCommentInput from "./PostCommentInput";
 import classes from "./css/PostDetail.module.css";
 import PostWriter from "./PostWriter";
 
-
 const PostDetail = ({ data }) => {
   return (
     <>
@@ -61,9 +60,7 @@ const PostDetail = ({ data }) => {
               </div>
               <ul className={classes["comment-list"]}>
                 {data.comments.map((comment) => (
-                  <div key={comment.comment_id}>
-                    <PostComments comment={comment} />
-                  </div>
+                  <PostComments comment={comment} key={comment.comment_id} />
                 ))}
               </ul>
             </article>
