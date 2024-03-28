@@ -124,18 +124,28 @@
     }
   }
   .card__content {
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 22px;
+    display: flex;
+    align-items: center; // 수직 중앙
     text-overflow: ellipsis;
     width: 270px;
+    height: 44px;
+    margin: 15px 0 0 0;
+    padding: 0;
+
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 22px;
+    }
   }
 }
 
 .card__comment-container {
   display: flex;
   align-items: center; // 수직 중앙
-  width: 270px;
+  width: 290px;
   height: 24px;
   margin-top: 10px;
 
