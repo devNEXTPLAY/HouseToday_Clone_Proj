@@ -16,7 +16,7 @@ const PcArticles = () => {
       .get("http://localhost:3005/api/blog/recommended")
       .then((res) => {
         console.log(res.data);
-        setArticles(res.data);
+        setArticles(res.data.housewarming);
       })
       .catch((err) => {
         console.log(err);
