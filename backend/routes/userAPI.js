@@ -484,6 +484,30 @@ router.post("/follow", isLoggedIn, async (req, res, next) => {
 	}
 });
 
+// 팔로잉 목록 조회 API
+// http://localhost:3005/api/users/followings
+// Status: 200 OK / 500 Internal Server Error
+router.get("/followings", isLoggedIn, async (req, res, next) => {
+	const follower_id = req.user.user_id;
+	try {
+		const followings = await db.Follows.findAll({
+			where: {
+				follower_id,
+			},
+			include: [
+				{
+					model: db.Users,
+					as: "Followee",
+				},
+			],
+			order: [["created_at", "DESC"]],
+		});
+		res.status(200).json(followings);
+	} catch (error) {
+		next(error);
+	}
+});
+
 
 router.use(errorMiddleware);
 module.exports = router;
