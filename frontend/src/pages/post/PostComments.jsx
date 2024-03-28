@@ -19,18 +19,15 @@ const PostComments = ({ comment }) => {
   const currentUser = useSelector((state) => state.Auth.user);
   const token = useSelector((state) => state.Auth.token);
 
-  const handleToggleComment = () => {
-    console.log("handleToggleComment");
-    setIsReply((prevIsReply) => !prevIsReply);
-  };
+  const handleToggleComment = () => setIsReply((prevIsReply) => !prevIsReply)
+  
 
-  const handleShowReply = () => {
-    setIsReplyList((prevIsReplyList) => !prevIsReplyList);
-  };
+  const handleShowReply = () => setIsReplyList((prevIsReplyList) => !prevIsReplyList)
+
 
   const handleIsEdit = () => setIsEdit((prevIsEdit) => !prevIsEdit);
 
-  const handleSubmitComment = async () => {
+  const handleEditComment = async () => {
     await axios({
       method: "patch",
       url: "http://localhost:3005/api/comment/update",
@@ -48,6 +45,23 @@ const PostComments = ({ comment }) => {
     });
   };
 
+  const handleDeleteComment = async () => {
+    await axios({
+      method: "delete",
+      url: "http://localhost:3005/api/comment/delete",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        comment_id: comment.comment_id,
+      },
+    }).then((res) => {
+      console.log("res", res);
+    });
+  };
+
   return (
     <>
       <li className={classes.li}>
@@ -58,12 +72,7 @@ const PostComments = ({ comment }) => {
 
         {!isEdit && <p>{comment.content}</p>}
         {isEdit && (
-          <CommentInput
-            commentValue={commentValue}
-            handleCommentChange={handleCommentChange}
-            handleSubmitComment={handleSubmitComment}
-            token={token}
-          />
+          <CommentInput commentValue={commentValue} handleCommentChange={handleCommentChange} handleSubmitComment={handleEditComment} token={token} />
         )}
 
         <div className={classes.actions}>
@@ -73,7 +82,7 @@ const PostComments = ({ comment }) => {
           {comment.Replies?.length > 0 && <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>}
           <span onClick={handleToggleComment}>답글 달기</span>
           {currentUser === comment.user_id && <span onClick={handleIsEdit}>수정</span>}
-          {currentUser === comment.user_id && <span>삭제</span>}
+          {currentUser === comment.user_id && <span onClick={handleDeleteComment}>삭제</span>}
         </div>
       </li>
 

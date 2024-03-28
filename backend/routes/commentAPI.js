@@ -77,8 +77,8 @@ router.patch("/update", isLoggedIn, async (req, res, next) => {
 //  댓글 삭제 API
 //  http://localhost:3005/api/comment/delete:cid
 //  Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-router.delete("/delete/:cid", isLoggedIn, async (req, res, next) => {
-	const comment_id = req.params.cid;
+router.delete("/delete/", isLoggedIn, async (req, res, next) => {
+	const comment_id = req.body.comment_id;
 	const user_id = req.user.user_id;
 
 	try {
