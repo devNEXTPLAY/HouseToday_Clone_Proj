@@ -7,6 +7,7 @@ const loadData = async () => {
     throw new Error("서버 오류");
   } else {
     const responseData = await response.json();
+    console.log(responseData);
     return responseData;
   }
 };

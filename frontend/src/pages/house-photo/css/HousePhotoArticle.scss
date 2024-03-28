@@ -66,16 +66,34 @@
     }
   }
 
-  .card__image {
+  .card__image-container {
+    position: relative;
+    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 290px;
+    width: 270px;
     height: 270px;
     border-radius: 4px;
     object-fit: cover;
     overflow: hidden;
     margin-bottom: 13px;
+
+    .card__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image__view-count {
+      position: absolute;
+      bottom: 10px; /* 하단에서부터 10px 떨어진 위치 */
+      right: 10px; /* 우측에서부터 10px 떨어진 위치 */
+      color: white; /* 텍스트 색상 */
+      font-size: 15px; /* 글꼴 크기 */
+      line-height: 15px;
+      font-weight: 300;
+    }
   }
 
   .card__count {
