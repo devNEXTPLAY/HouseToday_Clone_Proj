@@ -19,11 +19,9 @@ const PostComments = ({ comment }) => {
   const currentUser = useSelector((state) => state.Auth.user);
   const token = useSelector((state) => state.Auth.token);
 
-  const handleToggleComment = () => setIsReply((prevIsReply) => !prevIsReply)
-  
+  const handleToggleComment = () => setIsReply((prevIsReply) => !prevIsReply);
 
-  const handleShowReply = () => setIsReplyList((prevIsReplyList) => !prevIsReplyList)
-
+  const handleShowReply = () => setIsReplyList((prevIsReplyList) => !prevIsReplyList);
 
   const handleIsEdit = () => setIsEdit((prevIsEdit) => !prevIsEdit);
 
@@ -62,6 +60,23 @@ const PostComments = ({ comment }) => {
     });
   };
 
+  const handleLikeComment = async () => {
+    await axios({
+      method: "post",
+      url: "http://localhost:3005/api/comment/like",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        comment_id: comment.comment_id,
+      },
+    }).then((res) => {
+      console.log("res", res);
+    });
+  };
+
   return (
     <>
       <li className={classes.li}>
@@ -77,7 +92,7 @@ const PostComments = ({ comment }) => {
 
         <div className={classes.actions}>
           <span>{comment.reg_date}</span>
-          <span>좋아요</span>
+          <span onClick={handleLikeComment}>좋아요</span>
           <span>신고</span>
           {comment.Replies?.length > 0 && <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>}
           <span onClick={handleToggleComment}>답글 달기</span>
