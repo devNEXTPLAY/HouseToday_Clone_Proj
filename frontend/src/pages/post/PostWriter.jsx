@@ -32,6 +32,26 @@ const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
     navigate("/write/edit/" + blogId);
   };
 
+  const handleFollow = async () => {
+    axios({
+      method: "post",
+      url: "http://localhost:3005/api/users/follow",
+      withCredentials: true,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        followee_id: userId,
+      },
+    })
+      .then(() => {
+        alert("팔로우 성공");
+      })
+      .catch((err) => {
+        console.error(err.response);
+      });
+  };
+
   return (
     <>
       <div className={classes.writer}>
@@ -47,7 +67,7 @@ const PostWriter = ({ profileImg, nickname, userId, blogId }) => {
         </div>
 
         <div className={classes.buttons}>
-          {userId !== currentUser && <Button>팔로우</Button>}
+          {userId !== currentUser && <Button onClick={handleFollow}>팔로우</Button>}
           {userId === currentUser && (
             <Button className={classes.edit} onClick={handlePostEdit}>
               수정
