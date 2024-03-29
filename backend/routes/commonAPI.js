@@ -37,10 +37,12 @@ var Upload = multer({
 	fileFilter: fileFilter,
 });
 
-// 파일 업로드 API
-// http://localhost:3005/api/common/upload
-// Status: 201 Created / 400 Bad Request / 500 Internal Server Error
-// return file path if success / return message if fail
+/**
+ * @swagger
+ * /api/common/upload:
+ *   post:
+ *     summary: 파일 업로드
+ */
 router.post("/upload", Upload.single("file"), (req, res, next) => {
 	if (req.file) {
 		const filePath = req.file.path.replace(/\\/g, "/");
@@ -53,10 +55,12 @@ router.post("/upload", Upload.single("file"), (req, res, next) => {
 	}
 });
 
-// 파일 삭제 API
-// http://localhost:3005/api/common/delete
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-// return message if success / return message if fail
+/**
+ * @swagger
+ * /api/common/delete:
+ *   delete:
+ *     summary: 파일 삭제
+ */
 router.delete("/delete", isLoggedIn, async (req, res, next) => {
 	var { filePath } = req.body;
 	filePath = filePath.split("http://localhost:3005/").pop();

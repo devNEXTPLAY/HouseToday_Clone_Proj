@@ -11,11 +11,12 @@ const passport = require("passport");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
-// 로그인 API
-// http://localhost:3005/api/users/login
-// Status: 200 OK / 404 Not Found / 400 Bad Request / 500 Internal Server Error
-// return token if success / return message if fail
-// token: JWT token { id, email } / 1h
+/**
+ * @swagger
+ * /api/users/login:
+ *   post:
+ *     summary: 로그인
+ */
 router.post("/login", isNotLoggedIn, (req, res, next) => {
 	passport.authenticate("local", (err, user, info) => {
 		if (err) return next(err);
@@ -55,9 +56,12 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 	})(req, res, next);
 });
 
-// 카카오 로그인 API
-// http://localhost:3005/api/users/kakao
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/kakao:
+ *   get:
+ *     summary: 카카오 로그인
+ */
 router.get(
 	"/kakao",
 	passport.authenticate("kakao", {
@@ -81,9 +85,12 @@ router.get(
 	}
 );
 
-// 카카오 로그인 콜백 API
-// http://localhost:3005/api/users/oauth/kakao
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/oauth/kakao:
+ *   get:
+ *     summary: 카카오 로그인 콜백
+ */
 router.get(
 	"/oauth/kakao",
 	passport.authenticate("kakao", {
@@ -107,10 +114,12 @@ router.get(
 	}
 );
 
-// 회원가입 API
-// http://localhost:3005/api/users/register
-// Status: 201 Created / 400 Bad Request / 500 Internal Server Error
-// return message if success / return message if fail
+/**
+ * @swagger
+ * /api/users/register:
+ *   post:
+ *     summary: 회원가입
+ */
 router.post("/register", isNotLoggedIn, async (req, res, next) => {
 	const { email, password, nickname, agree_marketing, agree_promotion, is_email_verified } = req.body;
 	try {
@@ -150,9 +159,12 @@ router.post("/register", isNotLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 회원탈퇴 API
-// http://localhost:3005/api/users/withdrawal
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/withdrawal:
+ *   delete:
+ *     summary: 회원탈퇴
+ */
 router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 	const { password } = req.body;
 	try {
@@ -190,11 +202,12 @@ router.delete("/withdrawal", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 회원정보 수정 API
-// http://localhost:3005/api/users/modify
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
-// update whatever is changed:
-// nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date
+/**
+ * @swagger
+ * /api/users/modify:
+ *   patch:
+ *     summary: 회원정보 수정
+ */
 router.patch("/modify", isLoggedIn, async (req, res, next) => {
 	var { nickname, agree_marketing, agree_promotion, phone, address, profile_img, birth_date, intro_msg } = req.body;
 	var user_id = req.user.user_id;
@@ -241,9 +254,12 @@ router.patch("/modify", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 비밀번호 수정 API
-// http://localhost:3005/api/users/password
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/password:
+ *   post:
+ *     summary: 비밀번호 수정
+ */
 router.post("/password", isLoggedIn, async (req, res, next) => {
 	const { password, newPassword } = req.body;
 	try {
@@ -287,9 +303,12 @@ router.post("/password", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 로그아웃 API
-// http://localhost:3005/api/users/logout
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/logout:
+ *   get:
+ *     summary: 로그아웃
+ */
 router.get("/logout", isLoggedIn, (req, res) => {
 	req.logout(function (err) {
 		if (err) {
@@ -304,9 +323,12 @@ router.get("/logout", isLoggedIn, (req, res) => {
 	});
 });
 
-// 이메일 중복확인 API
-// http://localhost:3005/api/users/email
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/email:
+ *   get:
+ *     summary: 이메일 중복확인
+ */
 router.get("/email", async (req, res, next) => {
 	const { email } = req.query;
 	try {
@@ -331,9 +353,12 @@ router.get("/email", async (req, res, next) => {
 	}
 });
 
-// 닉네임 중복확인 API
-// http://localhost:3005/api/users/nickname
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/nickname:
+ *   post:
+ *     summary: 닉네임 중복확인
+ */
 router.post("/nickname", async (req, res, next) => {
 	const { nickname } = req.body;
 	try {
@@ -358,9 +383,12 @@ router.post("/nickname", async (req, res, next) => {
 	}
 });
 
-// 사용자 정보 조회 API
-// http://localhost:3005/api/users/profile
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/profile:
+ *   get:
+ *     summary: 사용자 정보 조회
+ */
 router.get("/profile", isLoggedIn, async (req, res, next) => {
 	const user_id = req.user.user_id;
 	try {
@@ -386,9 +414,12 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 사용자 작성 게시글 조회 API
-// http://localhost:3005/api/users/blogs
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/blogs:
+ *   get:
+ *     summary: 사용자 작성 게시글 조회
+ */
 router.get("/blogs", isLoggedIn, async (req, res, next) => {
 	const user_id = req.user.user_id;
 	try {
@@ -404,9 +435,12 @@ router.get("/blogs", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 사용자가 좋아요를 누른 게시글 조회 API
-// http://localhost:3005/api/users/likes
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/likes:
+ *   get:
+ *     summary: 사용자가 좋아요를 누른 게시글 조회
+ */
 router.get("/likes", isLoggedIn, async (req, res, next) => {
 	const user_id = req.user.user_id;
 	try {
@@ -427,10 +461,19 @@ router.get("/likes", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 현재 사용자가 단일 게시글 좋아요 여부 조회 API
-// http://localhost:3005/api/users/like/:blog_id
-// Status: 200 OK / 500 Internal Server Error
-// return true if liked / return false if not liked
+/**
+ * @swagger
+ * /api/users/like/{blog_id}:
+ *   get:
+ *     summary: 게시글 좋아요 여부 조회
+ *     parameters:
+ *       - in: path
+ *         name: blog_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: 조회할 게시글 ID
+ */
 router.get("/like/:blog_id", isLoggedIn, async (req, res, next) => {
 	const user_id = req.user.user_id;
 	const blog_id = req.params.blog_id;
@@ -451,9 +494,12 @@ router.get("/like/:blog_id", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 팔로우 처리 API
-// http://localhost:3005/api/users/follow
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/follow:
+ *   post:
+ *     summary: 팔로우 처리
+ */
 router.post("/follow", isLoggedIn, async (req, res, next) => {
 	const { followee_id } = req.body;
 	const follower_id = req.user.user_id;
@@ -484,9 +530,12 @@ router.post("/follow", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 팔로잉 목록 조회 API
-// http://localhost:3005/api/users/followings
-// Status: 200 OK / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/users/followings:
+ *   get:
+ *     summary: 팔로잉 목록 조회
+ */
 router.get("/followings", isLoggedIn, async (req, res, next) => {
 	const follower_id = req.user.user_id;
 	try {
