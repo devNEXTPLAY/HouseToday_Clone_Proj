@@ -12,6 +12,7 @@ const { getComments, getBestComment } = require("../public/js/getComments.js");
 const mainBlog = require("../public/js/mainBlog.js");
 const getRecommendedBlogs = require("../public/js/getRecommendedBlogs.js");
 const updateHashtags = require("../public/js/updateHashtags.js");
+const searchBlogs = require("../public/js/searchBlogs.js");
 
 /**
  * @swagger
@@ -174,7 +175,7 @@ router.get("/list/:type", async (req, res, next) => {
 					through: {
 						attributes: [],
 					},
-				}
+				},
 			],
 			order,
 		});
@@ -183,10 +184,10 @@ router.get("/list/:type", async (req, res, next) => {
 		for (let blog of blogs) {
 			const bestComment = await getBestComment(blog.blog_id);
 			bestComments.push(bestComment);
-		};
+		}
 
 		const data = blogs.map((blog, index) => {
-			console.log(bestComments[index])
+			console.log(bestComments[index]);
 			return {
 				blog_id: blog.blog_id,
 				title: blog.title,
@@ -494,54 +495,12 @@ router.get("/likes/:bid", async (req, res, next) => {
  */
 router.get("/search", async (req, res, next) => {
 	const { keyword } = req.query;
-
-	try {
-		const blogs = await db.Blogs.findAll({
-			where: {
-				[db.Sequelize.Op.or]: [
-					{
-						title: {
-							[db.Sequelize.Op.like]: `%${keyword}%`,
-						},
-					},
-					{
-						contents: {
-							[db.Sequelize.Op.like]: `%${keyword}%`,
-						},
-					},
-				],
-			},
-			include: [
-				{
-					model: db.Users,
-					attributes: ["nickname"],
-					as: "User",
-				},
-				{
-					model: db.Hashtags,
-					attributes: ["hashtag_name"],
-					through: {
-						attributes: [],
-					},
-				},
-			],
-		});
-
-		if (blogs.length > 0) {
-			const data = blogs.map((blog) => {
-				return {
-					blog_id: blog.blog_id,
-					title: blog.title,
-					preview_img: blog.preview_img,
-					nickname: blog.User.nickname,
-					hashtag: blog.Hashtags.map((hashtag) => hashtag.hashtag_name),
-				};
-			});
-			res.status(200).json(data);
-		}
-	} catch (error) {
-		next(error);
+	searchBlogs(keyword).then((results) => {
+		res.status(200).json(results);
 	}
+	).catch((error) => {
+		next(error);
+	});
 });
 
 router.use(errorMiddleware);
