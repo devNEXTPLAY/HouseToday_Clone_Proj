@@ -5,6 +5,7 @@
  *   post:
  *     summary: 로그인
  *     description: 사용자 로그인. 성공 시 JWT 토큰 반환.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -50,6 +51,7 @@
  *   get:
  *     summary: 카카오 로그인
  *     description: 카카오 계정으로 로그인. 성공 시 JWT 토큰 반환.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 카카오 로그인 성공. 사용자를 토큰이 포함된 URL로 리다이렉트.
@@ -64,6 +66,7 @@
  *   get:
  *     summary: 카카오 로그인 콜백
  *     description: 카카오 로그인 후 콜백 처리. 성공 시 JWT 토큰 발급 및 리다이렉트.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 카카오 로그인 콜백 처리 성공. 토큰 발급 및 리다이렉트.
@@ -78,6 +81,7 @@
  *   post:
  *     summary: 회원가입
  *     description: 이메일, 비밀번호, 닉네임을 사용한 회원가입. 마케팅 및 프로모션 동의 포함.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -119,6 +123,7 @@
  *   delete:
  *     summary: 회원탈퇴
  *     description: 사용자 회원탈퇴 처리. 로그인 필요.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -145,6 +150,7 @@
  *   patch:
  *     summary: 회원정보 수정
  *     description: 사용자의 닉네임, 마케팅 동의, 프로모션 동의, 전화번호, 주소, 프로필 이미지, 생년월일, 소개 메시지를 수정.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -193,6 +199,7 @@
  *   post:
  *     summary: 비밀번호 수정
  *     description: 사용자의 비밀번호를 수정합니다. 현재 비밀번호 확인 후 새 비밀번호로 변경.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -222,6 +229,7 @@
  *   get:
  *     summary: 로그아웃
  *     description: 사용자 로그아웃 처리. 세션 또는 토큰을 클리어합니다.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 로그아웃 성공.
@@ -236,6 +244,7 @@
  *   get:
  *     summary: 이메일 중복확인
  *     description: 사용자 이메일의 중복 여부를 확인합니다. 회원가입 시 사용 가능한 이메일인지 검사.
+ *     tags: [User]
  *     parameters:
  *       - in: query
  *         name: email
@@ -259,6 +268,7 @@
  *   post:
  *     summary: 닉네임 중복확인
  *     description: 사용자 닉네임의 중복 여부를 확인합니다. 회원가입 시 사용 가능한 닉네임인지 검사.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -285,6 +295,7 @@
  *   get:
  *     summary: 사용자 정보 조회
  *     description: 로그인한 사용자의 정보를 조회합니다. 비밀번호를 제외한 사용자 정보 반환.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 사용자 정보 조회 성공.
@@ -334,6 +345,7 @@
  *   get:
  *     summary: 사용자 작성 게시글 조회
  *     description: 로그인한 사용자가 작성한 게시글 목록을 조회합니다. 게시글은 등록일 내림차순으로 정렬됩니다.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 사용자 작성 게시글 목록 조회 성공.
@@ -371,6 +383,7 @@
  *   get:
  *     summary: 사용자가 좋아요를 누른 게시글 조회
  *     description: 로그인한 사용자가 좋아요를 누른 게시글 목록을 조회합니다. 좋아요한 날짜 내림차순으로 정렬됩니다.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 사용자가 좋아요를 누른 게시글 목록 조회 성공.
@@ -408,6 +421,7 @@
  *   get:
  *     summary: 게시글 좋아요 여부 조회
  *     description: 로그인한 사용자가 특정 게시글에 좋아요를 눌렀는지 여부를 조회합니다.
+ *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: blog_id
@@ -429,6 +443,7 @@
  *   post:
  *     summary: 팔로우 처리
  *     description: 다른 사용자를 팔로우하거나 팔로우를 취소합니다. 이미 팔로우 상태일 경우 팔로우 취소, 아닐 경우 팔로우 추가.
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -455,6 +470,7 @@
  *   get:
  *     summary: 팔로잉 목록 조회
  *     description: 로그인한 사용자가 팔로우하고 있는 사용자의 목록을 조회합니다.
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: 팔로잉 목록 조회 성공.

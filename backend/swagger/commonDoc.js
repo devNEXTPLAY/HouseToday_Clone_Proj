@@ -5,6 +5,7 @@
  *   post:
  *     summary: 파일 업로드
  *     description: 파일을 서버에 업로드합니다. 이미지 파일만 허용됩니다.
+ *     tags: [Common]
  *     requestBody:
  *       content:
  *         multipart/form-data:
@@ -39,6 +40,7 @@
  *   delete:
  *     summary: 파일 삭제
  *     description: 서버에 업로드된 파일을 삭제합니다. 파일 경로를 기반으로 삭제 작업을 수행합니다.
+ *     tags: [Common]
  *     requestBody:
  *       required: true
  *       content:
