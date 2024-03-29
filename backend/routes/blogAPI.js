@@ -30,7 +30,7 @@ router.get("/main", async (req, res, next) => {
 			include: [
 				{
 					model: db.Users,
-					attributes: ["nickname"],
+					attributes: ["nickname", "profile_img"],
 					as: "User",
 				},
 			],
