@@ -6,9 +6,12 @@ var moment = require("moment");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares/passportMiddleware.js");
 const errorMiddleware = require("../middlewares/errorMiddleware.js");
 
-//  댓글 추가 API
-//  http://localhost:3005/api/comment/create
-//  Status: 201 Created / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/comment/create:
+ *   post:
+ *     summary: 댓글 추가
+ */
 router.post("/create", isLoggedIn, async (req, res, next) => {
 	const { blog_id, parent_id, content } = req.body;
 	const user_id = req.user.user_id;
@@ -41,9 +44,12 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-//  댓글 수정 API
-//  http://localhost:3005/api/comment/update
-//  Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/comment/create:
+ *   post:
+ *     summary: 댓글 추가
+ */
 router.patch("/update", isLoggedIn, async (req, res, next) => {
 	const { comment_id, contents } = req.body;
 	const user_id = req.user.user_id;
@@ -72,9 +78,12 @@ router.patch("/update", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-//  댓글 삭제 API
-//  http://localhost:3005/api/comment/delete
-//  Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/comment/delete:
+ *   delete:
+ *     summary: 댓글 삭제
+ */
 router.delete("/delete", isLoggedIn, async (req, res, next) => {
 	const comment_id = req.body.comment_id;
 	const user_id = req.user.user_id;
@@ -101,10 +110,12 @@ router.delete("/delete", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 댓글 좋아요 API
-// 안눌렀을 경우 추가, 눌렀을 경우 삭제
-// http://localhost:3005/api/comment/like
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/comment/like:
+ *   post:
+ *     summary: 댓글 좋아요 처리
+ */
 router.post("/like", isLoggedIn, async (req, res, next) => {
 	const { comment_id } = req.body;
 	const user_id = req.user.user_id;
