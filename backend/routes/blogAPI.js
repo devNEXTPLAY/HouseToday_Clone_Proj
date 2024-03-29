@@ -41,6 +41,7 @@ router.get("/main", async (req, res, next) => {
 				title: blog.title,
 				preview_img: blog.preview_img,
 				nickname: blog.User.nickname,
+				profile_img: blog.User.profile_img,
 			};
 			res.status(200).json(data);
 		} else {
