@@ -5,7 +5,7 @@ import "./css/KnowHowArticles.scss";
 const KnowHowArticles = ({ data }) => {
   return (
     <ul className="articles">
-      <span>전체 {data.length}</span>
+      {/* <span>전체 {data.length}</span> */}
 
       <li className="articles__container">
         {data?.map((article) => (

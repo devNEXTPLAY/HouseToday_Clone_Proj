@@ -14,8 +14,6 @@ const HousewarmingParty = () => {
           <option value="like">좋아요순</option>
         </select>
 
-        <span>조회 12,453</span>
-
         <Await resolve={data}>
           {(loadedData) => <HousewarmingPartyArticle data={loadedData} />}
         </Await>

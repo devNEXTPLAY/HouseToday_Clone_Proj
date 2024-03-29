@@ -43,7 +43,11 @@ const MainImage = () => {
           </strong>
           <div>
             <img
-              src="https://images.unsplash.com/photo-1709833226150-8eaeb6f291d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={
+                post
+                  ? post.profile_img
+                  : "https://images.unsplash.com/photo-1709833226150-8eaeb6f291d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              }
               alt="profile-img"
             />
             <span>{post ? post.nickname : "오늘의집 에디터"}</span>
