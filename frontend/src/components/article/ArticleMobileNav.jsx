@@ -11,9 +11,9 @@ import { PiShareNetworkLight } from 'react-icons/pi'
 
 import Button from '../ui/Button'
 
-import classes from './css/ArticleAside.module.css'
+import classes from './css/ArticleMobileNav.module.css'
 
-const ArticleAside = ({ blogId }) => {
+const ArticleMobileNav = ({ blogId }) => {
     const token = useSelector((state) => state.Auth.token)
 
     const [isLike, setIsLike] = useState(false)
@@ -48,30 +48,22 @@ const ArticleAside = ({ blogId }) => {
     }
 
     return (
-        <>
-            <aside className={classes.absolute}>
-                <nav className={classes.sticky}>
-                    <div className={classes.auth}>
-                        <Button className={classes['sticky-button']} onClick={handleLike}>
-                            {/* //* 좋아요 아이콘 */}
-                            {isLike ? <FaHeart /> : <CiHeart />}
-                            {!token && <Link to="/login"></Link>}
-                        </Button>
-                    </div>
-
-                    <hr />
-                    <a className={classes['sticky-button']} href="#content">
-                        {/* //* 댓글 아이콘  */}
-                        <HiOutlineChatBubbleBottomCenter />
-                    </a>
-                    <Button className={classes['sticky-button']}>
-                        {/* //* 공유 아이콘 */}
-                        <PiShareNetworkLight />
-                    </Button>
-                </nav>
-            </aside>
-        </>
+        <nav className={classes.nav}>
+            <Button className={classes.button} onClick={handleLike}>
+                {/* //* 좋아요 아이콘 */}
+                {isLike ? <FaHeart /> : <CiHeart />}
+                {!token && <Link to="/login"></Link>}
+            </Button>
+            <a className={classes.button} href="#content">
+                {/* //* 댓글 아이콘  */}
+                <HiOutlineChatBubbleBottomCenter />
+            </a>
+            <Button className={classes.button}>
+                {/* //* 공유 아이콘 */}
+                <PiShareNetworkLight />
+            </Button>
+        </nav>
     )
 }
 
-export default ArticleAside
+export default ArticleMobileNav

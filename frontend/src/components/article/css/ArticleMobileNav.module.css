@@ -1,0 +1,26 @@
+.nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        z-index: 99;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    .nav button,
+    .nav a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 100px;
+        background-color: #fff;
+        color: #111;
+        font-size: 1.5rem;
+    }
+}
