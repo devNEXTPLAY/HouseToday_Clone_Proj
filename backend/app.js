@@ -7,6 +7,11 @@ require("dotenv").config();
 const cors = require("cors");
 var session = require("express-session");
 
+// swagger
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerDefinition = require('./swagger/swaggerDef');
+
 // passport
 const passport = require("passport");
 const passportConfig = require("./passport/index.js");
@@ -48,6 +53,13 @@ app.use(
     },
   })
 );
+
+const options = {
+  swaggerDefinition,
+  apis: ['./routes/*.js', './swagger/*'],
+};
+const swaggerSpec = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(passport.initialize());
 app.use(passport.session());
