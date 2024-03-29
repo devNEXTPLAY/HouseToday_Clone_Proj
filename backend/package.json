@@ -28,6 +28,8 @@
 		"passport-kakao": "^1.0.1",
 		"passport-local": "^1.0.0",
 		"sequelize": "^6.37.1",
+		"swagger-jsdoc": "^6.2.8",
+		"swagger-ui-express": "^5.0.0",
 		"winston": "^3.12.0"
 	}
 }

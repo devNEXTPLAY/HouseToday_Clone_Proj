@@ -13,9 +13,13 @@ const mainBlog = require("../public/js/mainBlog.js");
 const getRecommendedBlogs = require("../public/js/getRecommendedBlogs.js");
 const updateHashtags = require("../public/js/updateHashtags.js");
 
-// 메인 페이지 대문 블로그 글 반환 API
-// http://localhost:3005/api/blog/main
-// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+/**
+ * @swagger
+ * /main:
+ *   get:
+ *     summary: 메인 블로그 글 조회
+ *     description: 홈페이지에 표시되는 메인 블로그 글을 가져옴
+ */
 router.get("/main", async (req, res, next) => {
 	try {
 		const mainBlog_id = await mainBlog();
@@ -54,10 +58,13 @@ router.get("/main", async (req, res, next) => {
 	}
 });
 
-// 메인 페이지 추천 블로그 글 반환 API
-// http://localhost:3005/api/blog/recommended
-// Status: 200 OK / 404 Not Found / 500 Internal Server Error
-// 집들이 4개, 집 사진 4개를 추천
+/**
+ * @swagger
+ * /api/blog/recommended:
+ *   get:
+ *     summary: 추천 블로그 글
+ *     description: 집들이, 집 사진 추천 글 4개씩.
+ */
 router.get("/recommended", async (req, res, next) => {
 	try {
 		const recommended_housewarming = await getRecommendedBlogs(enums.BLOG_TYPE_CODE.HOUSEWARMING);
@@ -113,12 +120,13 @@ router.get("/recommended", async (req, res, next) => {
 	}
 });
 
-// 게시판별 블로그 전체 글 반환 API
-// 게시판코드 - 파라미터 type: 0: 집들이 1: 노하우 2: 사진/영상
-// 정렬 코드 -쿼리스트링 code: 0: 최신순, 1: 좋아요순
-// 해시태그, 베스트 댓글, 댓글 작성자 닉네임 프로필 이미지 포함
-// http://localhost:3005/api/blog/list/0?code=1
-// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/list/{type}:
+ *   get:
+ *     summary: 게시판별 블로그 글 목록
+ *     description: 타입별(집들이, 노하우, 사진/영상) 블로그 글 조회. 정렬 코드로 최신순, 좋아요순 선택 가능.
+ */
 router.get("/list/:type", async (req, res, next) => {
 	const { type } = req.params;
 	const { code } = req.query;
@@ -201,9 +209,12 @@ router.get("/list/:type", async (req, res, next) => {
 	}
 });
 
-// 블로그 글 추가 API
-// http://localhost:3005/api/blog/create
-// Status: 201 Created / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/create:
+ *   post:
+ *     summary: 블로그 글 추가
+ */
 router.post("/create", isLoggedIn, async (req, res, next) => {
 	const { blog_type_code, title, contents, preview_img, hashtags } = req.body;
 	const user_id = req.user.user_id;
@@ -234,10 +245,12 @@ router.post("/create", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 블로그 글 수정 API
-// 해시태그 조회 및 추가/삭제
-// http://localhost:3005/api/blog/update
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/update/{bid}:
+ *   put:
+ *     summary: 블로그 글 수정
+ */
 router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 	const blog_id = req.params.bid;
 	const { title, contents, preview_img, hashtags } = req.body;
@@ -283,11 +296,12 @@ router.put("/update/:bid", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 단일 블로그 글 조회 API
-// 댓글 및 대댓글, 해시태그 포함
-// 조회 시 조회수 증가
-// http://localhost:3005/api/blog/detail/:bid
-// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/detail/{bid}:
+ *   get:
+ *     summary: 단일 블로그 글 조회
+ */
 router.get("/detail/:bid", async (req, res, next) => {
 	const blog_id = req.params.bid;
 
@@ -351,10 +365,12 @@ router.get("/detail/:bid", async (req, res, next) => {
 	}
 });
 
-// 블로그 글 삭제 API
-// 블로그 글 상태코드 변경
-// http://localhost:3005/api/blog/delete/:bid
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/delete/{bid}:
+ *   delete:
+ *     summary: 블로그 글 삭제
+ */
 router.delete("/delete/:bid", isLoggedIn, async (req, res, next) => {
 	const blog_id = req.params.bid;
 	const user_id = req.user.user_id;
@@ -381,10 +397,12 @@ router.delete("/delete/:bid", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 블로그 좋아요 API
-// 안눌렀을 경우 좋아요 추가, 눌렀을 경우 좋아요 취소
-// http://localhost:3005/api/blog/like/:bid
-// Status: 200 OK / 400 Bad Request / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/like/{bid}:
+ *   post:
+ *     summary: 블로그 좋아요
+ */
 router.post("/like/:bid", isLoggedIn, async (req, res, next) => {
 	const blog_id = req.params.bid;
 	const user_id = req.user.user_id;
@@ -428,9 +446,12 @@ router.post("/like/:bid", isLoggedIn, async (req, res, next) => {
 	}
 });
 
-// 단일 블로그를 좋아요 누른 사용자 조회 API
-// http://localhost:3005/api/blog/likes/:bid
-// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/likes/{bid}:
+ *   get:
+ *     summary: 좋아요 누른 사용자 조회
+ */
 router.get("/likes/:bid", async (req, res, next) => {
 	const blog_id = req.params.bid;
 
@@ -465,10 +486,12 @@ router.get("/likes/:bid", async (req, res, next) => {
 	}
 });
 
-// 블로그 글 검색 API
-// 제목, 내용, 해시태그 검색
-// http://localhost:3005/api/blog/search
-// Status: 200 OK / 404 Not Found / 500 Internal Server Error
+/**
+ * @swagger
+ * /api/blog/search:
+ *   get:
+ *     summary: 블로그 글 검색
+ */
 router.get("/search", async (req, res, next) => {
 	const { keyword } = req.query;
 

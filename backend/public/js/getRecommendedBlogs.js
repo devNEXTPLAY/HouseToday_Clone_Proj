@@ -4,6 +4,7 @@
 const db = require("../../models");
 const enums = require("../../common/enums.js");
 const { Op } = require("sequelize");
+const mainBlog = require("./mainBlog.js");
 
 async function getRecommendedBlogs(blog_type_code) {
 	try {
@@ -16,6 +17,14 @@ async function getRecommendedBlogs(blog_type_code) {
                 blog_type_code,
 			},
 		});
+
+		if (blogs.length === 0) return null;
+		// exampt main blog
+		const mainBlogId = await mainBlog();
+		const mainBlogIndex = blogs.findIndex((blog) => blog.blog_id === mainBlogId);
+		if (mainBlogIndex !== -1) {
+			blogs.splice(mainBlogIndex, 1);
+		}
 
 		const blogScores = blogs.map((blog) => {
 			const hoursSincePosted = (new Date() - new Date(blog.reg_date)) / (1000 * 60 * 60);
