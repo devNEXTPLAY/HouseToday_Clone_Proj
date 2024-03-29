@@ -6,9 +6,12 @@ async function mainBlog() {
 		const blogs = await db.Blogs.findAll({
 			attributes: ["blog_id", "view_count", "like_count", "comment_count", "reg_date"],
 			where: {
-				blog_status_code: enums.BLOG_STATUS_CODE.APPROVED,
+				// blog_status_code is approved or applied
+				blog_status_code: [enums.BLOG_STATUS_CODE.APPROVED, enums.BLOG_STATUS_CODE.APPLIED],
 			},
 		});
+
+		if(blogs.length === 0) return null;
 
 		const blogScores = blogs.map((blog) => {
 			const hoursSincePosted = (new Date() - new Date(blog.reg_date)) / (1000 * 60 * 60);
