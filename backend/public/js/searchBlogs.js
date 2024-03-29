@@ -1,8 +1,8 @@
-const sequelize = require("../../models/index.js").sequelize;
-const enums = require("../../common/enums.js");
+const sequelize = require('../../models/index.js').sequelize
+const enums = require('../../common/enums.js')
 
 async function searchBlogs(keyword) {
-	const query = `
+    const query = `
       SELECT 
         Blog.blog_id, 
         Blog.title, 
@@ -19,27 +19,27 @@ async function searchBlogs(keyword) {
         OR Blog.contents LIKE :keyword
         OR Hashtags.hashtag_name LIKE :keyword
       GROUP BY Blog.blog_id, Blog.title, Blog.contents, Blog.user_id, User.nickname
-    `;
+    `
 
-	const replacements = {
-		keyword: `%${keyword}%`,
-	};
-
-	try {
-		const results = await sequelize.query(query, {
-			replacements: replacements,
-			type: sequelize.QueryTypes.SELECT,
-		});
-    // results를 blog_type_code에 구분하여 return
-    return {
-      housewarming: results.filter((result) => result.blog_type_code === enums.BLOG_TYPE_CODE.HOUSEWARMING),
-      tip: results.filter((result) => result.blog_type_code === enums.BLOG_TYPE_CODE.TIP),
-      photo_video: results.filter((result) => result.blog_type_code === enums.BLOG_TYPE_CODE.PHOTO_VIDEO),
+    const replacements = {
+        keyword: `%${keyword}%`,
     }
-	} catch (error) {
-		console.error("Search query error:", error);
-		throw error;
-	}
+
+    try {
+        const results = await sequelize.query(query, {
+            replacements: replacements,
+            type: sequelize.QueryTypes.SELECT,
+        })
+        // results를 blog_type_code에 구분하여 return
+        return {
+            housewarming: results.filter((result) => result.blog_type_code === enums.BLOG_TYPE_CODE.HOUSEWARMING),
+            tip: results.filter((result) => result.blog_type_code === enums.BLOG_TYPE_CODE.TIP),
+            photo_video: results.filter((result) => result.blog_type_code === enums.BLOG_TYPE_CODE.PHOTO_VIDEO),
+        }
+    } catch (error) {
+        console.error('Search query error:', error)
+        throw error
+    }
 }
 
-module.exports = searchBlogs;
+module.exports = searchBlogs
