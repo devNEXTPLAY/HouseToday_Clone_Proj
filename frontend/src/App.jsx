@@ -10,7 +10,7 @@ import SettingLayout from './layout/SettingLayout'
 import SearchLayout from './layout/SearchLayout'
 
 // ! 홈 화면
-const Home = lazy(() => import('./pages/Home'))
+const Main = lazy(() => import('./pages/home/Main'))
 
 // ! 검색 화면
 const Search = lazy(() => import('./pages/search/Search'))
@@ -21,25 +21,22 @@ const Signup = lazy(() => import('./pages/auth/Signup'))
 const Oauth = lazy(() => import('./pages/auth/Oauth'))
 
 // ! 게시글 화면
-const KnowHow = lazy(() => import('./pages/know-how/KnowHow'))
-const HousePhoto = lazy(() => import('./pages/house-photo/HousePhoto'))
-const HousewraimngParty = lazy(() => import('./pages/housewarming-party/HousewarmingParty'))
-import { loader as housewarmingLoader } from './pages/housewarming-party/loader'
-import { loader as housePhotoLoader } from './pages/house-photo/loader'
-import { loader as knowHowLoader } from './pages/know-how/loader'
+const KnowHow = lazy(() => import('./pages/home/KnowHow'))
+const HousePhoto = lazy(() => import('./pages/home/HousePhoto'))
+const HousewraimngParty = lazy(() => import('./pages/home/HousewarmingParty'))
+import { loaderHousewarmingParty, loaderHousePhoto, loaderKnowHow } from './pages/home/loader'
 
 // ! 게시글 쓰기, 수정, 상세
 const CreateArticle = lazy(() => import('./pages/article/CreateArticle'))
 const EditArticle = lazy(() => import('./pages/article/EditArticle'))
 const Article = lazy(() => import('./pages/article/Article'))
-
-import { loader as postLoader } from './pages/article/loader'
-const UserArticles = lazy(() => import('./pages/user/UserArticles'))
-const UserLikeArticle = lazy(() => import('./pages/user/UserLikeArticle'))
+import { loaderArticle } from './pages/article/loader'
 
 // ! 사용자 설정 관련 화면
 const User = lazy(() => import('./pages/user/User'))
 const Setting = lazy(() => import('./pages/user/Setting'))
+const UserArticles = lazy(() => import('./pages/user/UserArticles'))
+const UserLikeArticle = lazy(() => import('./components/mypage/UserLikeArticle'))
 
 const queryClient = new QueryClient()
 
@@ -68,17 +65,17 @@ const router = createBrowserRouter([
                 element: <Layout />,
                 children: [
                     // * 홈 화면 http://localhost:5173/
-                    { index: true, element: <Home /> },
+                    { index: true, element: <Main /> },
                     // * 집들이 화면 http://localhost:5173/housewarming_party
                     {
                         path: 'housewarming_party',
                         element: <HousewraimngParty />,
-                        loader: housewarmingLoader,
+                        loader: loaderHousewarmingParty,
                     },
                     // * 집 사진 화면 http://localhost:5173/house_photo
-                    { path: 'house_photo', element: <HousePhoto />, loader: housePhotoLoader },
+                    { path: 'house_photo', element: <HousePhoto />, loader: loaderHousePhoto },
                     // * 노하우 화면 http://localhost:5173/know_how
-                    { path: 'know_how', element: <KnowHow />, loader: knowHowLoader },
+                    { path: 'know_how', element: <KnowHow />, loader: loaderKnowHow },
                 ],
             },
             // ! 검색 화면
@@ -96,7 +93,7 @@ const router = createBrowserRouter([
             {
                 path: 'post/:id',
                 element: <Layout />,
-                children: [{ index: true, element: <Article />, loader: postLoader }],
+                children: [{ index: true, element: <Article />, loader: loaderArticle }],
             },
 
             {
