@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -14,9 +15,19 @@ import Button from "../../components/ui/Button";
 const Write = () => {
   const token = useSelector((state) => state.Auth.token);
   const navigate = useNavigate();
+  const [isInvalid, setIsInvalid] = useState({
+    title: false,
+    contents: false,
+    preview_img: false,
+  });
 
   const handleSubmit = async (event, userValues) => {
     event.preventDefault();
+
+    if (!isInvalid.title || !isInvalid.contents || !isInvalid.preview_img) {
+      return;
+    }
+
     const res = await fetchPostUpload(userValues, token);
     console.log("res:", res);
     navigate(`/post/${res}`);
@@ -40,7 +51,7 @@ const Write = () => {
       <Guide />
 
       {/* //* 게시글 에디터 */}
-      <WriteEditor id="create-write" onSubmit={handleSubmit} />
+      <WriteEditor id="create-write" onSubmit={handleSubmit} isInvalid={isInvalid} onIsInvalid={setIsInvalid} />
     </>
   );
 };

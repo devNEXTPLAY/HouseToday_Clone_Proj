@@ -13,6 +13,7 @@ import EditWrite from "../../components/write/EditWrite";
 const WriteEdit = () => {
   const token = useSelector((state) => state.Auth.token);
   const param = useParams();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event, userValues) => {

@@ -1,5 +1,5 @@
 // import Resizer from "./resizer";
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef } from "react";
 import "./css/WriteEditor.scss";
 
 // * TinyMCE: 텍스트 에디터 라이브러리
@@ -46,7 +46,7 @@ const handleStopSubmit = (event) => {
 //   });
 
 // * 게시글 에디터
-const WriteEditor = ({ id, onSubmit }) => {
+const WriteEditor = ({ id, onSubmit, isInvalid, onIsInvalid }) => {
   const [userValues, setUserValues] = useState(initialUserValues);
 
   const quillRef = useRef();
@@ -81,13 +81,20 @@ const WriteEditor = ({ id, onSubmit }) => {
     };
   }, []);
 
-  const handleUpdateContent = (event) =>
+  const handleUpdateContent = (event) => {
+    if (event === " <p><br></p>" || event === "<p><br></p>") {
+      onIsInvalid((prevValues) => {
+        return { ...prevValues, contents: false };
+      });
+      return false;
+    }
+
     setUserValues((prevValues) => {
       return { ...prevValues, contents: event };
     });
+  };
 
   // 해시태그 추가시, 엔터키로 인한 폼 전송 방지
-
   return (
     <form className="form" id={id} onKeyDown={handleStopSubmit} onSubmit={(event) => onSubmit(event, userValues)}>
       {/* //* 대표 이미지 업로드 */}
@@ -132,7 +139,7 @@ const WriteEditor = ({ id, onSubmit }) => {
       {/* 구현 기술, 드래그앤 드랍 이미지 추가 ......... */}
       <ReactQuill
         ref={quillRef}
-        id='quill'
+        id="quill"
         theme="snow"
         placeholder="내용을 입력해주세요."
         value={userValues.contents}
