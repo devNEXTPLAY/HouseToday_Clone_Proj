@@ -1,33 +1,30 @@
-@import '../../../css/_mixin.scss';
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
 
 .swiper {
-    width: 277px;
-    height: 510px;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px -1px 34px -139px rgba(0, 0, 0, 0.75);
     margin: 0;
+    width: 100% !important;
 }
 
 .swiper-slide {
-    position: relative;
-    text-align: center;
     font-size: 18px;
     background: #fff;
-
-    /* Center slide text vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .swiper-slide img {
     display: block;
     object-fit: cover;
-    width: 277px;
-    height: 510px;
+    width: 167.5px !important;
+    height: 167.5px !important;
+    object-fit: cover;
     border-radius: 4px !important;
 }
 
@@ -50,15 +47,12 @@
     font-size: 20px;
 }
 
-@include mobile {
-    .swiper {
-        width: 343px !important;
-        height: 98px !important;
-
-        .swiper-slide img {
-            width: 343px !important;
-            height: 98px !important;
-            object-fit: cover;
-        }
-    }
+.category {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    border-radius: 5px;
+    background-color: #111;
+    color: #fff;
+    padding: 5px 10px;
 }
