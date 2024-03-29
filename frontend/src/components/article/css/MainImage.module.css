@@ -1,0 +1,38 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 720px;
+    height: 405px;
+    border: 1px solid #b6b7b7;
+    background-color: #f7f9fa;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.section input {
+    position: absolute;
+    width: 720px;
+    height: 405px;
+    opacity: 0;
+    z-index: 5;
+    cursor: pointer;
+}
+
+.section button {
+    width: 130px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #212629;
+    color: #fff;
+    font-size: 12px;
+}
+
+.section .change {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}

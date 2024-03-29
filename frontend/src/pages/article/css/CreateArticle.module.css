@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 79px;
+    margin-bottom: 50px;
+    padding: 25px 50px 25px 50px;
+    border-bottom: 1px solid #b6b7b7;
+    z-index: 50;
+    background-color: #fff;
+}
+
+.header a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 132px;
+    height: 45px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 284px;
+    height: 45px;
+}
+
+.buttons button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px 0 5px;
+    padding: 11px 5px 5px 12px;
+    width: 132px;
+    height: 45px;
+    font-style: 15px;
+}
+
+.buttons:first-child {
+    background-color: #fff;
+    border: 1px solid #35c5f0;
+    color: #35c5f0;
+}
+
+@media (max-width: 768px) {
+    .header .buttons button {
+        width: 80px;
+        font-size: 12px;
+    }
+}
