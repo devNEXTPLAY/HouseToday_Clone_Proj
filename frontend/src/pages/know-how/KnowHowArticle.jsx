@@ -13,23 +13,33 @@ import { Link } from "react-router-dom";
 // * viewcount: 조회수
 // * coverImage: 게시글 대표 이미지
 
-const KnowHowArticle = ({ title, link, nickname, viewCount, likeCount, previewImage }) => {
+const KnowHowArticle = ({
+  title,
+  link,
+  nickname,
+  viewCount,
+  likeCount,
+  previewImage,
+}) => {
   return (
     <Link to={`/post/${link}`}>
       <li className="article">
         <div className="article__image-box">
           <img src={previewImage} alt="coverImage" />
-          <div className="image-box__like">
+          {/* <div className="image-box__like">
             <CiHeart />
-          </div>
+          </div> */}
         </div>
 
         <div className="information__title">
-          <h3>{title}</h3>
+          <p>{title}</p>
+        </div>
+
+        <div className="information__author">
+          <p>{nickname}</p>
         </div>
 
         <div className="information">
-          <strong>{nickname}</strong>
           <div>
             <span>조회수 {viewCount}</span>
             <span>좋아요 {likeCount}</span>
