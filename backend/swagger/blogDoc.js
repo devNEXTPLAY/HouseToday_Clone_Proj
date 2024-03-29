@@ -1,4 +1,3 @@
-
 // 메인 블로그 글 조회
 /**
  * @swagger
@@ -331,6 +330,7 @@
  *   get:
  *     summary: 좋아요 누른 사용자 조회
  *     description: 단일 블로그를 좋아요 누른 사용자 목록 반환.
+ *     tags: [Blog]
  *     parameters:
  *       - in: path
  *         name: bid
@@ -353,52 +353,40 @@
  * /api/blog/search:
  *   get:
  *     summary: 블로그 글 검색
- *     description: 제목, 내용, 해시태그를 통한 블로그 글 검색.
+ *     description: 제목, 내용, 해시태그를 포함하여 블로그 글을 검색합니다.
+ *     tags: [Blog]
  *     parameters:
  *       - in: query
  *         name: keyword
- *         required: true
  *         schema:
  *           type: string
- *         description: 검색 키워드.
+ *         required: true
+ *         description: 검색 키워드. 제목, 내용, 해시태그 중 하나 이상을 포함할 수 있습니다.
  *     responses:
  *       200:
- *         description: 검색 결과 반환 성공.
+ *         description: 검색에 성공하였을 때 검색 결과를 반환합니다. 결과는 'housewarming', 'tip', 'photo_video'의 세 가지 타입으로 분류됩니다.
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   blog_id:
- *                     type: integer
- *                     description: 블로그 글 고유 ID.
- *                   title:
- *                     type: string
- *                     description: 제목.
- *                   preview_img:
- *                     type: string
- *                     description: 미리보기 이미지 URL.
- *                   nickname:
- *                     type: string
- *                     description: 작성자 닉네임.
- *                   hashtag:
- *                     type: array
- *                     items:
- *                       type: string
- *                     description: 연관 해시태그.
+ *               type: object
+ *               properties:
+ *                 housewarming:
+ *                   type: array
+ *                   description: 집들이 관련 블로그 글
+ *                   items:
+ *                     $ref: '#/components/schemas/Blog'
+ *                 tip:
+ *                   type: array
+ *                   description: 노하우 관련 블로그 글
+ *                   items:
+ *                     $ref: '#/components/schemas/Blog'
+ *                 photo_video:
+ *                   type: array
+ *                   description: 사진/영상 관련 블로그 글
+ *                   items:
+ *                     $ref: '#/components/schemas/Blog'
  *       404:
- *         description: 검색 결과 없음.
+ *         description: 검색 결과가 없을 때 반환됩니다.
  *       500:
- *         description: 서버 에러.
+ *         description: 서버 내부 오류가 발생했을 때 반환됩니다.
  */
-
-
-
-
-
-
-
-
-
