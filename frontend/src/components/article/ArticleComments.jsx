@@ -111,14 +111,16 @@ const ArticleComments = ({ comment }) => {
 
                 <div className={classes.actions}>
                     <span>{comment.reg_date}</span>
-                    <span onClick={handleLikeComment}>좋아요</span>
-                    <span>신고</span>
-                    {comment.Replies?.length > 0 && (
-                        <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>
-                    )}
-                    <span onClick={handleToggleComment}>답글 달기</span>
-                    {currentUser === comment.user_id && <span onClick={handleIsEdit}>수정</span>}
-                    {currentUser === comment.user_id && <span onClick={onConfirm}>삭제</span>}
+                    <div>
+                        <span onClick={handleLikeComment}>좋아요</span>
+                        <span>신고</span>
+                        {comment.Replies?.length > 0 && (
+                            <span onClick={handleShowReply}>답글 {comment.Replies?.length}</span>
+                        )}
+                        <span onClick={handleToggleComment}>답글 달기</span>
+                        {currentUser === comment.user_id && <span onClick={handleIsEdit}>수정</span>}
+                        {currentUser === comment.user_id && <span onClick={onConfirm}>삭제</span>}
+                    </div>
                 </div>
             </li>
 

@@ -1,84 +1,112 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
 }
 .main li {
-  list-style: none;
+    list-style: none;
 }
 
 .preview-img {
-  margin: 1rem 0;
-  width: 100vw;
-  height: 584px;
-  object-fit: cover;
+    margin: 1rem 0;
+    width: 100vw;
+    height: 584px;
+    object-fit: cover;
 }
 
 hr {
-  border: none;
-  height: 1px;
-  background-color: #c5c5c5;
+    border: none;
+    height: 1px;
+    background-color: #c5c5c5;
 }
 
-.post {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  align-items: center;
-  padding: 1rem;
-  width: 100vw;
-  height: 100%;
+.article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    padding: 1rem;
+    width: 100vw;
+    height: 100%;
 }
 
 .section {
-  width: 720px;
+    width: 720px;
 }
 
 .section h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #35c5f0;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #35c5f0;
 }
 
 .section h2 {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 
 .warning-img {
-  object-fit: fill;
-  width: 100%;
-  height: 25vh;
+    object-fit: fill;
+    width: 100%;
+    height: 25vh;
 }
 
 .information {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 300px;
-  height: 50px;
-  margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    margin-bottom: 1rem;
 }
 
 .information span {
-  display: inline-block;
-  margin: 1rem;
-  color: #505050;
+    display: inline-block;
+    margin: 1rem;
+    color: #505050;
 }
 
-.information span:first-child {
-  font-size: 1.5rem;
+.information .comment-title {
+    font-size: 1.5rem;
 }
 
-.information span:last-child {
-  display: flex;
-  margin-left: 1rem;
-  font-size: 1.5rem;
-  color: #35c5f0;
+.information .comment-count {
+    display: flex;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    color: #35c5f0;
 }
 
 .comment-list {
-  padding: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .main,
+    section,
+    .article {
+        max-width: 375px;
+    }
+    .preview-img {
+        max-height: 375px;
+    }
+
+    .warning-img {
+        max-width: 375px;
+        object-fit: scale-down;
+    }
+
+    .information {
+        margin: 0;
+    }
+
+    .information .comment-title {
+        font-size: 19px !important;
+        margin: 0;
+    }
+    .information .comment-count {
+        font-size: 16px !important;
+    }
 }

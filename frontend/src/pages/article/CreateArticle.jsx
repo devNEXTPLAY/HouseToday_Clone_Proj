@@ -16,17 +16,13 @@ const CreateArticle = () => {
     const token = useSelector((state) => state.Auth.token)
     const navigate = useNavigate()
     const [isInvalid, setIsInvalid] = useState({
-        title: false,
-        contents: false,
-        preview_img: false,
+        title: true,
+        contents: true,
+        preview_img: true,
     })
 
     const handleSubmit = async (event, userValues) => {
         event.preventDefault()
-
-        if (!isInvalid.title || !isInvalid.contents || !isInvalid.preview_img) {
-            return
-        }
 
         const res = await fetchPostUpload(userValues, token)
         console.log('res:', res)

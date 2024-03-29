@@ -7,6 +7,7 @@ import ArticleComments from './ArticleComments'
 import ArticleCommentInput from './ArticleCommentInput'
 
 import classes from './css/ArticleDetail.module.css'
+import ArticleMobileNav from './ArticleMobileNav'
 
 const ArticleDetail = ({ data }) => {
     return (
@@ -15,7 +16,7 @@ const ArticleDetail = ({ data }) => {
                 {/* //* 게시글 대표 이미지 */}
                 <img className={classes['preview-img']} src={data.preview_img} alt="대표 이미지" />
 
-                <section className={classes.post}>
+                <section className={classes.article}>
                     {/* //* 게시글 사이드 네비게이션 */}
 
                     <ArticleAside blogId={data.blog_id} />
@@ -54,7 +55,10 @@ const ArticleDetail = ({ data }) => {
                         </div>
 
                         {/* //* 게시글 작성자 정보 상단과 동일 */}
-                        <ArticleAside
+                        <ArticleAside blogId={data.blog_id} />
+                        <ArticleMobileNav blogId={data.blog_id} />
+
+                        <ArticleWriter
                             profileImg={data.User.profile_img}
                             nickname={data.User.nickname}
                             userId={data.User.user_id}
@@ -65,8 +69,8 @@ const ArticleDetail = ({ data }) => {
                         <article className={classes.comments} id="comment">
                             <ArticleCommentInput blogId={data.blog_id} />
                             <div className={classes.information}>
-                                <span className="title-box__title">댓글</span>
-                                <span className="title-box__count">{data.comments.length}</span>
+                                <span className={classes['comment-title']}>댓글</span>
+                                <span className={classes['comment-count']}>{data.comments.length}</span>
                             </div>
                             <ul className={classes['comment-list']}>
                                 {data.comments.map((comment) => (
