@@ -1,15 +1,15 @@
-import { Outlet } from 'react-router-dom';
-import HomeNavigation from '../components/widgets/HomeNavigation';
-import { SettingSubNav } from '../components/widgets/SettingSubNav';
+import { Outlet } from 'react-router-dom'
+import HomeNavigation from '../components/widgets/HomeNavigation'
+import { SettingSubNav } from '../components/widgets/SettingSubNav'
 
 const SettingLayout = () => {
-  return (
-    <>
-      <HomeNavigation />
-      <SettingSubNav />
-      <Outlet />
-    </>
-  );
-};
+    return (
+        <>
+            <HomeNavigation />
+            <SettingSubNav />
+            <Outlet />
+        </>
+    )
+}
 
-export default SettingLayout;
+export default SettingLayout
