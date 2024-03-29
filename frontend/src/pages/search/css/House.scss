@@ -1,0 +1,69 @@
+@import '../../../css/_mixin.scss';
+
+.article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 4px;
+
+    height: 240px;
+    width: 365px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: 1s all;
+
+    .article__image-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .article__image-box img {
+        border-radius: 4px !important;
+        height: 240px !important;
+        width: 365px !important;
+        object-fit: cover !important;
+        transition: 1s all !important;
+    }
+
+    .article__image-box img:hover {
+        transform: scale(1.1);
+    }
+
+    .information__title {
+        margin-top: 10px;
+        // padding: 0rem 1rem;
+        width: 270px;
+    }
+
+    .information__title h3 {
+        overflow: hidden; // 요소를 벗어나는 콘텐츠는 표시되지 않음
+        display: -webkit-box; // flexbox 컨테이너로 만듦
+        -webkit-box-orient: vertical; // 세로로 배치
+        -webkit-line-clamp: 2; // 줄 수 제한
+        white-space: normal; // 줄 바꿈 허용
+        margin: 0;
+        padding: 0;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 24px;
+        color: #424242;
+    }
+
+    .information {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 270px;
+        height: 15px;
+    }
+
+    .information span {
+        margin: 1rem;
+    }
+}
+
+.article:hover {
+    background-color: #b4b4b459;
+}
