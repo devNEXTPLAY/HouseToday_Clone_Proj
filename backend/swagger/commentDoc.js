@@ -5,6 +5,7 @@
  *   post:
  *     summary: 댓글 추가
  *     description: 사용자가 블로그 글에 대한 댓글을 추가합니다. 대댓글을 추가할 경우 parent_id 사용.
+ *     tags: [Comment]
  *     requestBody:
  *       required: true
  *       content:
@@ -37,6 +38,7 @@
  *   post:
  *     summary: 댓글 추가
  *     description: 사용자가 블로그 글에 댓글을 추가합니다. 대댓글 추가 시 parent_id 사용.
+ *     tags: [Comment]
  *     requestBody:
  *       required: true
  *       content:
@@ -69,6 +71,7 @@
  *   delete:
  *     summary: 댓글 삭제
  *     description: 사용자가 자신의 댓글을 삭제합니다. 실제로 데이터베이스에서 댓글을 제거하지는 않고, 상태를 '삭제됨'으로 변경합니다.
+ *     tags: [Comment]
  *     requestBody:
  *       required: true
  *       content:
@@ -95,6 +98,7 @@
  *   post:
  *     summary: 댓글 좋아요 처리
  *     description: 사용자가 댓글에 좋아요를 추가하거나 좋아요를 취소합니다. 이미 좋아요가 되어 있으면 좋아요 취소, 아니면 좋아요 추가.
+ *     tags: [Comment]
  *     requestBody:
  *       required: true
  *       content:

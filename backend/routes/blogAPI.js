@@ -495,12 +495,13 @@ router.get("/likes/:bid", async (req, res, next) => {
  */
 router.get("/search", async (req, res, next) => {
 	const { keyword } = req.query;
-	searchBlogs(keyword).then((results) => {
-		res.status(200).json(results);
-	}
-	).catch((error) => {
-		next(error);
-	});
+	searchBlogs(keyword)
+		.then((results) => {
+			res.status(200).json(results);
+		})
+		.catch((error) => {
+			next(error);
+		});
 });
 
 router.use(errorMiddleware);

@@ -5,6 +5,7 @@
  *   get:
  *     summary: 메인 블로그 글 조회
  *     description: 홈페이지에 표시되는 메인 블로그 글을 포함하여, 블로그의 ID, 제목, 미리보기 이미지, 작성자의 닉네임 및 프로필 사진을 가져옵니다.
+ *     tags: [Blog]
  *     responses:
  *       200:
  *         description: 작성자 정보를 포함한 단일 블로그 글.
@@ -39,6 +40,7 @@
  *   get:
  *     summary: 추천 블로그 글
  *     description: 집들이, 집 사진에서 추천 글 4개씩 반환.
+ *     tags: [Blog]
  *     responses:
  *       200:
  *         description: 추천 글 반환 성공.
@@ -177,6 +179,8 @@
  * /api/blog/create:
  *   post:
  *     summary: 블로그 글 추가
+ *     description: 블로그 글을 작성하여 등록. 로그인 필요.
+ *     tags: [Blog]
  *     requestBody:
  *       required: true
  *       content:
@@ -217,6 +221,7 @@
  *   put:
  *     summary: 블로그 글 수정
  *     description: 블로그 글의 제목, 내용, 미리보기 이미지 및 해시태그를 수정. 로그인 및 해당 글 작성자만 가능.
+ *     tags: [Blog]
  *     parameters:
  *       - in: path
  *         name: bid
@@ -261,6 +266,7 @@
  *   get:
  *     summary: 단일 블로그 글 조회
  *     description: 블로그 글의 상세 정보, 댓글 및 대댓글, 해시태그 포함. 조회 시 조회수 증가.
+ *     tags: [Blog]
  *     parameters:
  *       - in: path
  *         name: bid
@@ -284,6 +290,7 @@
  *   delete:
  *     summary: 블로그 글 삭제
  *     description: 작성자만 블로그 글의 상태코드를 변경하여 삭제 처리. 실제 데이터는 삭제되지 않음.
+ *     tags: [Blog]
  *     parameters:
  *       - in: path
  *         name: bid
@@ -307,6 +314,7 @@
  *   post:
  *     summary: 블로그 좋아요
  *     description: 좋아요 안 눌렀을 경우 추가, 눌렀을 경우 취소. 로그인 필요.
+ *     tags: [Blog]
  *     parameters:
  *       - in: path
  *         name: bid
