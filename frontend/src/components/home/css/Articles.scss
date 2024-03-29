@@ -33,14 +33,14 @@
   }
 
   .articles__container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    gap: 20px;
-    width: 1256px;
-    padding: 20px 60px;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    grid-template-rows: 1fr !important;
+    grid-column-gap: 0px !important;
+    grid-row-gap: 0px !important;
+    gap: 20px !important;
+    width: 1256px !important;
+    padding: 20px 60px !important;
   }
 
   .articles__swiper {
