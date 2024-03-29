@@ -1,16 +1,34 @@
 import "./css/MainImage.scss";
 
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { PcCarousel, MobileCarousel } from "./Carousel";
 
 // * 대표 이미지
 const MainImage = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/api/blog/main")
+      .then((res) => {
+        console.log(res.data);
+        setPosts(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   return (
     <main className="home">
       {/* //* 대표 이미지 */}
       <Link to="/post/1" className="home__image-box">
         <img
-          src="https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c"
+          src={
+            "https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c"
+          }
           alt="news-image"
         />
 
