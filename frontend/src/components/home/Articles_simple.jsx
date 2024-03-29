@@ -10,7 +10,7 @@ import { LIST } from "../../assets/data";
 const PhotoArticles = () => {
   const [articles, setArticles] = useState([]);
 
-  // * 추천 게시글 가져오기
+  // * 집사진 추천 게시글 가져오기
   useEffect(() => {
     axios
       .get("http://localhost:3005/api/blog/recommended")
