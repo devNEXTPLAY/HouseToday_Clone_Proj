@@ -22,11 +22,11 @@
   }
 
   .article__image-box img {
-    border-radius: 4px;
-    height: 180px;
-    width: 270px;
-    object-fit: cover;
-    transition: 1s all;
+    border-radius: 4px !important;
+    height: 180px !important;
+    width: 270px !important;
+    object-fit: cover !important;
+    transition: 1s all !important;
   }
 
   .article__image-box img:hover {
