@@ -31,9 +31,9 @@ import { loader as knowHowLoader } from './pages/know-how/loader'
 // ! 게시글 쓰기, 수정, 상세
 const CreateArticle = lazy(() => import('./pages/article/CreateArticle'))
 const EditArticle = lazy(() => import('./pages/article/EditArticle'))
-const Post = lazy(() => import('./pages/post/Post'))
+const Article = lazy(() => import('./pages/article/Article'))
 
-import { loader as postLoader } from './pages/post/loader'
+import { loader as postLoader } from './pages/article/loader'
 const UserArticles = lazy(() => import('./pages/user/UserArticles'))
 const UserLikeArticle = lazy(() => import('./pages/user/UserLikeArticle'))
 
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
             {
                 path: 'post/:id',
                 element: <Layout />,
-                children: [{ index: true, element: <Post />, loader: postLoader }],
+                children: [{ index: true, element: <Article />, loader: postLoader }],
             },
 
             {
