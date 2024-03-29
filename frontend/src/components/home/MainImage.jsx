@@ -7,39 +7,46 @@ import { PcCarousel, MobileCarousel } from "./Carousel";
 
 // * 대표 이미지
 const MainImage = () => {
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:3005/api/blog/main")
       .then((res) => {
         console.log(res.data);
-        setPosts(res.data);
+        setPost(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <main className="home">
       {/* //* 대표 이미지 */}
-      <Link to="/post/1" className="home__image-box">
+      <Link
+        to={post ? `post/${post.blog_id}` : "post/1"}
+        className="home__image-box"
+      >
         <img
           src={
-            "https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c"
+            post
+              ? post.preview_img
+              : "https://image.ohou.se/i/bucketplace-v2-development/uploads/projects/cover_images/170588586613109074.jpg?w=1700&h=1020&c=c"
           }
           alt="news-image"
         />
 
         <div className="main__image-description">
-          <strong>40된 구옥! 페인트칠만으로 환해졌죠?</strong>
+          <strong>
+            {post ? post.title : "40된 구옥! 페인트칠만으로 환해졌죠?"}
+          </strong>
           <div>
             <img
               src="https://images.unsplash.com/photo-1709833226150-8eaeb6f291d1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="오늘의집 에디터"
+              alt="profile-img"
             />
-            <span>오늘의 집 에디터</span>
+            <span>{post ? post.nickname : "오늘의집 에디터"}</span>
           </div>
         </div>
       </Link>
