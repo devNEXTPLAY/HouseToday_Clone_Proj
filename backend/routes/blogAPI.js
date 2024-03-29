@@ -19,6 +19,11 @@ const updateHashtags = require("../public/js/updateHashtags.js");
 router.get("/main", async (req, res, next) => {
 	try {
 		const mainBlog_id = await mainBlog();
+		if (!mainBlog_id) {
+			return res.status(404).json({
+				message: "메인 블로그 글이 존재하지 않습니다.",
+			});
+		}
 		const blog = await db.Blogs.findOne({
 			attributes: ["blog_id", "title", "preview_img", "user_id"],
 			where: { blog_id: mainBlog_id },
