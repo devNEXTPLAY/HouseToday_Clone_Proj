@@ -7,9 +7,13 @@ import { useSelector } from 'react-redux'
 import HomeLayout from './layout/HomeLayout'
 import NonAuthHomeLayout from './layout/NonAuthHomeLayout'
 import SettingLayout from './layout/SettingLayout'
+import SearchLayout from './layout/SearchLayout'
 
 // ! 홈 화면
 const Home = lazy(() => import('./pages/Home'))
+
+// ! 검색 화면
+const Search = lazy(() => import('./pages/search/Search'))
 
 // ! 사용자 인증 화면
 const Login = lazy(() => import('./pages/auth/Login'))
@@ -76,6 +80,16 @@ const router = createBrowserRouter([
                     { path: 'know_how', element: <KnowHow />, loader: knowHowLoader },
                 ],
             },
+            // ! 검색 화면
+            {
+                path: 'search',
+                element: <SearchLayout />,
+                children: [
+                    // * 검색 화면 http://localhost:5173/search
+                    { index: true, element: <Search /> },
+                ],
+            },
+
             // ! 사용자 설정 관련 화면
             // * 글 읽기 화면 http://localhost:5173/post/:aid
             {

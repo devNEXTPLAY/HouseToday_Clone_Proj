@@ -1,0 +1,53 @@
+@import '../../../css/_mixin.scss';
+
+.photo__articles {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+
+    p {
+        margin: 0 0 20px 0;
+        font-size: 14px;
+        line-height: 18px;
+        padding: 0 60px;
+    }
+
+    .photo__container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        gap: 20px;
+        width: 1136px;
+        height: 558px;
+        padding: 0 60px;
+    }
+}
+
+.house__articles {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+
+    p {
+        margin: 0 0 20px 0;
+        font-size: 14px;
+        line-height: 18px;
+        padding: 0 60px;
+    }
+
+    .articles__container {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: 1fr !important;
+        grid-column-gap: 0px !important;
+        grid-row-gap: 0px !important;
+        gap: 20px !important;
+        width: 1136px !important;
+        height: 326px;
+        padding: 20px 60px !important;
+    }
+}
