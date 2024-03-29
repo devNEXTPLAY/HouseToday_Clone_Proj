@@ -1,0 +1,113 @@
+.guide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 720px;
+    margin-bottom: 1rem;
+    border: 1px solid #b6b7b7;
+    background-color: transparent;
+    transition: 1.5s all;
+    padding: 1px;
+}
+
+.guide .button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    width: 718px;
+    background-color: transparent;
+    padding: 30px 25px;
+}
+
+.guide .button:hover {
+    background-color: #f7f8fa;
+}
+
+.title strong {
+    margin-right: 1rem;
+}
+.title span {
+    font-size: 14px;
+    color: #bac0c5;
+}
+
+.rotate0 {
+    transform: rotate(0deg);
+    animation: rotate0 0.5s;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+    animation: rotate180 0.5s;
+}
+
+.open {
+    height: 436px;
+    animation: guideShow 1s;
+}
+
+.close {
+    opacity: 0;
+    height: 0;
+    animation: guideHide 1s;
+}
+
+/* 가이드 보기 숨기기 애니메이션 */
+@keyframes guideShow {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: 436px;
+        opacity: 1;
+    }
+}
+
+@keyframes guideHide {
+    0% {
+        height: 436px;
+        opacity: 1;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+    }
+}
+
+/* 아이콘 회전 애니메이션 */
+@keyframes rotate0 {
+    from {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes rotate180 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .guide,
+    .guide .button,
+    .title {
+        width: 375px;
+    }
+
+    .guide {
+        justify-content: flex-start;
+    }
+
+    .guide ul {
+        height: 100%;
+    }
+}

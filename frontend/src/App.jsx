@@ -25,9 +25,10 @@ import { loader as housePhotoLoader } from './pages/house-photo/loader'
 import { loader as knowHowLoader } from './pages/know-how/loader'
 
 // ! 게시글 쓰기, 수정, 상세
-const Write = lazy(() => import('./pages/write/Write'))
-const WriteEdit = lazy(() => import('./pages/write/WriteEdit'))
+const CreateArticle = lazy(() => import('./pages/article/CreateArticle'))
+const EditArticle = lazy(() => import('./pages/article/EditArticle'))
 const Post = lazy(() => import('./pages/post/Post'))
+
 import { loader as postLoader } from './pages/post/loader'
 const UserArticles = lazy(() => import('./pages/user/UserArticles'))
 const UserLikeArticle = lazy(() => import('./pages/user/UserLikeArticle'))
@@ -111,9 +112,9 @@ const router = createBrowserRouter([
                 path: 'write',
                 children: [
                     // * 글쓰기 화면 http://localhost:5173/write
-                    { path: '', element: <Write /> },
+                    { path: '', element: <CreateArticle /> },
                     // * 글 수정 화면 http://localhost:5173/write/edit/:aid
-                    { path: 'edit/:id', element: <WriteEdit /> },
+                    { path: 'edit/:id', element: <EditArticle /> },
                 ],
             },
         ],
