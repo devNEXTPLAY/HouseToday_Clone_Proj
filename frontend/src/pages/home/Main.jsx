@@ -11,6 +11,7 @@ import classes from './css/Main.module.css'
 import HeroArticle from '../../components/home/home/main/HeroArticle'
 import AdCarousel from '../../components/home/home/main/AdCarousel'
 import { MobileAdCarousel } from '../../components/home/home/main/MobileAdCarousel'
+import RecommendHousePhotoArticles from '../../components/home/home/main/RecommendHousePhotoArticles'
 
 const Main = () => {
     const location = useLocation()
@@ -58,6 +59,8 @@ const Main = () => {
             </section>
 
             {/* //* 게시글들 */}
+            <RecommendHousePhotoArticles />
+
             <Articles_simple />
         </main>
     )
