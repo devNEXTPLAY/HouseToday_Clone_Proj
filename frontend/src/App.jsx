@@ -36,7 +36,7 @@ import { loaderArticle } from './pages/article/loader'
 const MyPageSideLayout = lazy(() => import('./layout/MyPageSideLayout'))
 const UserSetting = lazy(() => import('./pages/mypage/UserSetting'))
 const UserArticles = lazy(() => import('./pages/mypage/UserArticles'))
-const UserLikeArticle = lazy(() => import('./components/mypage/UserLikeArticle'))
+const UserLikeArticle = lazy(() => import('./pages/mypage/UserLikeArticle'))
 
 const queryClient = new QueryClient()
 

@@ -18,19 +18,20 @@
     padding: 30px 25px 25px 13px;
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .card img {
     width: 120px !important;
     height: 120px !important;
     border-radius: 50%;
     width: 217px;
     height: 255px;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
 .card h2 {
@@ -41,7 +42,7 @@
     font-weight: 700;
 }
 
-.card div {
+.information.follow {
     margin: 10px 0 16px 0;
     font-size: 13px;
     line-height: 19px;
@@ -60,60 +61,84 @@
     margin-bottom: 30px;
 }
 
-.card hr {
+.profile hr {
     width: 200px;
     height: 1px;
+    margin: 0;
     border: 1px solid #eaedef;
 }
 
-.card__like {
+.profile__like {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
-    strong {
-        font-size: 13px;
-        line-height: 21px;
-        font-weight: 400;
-        color: #424242;
-    }
+.profile__like strong {
+    font-size: 13px;
+    line-height: 21px;
+    font-weight: 400;
+    color: #424242;
+}
 
-    p {
-        font-size: 13px;
-        line-height: 21px;
-        margin: 0;
-        font-weight: 700;
-    }
+.profile__like p {
+    font-size: 13px;
+    line-height: 21px;
+    margin: 0;
+    font-weight: 700;
 }
 
 .card__null {
     width: 200px;
 }
 
-.post-list {
-    width: 700px;
-    height: 180px;
-
-    .lilst__title-box {
-        margin-bottom: 1rem;
-
-        strong {
-            margin-right: 1rem;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        span {
-            color: #35c5f0;
-            font-size: 18px;
-            font-weight: 700;
-        }
+@media (max-width: 768px) {
+    .aside {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
     }
 
-    article {
-        width: 700px;
-        height: 180px;
+    .profile {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: flex-start;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+    }
+
+    .card img {
+        width: 100px !important;
+        height: 100px !important;
+        margin-right: 15px;
+    }
+    .information {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile hr {
+        display: none;
+    }
+
+    .profile__like {
+        width: 83px;
+        height: 76px;
+    }
+
+    .card__null {
+        display: none;
     }
 }

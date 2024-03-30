@@ -3,7 +3,6 @@ import { Link, useParams, Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import './css/MyPageSideLayout.scss'
 import { AiOutlineHeart } from 'react-icons/ai'
 
 import classes from './css/MyPageSideLayout.module.css'
@@ -54,22 +53,22 @@ const MyPageSideLayout = () => {
             <section className={classes.profile}>
                 <div className={classes.card}>
                     <img src={profileImg} alt="프로필 사진" />
-                    <h2>{user.nickname}</h2>
-                    <div>
-                        <span>팔로워 0</span>
-                        <span>팔로잉 0</span>
+                    <div className={classes.information}>
+                        <h2>{user.nickname}</h2>
+                        <div className={classes.follow}>
+                            <span>팔로워 0</span>
+                            <span>팔로잉 0</span>
+                        </div>
+                        <button>
+                            <Link to={`/users/${uid}/edit`}>설정</Link>
+                        </button>
                     </div>
-                    <button>
-                        <Link to={`/users/${uid}/edit`}>설정</Link>
-                    </button>
-
-                    <hr />
-
-                    <div className={classes.card__like}>
-                        <AiOutlineHeart size="24" />
-                        <strong>좋아요</strong>
-                        <p>{likes}</p>
-                    </div>
+                </div>
+                <hr />
+                <div className={classes.profile__like}>
+                    <AiOutlineHeart size="24" />
+                    <strong>좋아요</strong>
+                    <p>{likes}</p>
                 </div>
             </section>
 

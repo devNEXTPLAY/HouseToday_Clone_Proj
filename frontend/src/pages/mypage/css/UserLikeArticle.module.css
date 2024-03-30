@@ -50,3 +50,19 @@
     font-weight: 700;
     color: #212529;
 }
+
+@media (max-width: 768px) {
+    .section {
+        width: 100vw;
+    }
+
+    .title {
+        margin-top: 1rem;
+    }
+
+    .like-articles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100vw;
+    }
+}

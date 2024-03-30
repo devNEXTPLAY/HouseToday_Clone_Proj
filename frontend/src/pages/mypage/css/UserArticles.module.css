@@ -1,0 +1,84 @@
+.section {
+    width: 700px;
+    height: 180px;
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.title strong {
+    margin-right: 1rem;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.title span {
+    color: #35c5f0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.article {
+    width: 700px;
+    height: 180px;
+}
+
+.articles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4개의 열을 가진 그리드를 생성 */
+    gap: 10px; /* 이미지 사이의 간격 설정 */
+    list-style: none;
+    padding: 0;
+}
+
+.card {
+    position: relative;
+    padding-bottom: 0; /*  세로 비율을 180으로 설정 */
+    background-color: #eaedef;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.link {
+    display: block; /* block 레벨 요소로 변경 */
+    width: 100%; /* 가로 속성을 부모 요소에 맞춤 */
+    margin-top: 30px;
+    font-size: 15px;
+    line-height: 30px;
+    padding: 14px 15px;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    color: #757575;
+    font-weight: 700;
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+@media (max-width: 768px) {
+    .section {
+        width: 100vw;
+    }
+
+    .title {
+        margin-top: 1rem;
+    }
+
+    .articles {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100vw;
+    }
+
+    .card img {
+        width: 180px;
+        height: 180px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+}

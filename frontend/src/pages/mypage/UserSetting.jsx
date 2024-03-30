@@ -5,10 +5,11 @@ import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { userLogin } from '../../redux/actions'
 
-import './css/Setting.scss'
 import { useParams, useNavigate } from 'react-router-dom'
 import Input from '../../components/ui/Input'
 import Button from '../../components/ui/Button'
+
+import classes from './css/UserSetting.module.css'
 
 // * 사용자 설정
 const UserSetting = () => {
@@ -144,8 +145,8 @@ const UserSetting = () => {
 
     return (
         <>
-            <form className="form" onSubmit={onSetting}>
-                <div className="form__image-box">
+            <form className={classes.form} onSubmit={onSetting}>
+                <div className={classes.image}>
                     <img
                         src={profileImge}
                         alt="image"
@@ -166,12 +167,32 @@ const UserSetting = () => {
                     </button>
                 </div>
 
-                <Input label="닉네임" name="nickname" value={user.nickname} onChange={onSettingChange} />
-                <Input label="이메일" type="email" name="email" value={user.email} onChange={onSettingChange} />
+                <Input
+                    className={classes.input}
+                    label="닉네임"
+                    name="nickname"
+                    value={user.nickname}
+                    onChange={onSettingChange}
+                />
+                <Input
+                    className={classes.input}
+                    label="이메일"
+                    type="email"
+                    name="email"
+                    value={user.email}
+                    onChange={onSettingChange}
+                />
                 <hr />
 
-                <Input label="휴대전화번호" name="phone" value={user.phone} onChange={onSettingChange} />
                 <Input
+                    className={classes.input}
+                    label="휴대전화번호"
+                    name="phone"
+                    value={user.phone}
+                    onChange={onSettingChange}
+                />
+                <Input
+                    className={classes.input}
                     label="생년월일"
                     type="date"
                     name="birth_date"
@@ -179,6 +200,7 @@ const UserSetting = () => {
                     onChange={onSettingChange}
                 />
                 <Input
+                    className={classes.input}
                     label="1줄 소개"
                     placeholder="짧은 글로 자신을 소개해보세요. (최대 150자)"
                     name="intro_msg"
@@ -186,7 +208,7 @@ const UserSetting = () => {
                     onChange={onSettingChange}
                 />
 
-                <nav className="nav">
+                <nav className={classes.nav}>
                     {/* 회원탈퇴버튼, style은 버튼 boarder 없이 회색 텍스트만 */}
                     <Button
                         type="button"

@@ -1,0 +1,48 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.image img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.image button {
+    border: none;
+    background-color: #fff;
+    color: #828c94;
+    margin: 15px 0 24px 0;
+}
+
+.input {
+    width: 340px;
+    height: 66px;
+    margin-bottom: 24px;
+}
+
+.input input {
+    margin-top: 8px;
+    width: 340px;
+    height: 40px;
+    color: #2f3438;
+}
+
+hr {
+    margin: 48px 0;
+    width: 100%;
+    border: 1px solid #eaedef;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 340px;
+
+    a {
+        color: #828c94;
+    }
+}
