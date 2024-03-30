@@ -1,18 +1,21 @@
-@import '../../../css/_mixin.scss';
-
-.home {
+.section {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     margin-bottom: 2rem;
-    width: 1256px;
+    max-width: 1256px;
     margin-top: 2rem;
     padding: 0 60px;
 }
 
-@include mobile {
-    .home__image-box {
-        display: none !important;
+@media (max-width: 768px) {
+    .section {
+        padding: 10px;
+    }
+
+    .main {
+        width: 100vw;
+        overflow: hidden;
     }
 }

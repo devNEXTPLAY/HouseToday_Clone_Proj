@@ -39,3 +39,12 @@
 .section .nav a:first-child {
     margin-right: 10px;
 }
+
+@media (max-width: 768px) {
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+}
