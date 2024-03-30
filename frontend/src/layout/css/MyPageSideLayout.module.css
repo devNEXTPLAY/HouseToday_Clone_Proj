@@ -1,0 +1,119 @@
+.aside {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100vw;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    filter: drop-shadow(0px 3px 10px rgba(47, 52, 56, 0.2));
+    border-radius: 5px;
+    width: 270px;
+    height: 430px;
+    padding: 30px 25px 25px 13px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card img {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50%;
+    width: 217px;
+    height: 255px;
+}
+
+.card h2 {
+    margin-top: 30px;
+    font-size: 26px;
+    line-height: 30px;
+    color: #292929;
+    font-weight: 700;
+}
+
+.card div {
+    margin: 10px 0 16px 0;
+    font-size: 13px;
+    line-height: 19px;
+    color: #828c94;
+}
+
+.card button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    background-color: #fff;
+    margin-bottom: 30px;
+}
+
+.card hr {
+    width: 200px;
+    height: 1px;
+    border: 1px solid #eaedef;
+}
+
+.card__like {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    strong {
+        font-size: 13px;
+        line-height: 21px;
+        font-weight: 400;
+        color: #424242;
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 21px;
+        margin: 0;
+        font-weight: 700;
+    }
+}
+
+.card__null {
+    width: 200px;
+}
+
+.post-list {
+    width: 700px;
+    height: 180px;
+
+    .lilst__title-box {
+        margin-bottom: 1rem;
+
+        strong {
+            margin-right: 1rem;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        span {
+            color: #35c5f0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+
+    article {
+        width: 700px;
+        height: 180px;
+    }
+}

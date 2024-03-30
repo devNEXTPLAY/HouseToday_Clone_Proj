@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 // ! 레아이웃
 import HomeLayout from './layout/HomeLayout'
 import NonAuthHomeLayout from './layout/NonAuthHomeLayout'
-import SettingLayout from './layout/SettingLayout'
+import MyPageLayout from './layout/MyPageLayout'
 import SearchLayout from './layout/SearchLayout'
 
 // ! 홈 화면
@@ -33,9 +33,9 @@ const Article = lazy(() => import('./pages/article/Article'))
 import { loaderArticle } from './pages/article/loader'
 
 // ! 사용자 설정 관련 화면
-const User = lazy(() => import('./pages/user/User'))
-const Setting = lazy(() => import('./pages/user/Setting'))
-const UserArticles = lazy(() => import('./pages/user/UserArticles'))
+const MyPageSideLayout = lazy(() => import('./layout/MyPageSideLayout'))
+const UserSetting = lazy(() => import('./pages/mypage/UserSetting'))
+const UserArticles = lazy(() => import('./pages/mypage/UserArticles'))
 const UserLikeArticle = lazy(() => import('./components/mypage/UserLikeArticle'))
 
 const queryClient = new QueryClient()
@@ -98,12 +98,12 @@ const router = createBrowserRouter([
 
             {
                 path: 'users/:uid',
-                element: <SettingLayout />,
+                element: <MyPageLayout />,
                 children: [
                     // * 마이페이지 화면 http://localhost:5173/users/:uid
                     {
                         path: '',
-                        element: <User />,
+                        element: <MyPageSideLayout />,
 
                         children: [
                             // * 마이페이지 화면 http://localhost:5173/users/:uid
@@ -114,7 +114,7 @@ const router = createBrowserRouter([
                     },
 
                     // * 설정 화면 http://localhost:5173/users/:uid/push
-                    { path: 'edit', element: <Setting /> },
+                    { path: 'edit', element: <UserSetting /> },
                 ],
             },
 
