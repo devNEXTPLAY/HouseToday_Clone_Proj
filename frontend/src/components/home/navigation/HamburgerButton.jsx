@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
 
 import classes from './css/HamburgerButton.module.css'
-import AsideNav from './Aside'
+import HamburgerNav from './HamburgerNav'
 
 const HamburgerButton = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -16,7 +16,7 @@ const HamburgerButton = () => {
                 <RxHamburgerMenu />
             </button>
 
-            {isOpen && <AsideNav onOff={handleIsOpen} />}
+            {isOpen && <HamburgerNav onOff={handleIsOpen} />}
         </>
     )
 }

@@ -7,6 +7,11 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin, updateProfileImg } from '../../redux/actions'
 
+import classes from './css/Main.module.css'
+import HeroArticle from '../../components/home/home/main/HeroArticle'
+import AdCarousel from '../../components/home/home/main/AdCarousel'
+import { MobileAdCarousel } from '../../components/home/home/main/MobileAdCarousel'
+
 const Main = () => {
     const location = useLocation()
     const dispatch = useDispatch()
@@ -42,13 +47,19 @@ const Main = () => {
     })
 
     return (
-        <>
+        <main className={classes.main}>
             {/* //* 대표 이미지 및 캐러셀 */}
-            <MainImage />
+            <section className={classes.section}>
+                <HeroArticle />
+
+                <AdCarousel />
+                {/* 모바일 캐러셀 */}
+                <MobileAdCarousel />
+            </section>
 
             {/* //* 게시글들 */}
             <Articles_simple />
-        </>
+        </main>
     )
 }
 

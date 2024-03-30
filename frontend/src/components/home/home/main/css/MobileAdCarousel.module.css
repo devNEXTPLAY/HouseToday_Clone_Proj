@@ -1,0 +1,16 @@
+.mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile {
+        display: block;
+        width: 375px;
+        height: 98px;
+    }
+    .swiper-slide img {
+        width: 375px;
+        height: 98px;
+        object-fit: cover;
+    }
+}
