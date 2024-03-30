@@ -28,7 +28,7 @@ const UserLikeArticle = () => {
     }, [token])
 
     return (
-        <section>
+        <section className={classes.section}>
             <article className={classes.title}>
                 <strong>좋아요</strong>
                 <span>{userLikeArticle.length}</span>

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import HomeNavigation from '../components/widgets/HomeNavigation'
 import { SettingSubNav } from '../components/widgets/SettingSubNav'
 
-const SettingLayout = () => {
+const MyPageLayout = () => {
     return (
         <>
             <HomeNavigation />
@@ -12,4 +12,4 @@ const SettingLayout = () => {
     )
 }
 
-export default SettingLayout
+export default MyPageLayout

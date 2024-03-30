@@ -3,11 +3,12 @@ import { Link, useParams, Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import './css/User.scss'
 import { AiOutlineHeart } from 'react-icons/ai'
 
+import classes from './css/MyPageSideLayout.module.css'
+
 // * 사용자 프로필 설정
-const User = () => {
+const MyPageSideLayout = () => {
     const { uid } = useParams()
     const [likes, setLikes] = useState(0)
     const [user, setUser] = useState({})
@@ -47,38 +48,36 @@ const User = () => {
     }, [token])
 
     return (
-        <>
+        <aside className={classes.aside}>
             {/* //* 사용자 프로필  */}
-            <main>
-                <section className="uesr-profile">
-                    <div className="profile__card">
-                        <img src={profileImg} alt="프로필 사진" />
+            <section className={classes.profile}>
+                <div className={classes.card}>
+                    <img src={profileImg} alt="프로필 사진" />
+                    <div className={classes.information}>
                         <h2>{user.nickname}</h2>
-                        <div>
+                        <div className={classes.follow}>
                             <span>팔로워 0</span>
                             <span>팔로잉 0</span>
                         </div>
                         <button>
                             <Link to={`/users/${uid}/edit`}>설정</Link>
                         </button>
-
-                        <hr />
-
-                        <div className="card__like">
-                            <AiOutlineHeart size="24" />
-                            <strong>좋아요</strong>
-                            <p>{likes}</p>
-                        </div>
                     </div>
-                </section>
+                </div>
+                <hr />
+                <div className={classes.profile__like}>
+                    <AiOutlineHeart size="24" />
+                    <strong>좋아요</strong>
+                    <p>{likes}</p>
+                </div>
+            </section>
 
-                <div className="card__null"></div>
+            <div className={classes.card__null}></div>
 
-                {/* //* 사용자 게시글  */}
-                <Outlet />
-            </main>
-        </>
+            {/* //* 사용자 게시글  */}
+            <Outlet />
+        </aside>
     )
 }
 
-export default User
+export default MyPageSideLayout
