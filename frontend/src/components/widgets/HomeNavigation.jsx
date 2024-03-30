@@ -1,5 +1,3 @@
-import './css/HomeNavigation.scss'
-
 import SearchInput from '../home/navigation/SearchInput'
 import NotificationButton from '../home/navigation/NotificationButton'
 import HomeLink from '../home/navigation/HomeLink'
