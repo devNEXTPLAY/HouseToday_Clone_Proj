@@ -1,0 +1,19 @@
+.aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20vw;
+    height: 100vh;
+    background-color: #00000080;
+    z-index: 50;
+}

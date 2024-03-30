@@ -1,48 +1,33 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
-import "./css/HomeNavigation.scss";
+// import { TextLogo } from "../../assets/TextLogo";
+import HomeLink from '../home/navigation/HomeLink'
+import SearchInput from '../home/navigation/SearchInput'
+import CreateButton from '../home/navigation/CreateButton'
 
-import Input from "../ui/Input";
-import Button from "../ui/Button";
-
-import { TextLogo } from "../../assets/TextLogo";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { CiBellOn } from "react-icons/ci";
+import classes from './css/HomeNavigation.module.css'
 
 // * 헤더 네비게이션
 const NonAuthHomeNavigation = () => {
-  return (
-    <header className="main-header">
-      <button className="hamburger">
-        {/* //* 햄버거 아이콘 */}
-        <RxHamburgerMenu />
-      </button>
+    return (
+        <header className={classes.haeder}>
+            <div className={classes.container}>
+                <HomeLink />
 
-      <div className="header__container">
-        <Link to="/">
-          {/* //* 오늘의 집 로고 */}
-          <TextLogo />
-        </Link>
+                <section className={classes.section}>
+                    <SearchInput />
 
-        <section className="container__section">
-          <Input placeholder="게시물 검색" custom="search" />
+                    <nav className={classes.nav}>
+                        <Link to="/login">로그인</Link>
+                        <Link to="/signup">회원가입</Link>
+                    </nav>
 
-          <div className="header__auth">
-            <Link to="/login">로그인</Link>
-            <Link to="/signup" className="link__margin">
-              회원가입
-            </Link>
-          </div>
+                    {/* //* 글쓰기 이동 링크 */}
+                    <CreateButton />
+                </section>
+            </div>
+        </header>
+    )
+}
 
-          {/* //* 글쓰기 이동 링크 */}
-          <Link to="/login">
-            <Button>글쓰기</Button>
-          </Link>
-        </section>
-      </div>
-    </header>
-  );
-};
-
-export default NonAuthHomeNavigation;
+export default NonAuthHomeNavigation
