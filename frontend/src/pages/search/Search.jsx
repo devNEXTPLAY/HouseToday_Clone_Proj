@@ -13,10 +13,10 @@ const PhotoArticles = () => {
     // * 집사진 추천 게시글 가져오기
     useEffect(() => {
         axios
-            .get('http://localhost:3005/api/blog/recommended')
+            .get('http://localhost:3005/api/blog/search?keyword=d')
             .then((res) => {
                 console.log(res.data)
-                setArticles(res.data.photo_video)
+                setArticles(res.data.photo_video.slice(0, 8))
             })
             .catch((err) => {
                 console.log(err)
@@ -34,41 +34,39 @@ const PhotoArticles = () => {
     )
 }
 
-// const KnowHowArticles = () => {
-//     const [articles, setArticles] = useState([])
-//     console.log(LIST)
+const KnowHowArticles = () => {
+    const [articles, setArticles] = useState([])
 
-//     // * 추천 게시글 가져오기
-//     // useEffect(() => {
-//     //     axios
-//     //         .get('http://localhost:3005/api/blog/recommended')
-//     //         .then((res) => {
-//     //             console.log(res.data)
-//     //             setArticles(res.data.housewarming)
-//     //         })
-//     //         .catch((err) => {
-//     //             console.log(err)
-//     //         })
-//     // }, [])
+    useEffect(() => {
+        axios
+            .get('http://localhost:3005/api/blog/search?keyword=d')
+            .then((res) => {
+                console.log(res.data)
+                setArticles(res.data.tip.slice(0, 4))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
-//     return (
-//         <>
-//             <div className="articles__container">
-//                 {LIST.map((data) => (
-//                     <Knowhow
-//                         key={data.id}
-//                         link={data.id}
-//                         title={data.title}
-//                         previewImage={data.coverImage}
-//                         nickname={data.author}
-//                         viewCount={data.viewcount}
-//                         likeCount={data.recommend}
-//                     />
-//                 ))}
-//             </div>
-//         </>
-//     )
-// }
+    return (
+        <>
+            <div className="articles__container">
+                {articles.map((data) => (
+                    <Knowhow
+                        key={data.id}
+                        link={data.id}
+                        title={data.title}
+                        previewImage={data.coverImage}
+                        nickname={data.author}
+                        viewCount={data.viewcount}
+                        likeCount={data.recommend}
+                    />
+                ))}
+            </div>
+        </>
+    )
+}
 
 const PcArticles = () => {
     const [articles, setArticles] = useState([])
@@ -76,10 +74,10 @@ const PcArticles = () => {
     // * 추천 게시글 가져오기
     useEffect(() => {
         axios
-            .get('http://localhost:3005/api/blog/recommended')
+            .get('http://localhost:3005/api/blog/search?keyword=ㅇ')
             .then((res) => {
                 console.log(res.data)
-                setArticles(res.data.housewarming)
+                setArticles(res.data.housewarming.slice(0, 3))
             })
             .catch((err) => {
                 console.log(err)
@@ -115,7 +113,7 @@ const Search = () => {
                 <PhotoArticles />
             </ul>
 
-            {/* <ul className="articles">
+            <ul className="tip__articles">
                 <div className="articles__title-box">
                     <div>
                         <p>노하우 콘텐츠</p>
@@ -123,7 +121,7 @@ const Search = () => {
                 </div>
 
                 <KnowHowArticles />
-            </ul> */}
+            </ul>
 
             <ul className="house__articles">
                 <div className="articles__title-box">
