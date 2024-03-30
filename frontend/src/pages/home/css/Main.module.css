@@ -1,3 +1,7 @@
+.main {
+    padding-left: 120px;
+}
+
 .section {
     display: flex;
     justify-content: center;
@@ -10,12 +14,12 @@
 }
 
 @media (max-width: 768px) {
-    .section {
-        padding: 10px;
-    }
-
     .main {
         width: 100vw;
         overflow: hidden;
+        padding: 0;
+    }
+    .section {
+        padding: 10px;
     }
 }

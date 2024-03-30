@@ -77,17 +77,6 @@ const Articles = () => {
             <ul className="articles">
                 <div className="articles__title-box">
                     <div>
-                        <h3>이런 사진을 찾고 있나요?</h3>
-                        <p>좋아하실 만한 인테리어 콘텐츠를 추천해드려요</p>
-                    </div>
-                </div>
-
-                <PhotoArticles />
-            </ul>
-
-            <ul className="articles">
-                <div className="articles__title-box">
-                    <div>
                         <h3>이번주 집들이 BEST 💖</h3>
                     </div>
                 </div>
