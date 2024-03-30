@@ -1,0 +1,19 @@
+.notification {
+    background-color: #ffffff00;
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: default;
+    margin: 0 20px 0 110px;
+}
+
+.notification svg {
+    width: 40px;
+    height: 40px;
+    color: #2f3438;
+    transition: 1s all;
+    cursor: pointer;
+}
+.notification svg:hover {
+    color: #34c5ef;
+}
