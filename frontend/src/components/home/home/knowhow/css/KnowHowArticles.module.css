@@ -1,0 +1,27 @@
+.ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    gap: 20px;
+    padding: 0 60px;
+    margin: 0 auto;
+}
+
+.ul h3 {
+    margin-bottom: 1rem;
+    font-size: 20px;
+    line-height: 28px;
+    padding: 0 60px;
+}
+
+@media (max-width: 768px) {
+    .ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-left: 10px;
+    }
+}

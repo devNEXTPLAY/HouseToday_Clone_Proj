@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1256px;
+}
+
+.container select {
+    width: 70px;
+    height: 35px;
+    padding: 5px;
+    margin: 0 0 20px 50px;
+    background-color: #f7f9fa;
+    border: 1px solid #f7f9fa;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #828c94;
+}
+
+.container span {
+    margin: 0 60px;
+}
+
+@media (max-width: 1024px) {
+    .container select {
+        margin: 0;
+        margin-top: 1rem;
+        padding: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100vw;
+    }
+    .container select {
+        margin-left: 5px;
+    }
+}
