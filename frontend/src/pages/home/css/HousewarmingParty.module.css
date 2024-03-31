@@ -1,9 +1,10 @@
-.housewarming-party {
-  display: flex;
-  flex-direction: column;
-  width: 1256px;
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1256px;
+}
 
-  select {
+.container select {
     width: 70px;
     height: 35px;
     padding: 5px;
@@ -14,9 +15,14 @@
     font-size: 15px;
     line-height: 24px;
     color: #828c94;
-  }
+}
 
-  span {
+.container span {
     margin: 0 60px;
-  }
+}
+
+@media (max-width: 768px) {
+    .container select {
+        margin-top: 1rem;
+    }
 }
