@@ -1,0 +1,24 @@
+.text {
+    margin-bottom: 10px;
+}
+
+.text span {
+    font-size: 15px;
+    line-height: 24px;
+    color: #424242;
+}
+
+.ul {
+    margin: 0 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 22px;
+    padding: 0;
+    list-style: none;
+}
+
+@media (max-width: 768px) {
+    .ul {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
