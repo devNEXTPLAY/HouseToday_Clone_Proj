@@ -1,6 +1,3 @@
-import MainImage from '../../components/home/MainImage'
-import Articles_simple from '../../components/home/Articles_simple'
-
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
