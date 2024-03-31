@@ -1,0 +1,5 @@
+.house-photo {
+    display: flex;
+    flex-direction: column;
+    max-width: 1256px;
+}

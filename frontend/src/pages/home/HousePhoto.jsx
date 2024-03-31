@@ -1,17 +1,17 @@
 import { useLoaderData, Await } from 'react-router-dom'
 
-import './css/HousePhoto.scss'
+import { HousePhotoArticles } from '../../components/home/home/house_photo/HousePhotoArticles'
 
-import HousePhotoArticle from '../../components/home/HousePhotoArticle'
+import classes from './css/HousePhoto.module.css'
 
 const HousePhoto = () => {
     const { data } = useLoaderData()
 
     return (
         <>
-            <main className="house-photo">
+            <main className={classes['house-photo']}>
                 <Await resolve={data}>
-                    <Await resolve={data}>{(loadedData) => <HousePhotoArticle data={loadedData} />}</Await>
+                    <Await resolve={data}>{(loadedData) => <HousePhotoArticles data={loadedData} />}</Await>
                 </Await>
             </main>
         </>
