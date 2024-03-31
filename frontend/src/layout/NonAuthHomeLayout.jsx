@@ -1,39 +1,31 @@
-import { useState, useEffect, useCallback } from "react";
-import { Outlet } from "react-router-dom";
+import { useState, useEffect, useCallback } from 'react'
+import { Outlet } from 'react-router-dom'
 
-import NonAuthHomeNavigation from "../components/widgets/NonAuthHomeNavigation";
-import MainSubNav from "../components/widgets/MainSubNav";
-import Footer from "../components/home/Footer";
+import NonAuthHomeNavigation from '../components/widgets/NonAuthHomeNavigation'
+import MainSubNav from '../components/widgets/MainSubNav'
+import Footer from '../components/widgets/Footer'
 
 const NonAuthHomeLayout = () => {
-  const [currentScrollY, setCurrentScrollY] = useState(0);
-  const [prevScrollY, setPrevScrollY] = useState(0);
+    const [currentScrollY, setCurrentScrollY] = useState(0)
+    const [prevScrollY, setPrevScrollY] = useState(0)
 
-  const handleScroll = useCallback(() => {
-    setCurrentScrollY(window.scrollY);
-    setPrevScrollY(currentScrollY);
-  }, [currentScrollY]);
+    const handleScroll = useCallback(() => {
+        setCurrentScrollY(window.scrollY)
+        setPrevScrollY(currentScrollY)
+    }, [currentScrollY])
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+    }, [handleScroll])
 
-  return (
-    <>
-      <NonAuthHomeNavigation />
-      {
-        <MainSubNav
-          onClass={
-            currentScrollY < prevScrollY || currentScrollY < 50
-              ? "show"
-              : "hide"
-          }
-        />
-      }
-      <Outlet />
-      <Footer />
-    </>
-  );
-};
+    return (
+        <>
+            <NonAuthHomeNavigation />
+            {<MainSubNav onClass={currentScrollY < prevScrollY || currentScrollY < 50 ? 'show' : 'hide'} />}
+            <Outlet />
+            <Footer />
+        </>
+    )
+}
 
-export default NonAuthHomeLayout;
+export default NonAuthHomeLayout

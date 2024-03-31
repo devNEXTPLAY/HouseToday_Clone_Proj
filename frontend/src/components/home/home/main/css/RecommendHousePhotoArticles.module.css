@@ -1,0 +1,31 @@
+.articles {
+    display: flex;
+    flex-direction: column;
+    padding: 0 60px;
+}
+
+.link {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .articles {
+        padding: 10px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .link {
+        display: block;
+        margin-top: 1rem;
+    }
+
+    .link svg {
+        font-size: 3rem;
+        color: #6a6a6a;
+    }
+}

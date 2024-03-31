@@ -1,37 +1,33 @@
-import { useState, useEffect, useCallback } from "react";
-import { Outlet } from "react-router-dom";
+import { useState, useEffect, useCallback } from 'react'
+import { Outlet } from 'react-router-dom'
 
-import HomeNavigation from "../components/widgets/HomeNavigation";
-import MainSubNav from "../components/widgets/MainSubNav";
-import Footer from "../components/home/Footer";
+import HomeNavigation from '../components/widgets/HomeNavigation'
+import MainSubNav from '../components/widgets/MainSubNav'
+import Footer from '../components/widgets/Footer'
 
 const HomeLayout = () => {
-  const [currentScrollY, setCurrentScrollY] = useState(0);
-  const [prevScrollY, setPrevScrollY] = useState(0);
+    const [currentScrollY, setCurrentScrollY] = useState(0)
+    const [prevScrollY, setPrevScrollY] = useState(0)
 
-  const handleScroll = useCallback(() => {
-    setCurrentScrollY(window.scrollY);
-    setPrevScrollY(currentScrollY);
-  }, [currentScrollY]);
+    const handleScroll = useCallback(() => {
+        setCurrentScrollY(window.scrollY)
+        setPrevScrollY(currentScrollY)
+    }, [currentScrollY])
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+    }, [handleScroll])
 
-  return (
-    <>
-      <HomeNavigation />
-      <MainSubNav
-        onClass={
-          currentScrollY < prevScrollY || currentScrollY < 50 ? "show" : "hide"
-        }
-      />
+    return (
+        <>
+            <HomeNavigation />
+            <MainSubNav onClass={currentScrollY < prevScrollY || currentScrollY < 50 ? 'show' : 'hide'} />
 
-      <Outlet />
+            <Outlet />
 
-      <Footer />
-    </>
-  );
-};
+            <Footer />
+        </>
+    )
+}
 
-export default HomeLayout;
+export default HomeLayout
