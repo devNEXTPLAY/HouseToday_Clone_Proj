@@ -9,7 +9,11 @@ async function searchBlogs(keyword) {
         Blog.contents, 
         Blog.user_id, 
         Blog.blog_type_code,
+        Blog.preview_img,
+        Blog.view_count,
+        Blog.like_count,
         User.nickname AS user_nickname,
+        User.profile_img AS user_profile_img,
         GROUP_CONCAT(Hashtags.hashtag_name) AS hashtags
       FROM Blogs AS Blog
       JOIN Users AS User ON Blog.user_id = User.user_id
