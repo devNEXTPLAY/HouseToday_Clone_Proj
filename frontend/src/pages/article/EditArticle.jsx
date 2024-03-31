@@ -31,7 +31,7 @@ const EditArticle = () => {
 
                 <div className={classes.buttons}>
                     <Button>임시저장</Button>
-                    <Button type="submit" form="create-write">
+                    <Button type="submit" form="edit-write">
                         업로드
                     </Button>
                 </div>

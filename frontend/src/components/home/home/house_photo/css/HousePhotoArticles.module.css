@@ -1,0 +1,15 @@
+.ul {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+    max-width: 1256px;
+    list-style: none;
+    gap: 0;
+}
+
+@media (max-width: 768px) {
+    .ul {
+        display: flex;
+        flex-direction: column;
+    }
+}
