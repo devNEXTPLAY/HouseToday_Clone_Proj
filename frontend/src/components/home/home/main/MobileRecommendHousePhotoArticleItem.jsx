@@ -32,7 +32,7 @@ const MobileRecommendHousePhotoArticleItem = () => {
     }, [])
 
     return (
-        <Swiper spaceBetween={10} centeredSlides={true} pre className={classes.carousel}>
+        <Swiper spaceBetween={10} centeredSlides={true} className={classes.carousel}>
             {articles?.map((article) => {
                 return (
                     <SwiperSlide key={article.blog_id} className={classes['swiper-slide']}>
