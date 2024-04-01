@@ -18,7 +18,7 @@ const errorMiddleware = require('../middlewares/errorMiddleware.js')
  *     summary: 로그인
  */
 router.post('/login', isNotLoggedIn, (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('user_local', (err, user, info) => {
         if (err) return next(err)
         if (!user) {
             if (info.message === '존재하지 않는 사용자입니다.') {
