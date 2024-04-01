@@ -1,32 +1,18 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-
 import './css/Search.scss'
+import React, { useState, useEffect } from 'react'
 
 import House from './House'
 import Photo from './Photo'
 import Knowhow from './Knowhow'
+import { useArticles } from '../../components/hooks/useArticles'
 
-const PhotoArticles = () => {
-    const [articles, setArticles] = useState([])
-
-    // * 집사진 추천 게시글 가져오기
-    useEffect(() => {
-        axios
-            .get('http://localhost:3005/api/blog/search?keyword=d')
-            .then((res) => {
-                console.log(res.data)
-                setArticles(res.data.photo_video.slice(0, 8))
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
+const PhotoArticles = ({ articles }) => {
+    const photos = articles?.photo_video?.slice(0, 8) || []
 
     return (
         <>
             <div className="photo__container">
-                {articles.map((article) => (
+                {photos.map((article) => (
                     <Photo key={article.blog_id} coverImage={article.preview_img} href={`/post/${article.blog_id}`} />
                 ))}
             </div>
@@ -34,33 +20,21 @@ const PhotoArticles = () => {
     )
 }
 
-const KnowHowArticles = () => {
-    const [articles, setArticles] = useState([])
-
-    useEffect(() => {
-        axios
-            .get('http://localhost:3005/api/blog/search?keyword=d')
-            .then((res) => {
-                console.log(res.data)
-                setArticles(res.data.tip.slice(0, 4))
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
+const KnowHowArticles = ({ articles }) => {
+    const tips = articles?.tip?.slice(0, 4) || []
 
     return (
         <>
-            <div className="articles__container">
-                {articles.map((data) => (
+            <div className="tip__container">
+                {tips.map((data) => (
                     <Knowhow
-                        key={data.id}
-                        link={data.id}
+                        key={data.blog_id}
+                        link={data.blog_id}
                         title={data.title}
-                        previewImage={data.coverImage}
-                        nickname={data.author}
-                        viewCount={data.viewcount}
-                        likeCount={data.recommend}
+                        previewImage={data.preview_img}
+                        nickname={data.user_nickname}
+                        viewCount={data.view_count}
+                        likeCount={data.like_count}
                     />
                 ))}
             </div>
@@ -68,26 +42,13 @@ const KnowHowArticles = () => {
     )
 }
 
-const PcArticles = () => {
-    const [articles, setArticles] = useState([])
-
-    // * 추천 게시글 가져오기
-    useEffect(() => {
-        axios
-            .get('http://localhost:3005/api/blog/search?keyword=ㅇ')
-            .then((res) => {
-                console.log(res.data)
-                setArticles(res.data.housewarming.slice(0, 3))
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
+const PcArticles = ({ articles }) => {
+    const housewarmings = articles?.housewarming?.slice(0, 3) || []
 
     return (
         <>
             <div className="articles__container">
-                {articles.map((article) => (
+                {housewarmings.map((article) => (
                     <House
                         key={article.blog_id}
                         title={article.title}
@@ -101,6 +62,16 @@ const PcArticles = () => {
 }
 
 const Search = () => {
+    const [keyword, setKeyword] = useState('')
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search).get('keyword')
+        setKeyword(params)
+    }, [])
+
+    const articles = useArticles(keyword)
+    console.log(articles)
+
     return (
         <>
             <ul className="photo__articles">
@@ -110,8 +81,10 @@ const Search = () => {
                     </div>
                 </div>
 
-                <PhotoArticles />
+                <PhotoArticles articles={articles.data} />
             </ul>
+
+            <hr />
 
             <ul className="tip__articles">
                 <div className="articles__title-box">
@@ -120,8 +93,10 @@ const Search = () => {
                     </div>
                 </div>
 
-                <KnowHowArticles />
+                <KnowHowArticles articles={articles.data} />
             </ul>
+
+            <hr />
 
             <ul className="house__articles">
                 <div className="articles__title-box">
@@ -130,7 +105,7 @@ const Search = () => {
                     </div>
                 </div>
 
-                <PcArticles />
+                <PcArticles articles={articles.data} />
             </ul>
         </>
     )

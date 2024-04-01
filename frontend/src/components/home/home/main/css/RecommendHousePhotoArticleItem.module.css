@@ -4,9 +4,9 @@
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    gap: 20px;
-    width: 1256px;
-    height: 270px;
+    gap: 18px;
+    width: 1140px;
+    height: 230px;
 }
 
 .li {

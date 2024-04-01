@@ -30,10 +30,8 @@ const KnowHow_simple = ({ title, link, nickname, viewCount, likeCount, previewIm
                 </div>
 
                 <div className="information">
-                    <div>
-                        <span>조회수 {viewCount}</span>
-                        <span>좋아요 {likeCount}</span>
-                    </div>
+                    <span>조회수 {viewCount}</span>
+                    <span>좋아요 {likeCount}</span>
                 </div>
             </li>
         </Link>
