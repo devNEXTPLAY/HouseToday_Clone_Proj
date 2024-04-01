@@ -15,14 +15,6 @@ import { fetchPostUploadImage } from '../../util/http'
 
 import classes from './css/Form.module.css'
 
-const initialUserValues = {
-    blog_type_code: 0,
-    title: '',
-    contents: '',
-    preview_img: '',
-    hashtags: [],
-}
-
 const handleStopSubmit = (event) => {
     if (event.key === 'Enter') {
         event.preventDefault()
@@ -31,23 +23,7 @@ const handleStopSubmit = (event) => {
 }
 
 // * 게시글 에디터
-const EditForm = ({ id, onSubmit, paramId }) => {
-    const [userValues, setUserValues] = useState(initialUserValues)
-
-    useEffect(() => {
-        const getPost = async () => {
-            const response = await fetch('http://localhost:3005/api/blog/detail/' + paramId)
-
-            if (!response.ok) {
-                throw new Error('서버 오류')
-            } else {
-                const responseData = await response.json()
-                setUserValues(responseData)
-            }
-        }
-        getPost()
-    }, [paramId])
-
+const EditForm = ({ id, onSubmit, userValues, onUserValues }) => {
     const quillRef = useRef()
     const imageHandler = () => {
         const input = document.createElement('input')
@@ -85,7 +61,7 @@ const EditForm = ({ id, onSubmit, paramId }) => {
     }, [])
 
     const handleUpdateContent = (event) =>
-        setUserValues((prevValues) => {
+        onUserValues((prevValues) => {
             return { ...prevValues, contents: event }
         })
 
@@ -99,7 +75,7 @@ const EditForm = ({ id, onSubmit, paramId }) => {
             onSubmit={(event) => onSubmit(event, userValues)}
         >
             {/* //* 대표 이미지 업로드 */}
-            <EditMainImage onUserValues={setUserValues} previewImg={userValues.preview_img} />
+            <EditMainImage onUserValues={onUserValues} previewImg={userValues.preview_img} />
 
             {/* 제목 */}
             <Input
@@ -108,7 +84,7 @@ const EditForm = ({ id, onSubmit, paramId }) => {
                 value={userValues.title}
                 className={classes.title}
                 onChange={(event) =>
-                    setUserValues((prevValues) => {
+                    onUserValues((prevValues) => {
                         return { ...prevValues, [event.target.name]: event.target.value }
                     })
                 }
@@ -122,7 +98,7 @@ const EditForm = ({ id, onSubmit, paramId }) => {
                         id="select__option"
                         value={userValues.blog_type_code}
                         onChange={(event) =>
-                            setUserValues((prevValues) => {
+                            onUserValues((prevValues) => {
                                 return { ...prevValues, blog_type_code: event.target.value }
                             })
                         }
@@ -134,7 +110,7 @@ const EditForm = ({ id, onSubmit, paramId }) => {
                 </div>
 
                 {/* 해시태그 입력 폼 */}
-                <EditHashtag userValues={userValues} onUserValues={setUserValues} />
+                <EditHashtag userValues={userValues} onUserValues={onUserValues} />
             </section>
 
             {/* TinyMCE API 사용량 초과로 ReactQuill 변경 주말 중 업데이트 예정 */}
