@@ -15,14 +15,6 @@ import { fetchPostUploadImage } from '../../util/http'
 
 import classes from './css/Form.module.css'
 
-const initialUserValues = {
-    blog_type_code: 0,
-    title: '',
-    contents: '',
-    preview_img: '',
-    hashtags: [],
-}
-
 const handleStopSubmit = (event) => {
     if (event.key === 'Enter') {
         event.preventDefault()
@@ -31,9 +23,7 @@ const handleStopSubmit = (event) => {
 }
 
 // * 게시글 에디터
-const CreateForm = ({ id, onSubmit, isInvalid, onIsInvalid }) => {
-    const [userValues, setUserValues] = useState(initialUserValues)
-
+const CreateForm = ({ id, onSubmit, userValues, onUserValues }) => {
     const quillRef = useRef()
     const imageHandler = () => {
         const input = document.createElement('input')
@@ -77,13 +67,13 @@ const CreateForm = ({ id, onSubmit, isInvalid, onIsInvalid }) => {
             })
         }
 
-        setUserValues((prevValues) => {
+        onUserValues((prevValues) => {
             return { ...prevValues, contents: event }
         })
     }
 
     const handleSelect = (event) => {
-        setUserValues((prevValues) => {
+        onUserValues((prevValues) => {
             return { ...prevValues, blog_type_code: event.target.value }
         })
     }
@@ -96,7 +86,7 @@ const CreateForm = ({ id, onSubmit, isInvalid, onIsInvalid }) => {
             onSubmit={(event) => onSubmit(event, userValues)}
         >
             {/* //* 대표 이미지 업로드 */}
-            <CreateMainImage onUserValues={setUserValues} />
+            <CreateMainImage onUserValues={onUserValues} />
 
             {/* 제목 */}
             <Input
@@ -104,7 +94,7 @@ const CreateForm = ({ id, onSubmit, isInvalid, onIsInvalid }) => {
                 placeholder="제목을 입력해주세요."
                 className={classes.title}
                 onChange={(event) =>
-                    setUserValues((prevValues) => {
+                    onUserValues((prevValues) => {
                         return { ...prevValues, [event.target.name]: event.target.value }
                     })
                 }
@@ -122,7 +112,7 @@ const CreateForm = ({ id, onSubmit, isInvalid, onIsInvalid }) => {
                 </div>
 
                 {/* 해시태그 입력 폼 */}
-                <CreateHashtag userValues={userValues} onUserValues={setUserValues} />
+                <CreateHashtag userValues={userValues} onUserValues={onUserValues} />
             </section>
 
             {/* TinyMCE API 사용량 초과로 ReactQuill 변경 주말 중 업데이트 예정 */}

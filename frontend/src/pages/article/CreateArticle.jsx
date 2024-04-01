@@ -11,21 +11,25 @@ import Button from '../../components/ui/Button'
 
 import classes from './css/CreateArticle.module.css'
 
+const initialUserValues = {
+    blog_type_code: 0,
+    title: '',
+    contents: '',
+    preview_img: '',
+    hashtags: [],
+}
+
 // * 게시글 작성
 const CreateArticle = () => {
     const token = useSelector((state) => state.Auth.token)
     const navigate = useNavigate()
-    const [isInvalid, setIsInvalid] = useState({
-        title: true,
-        contents: true,
-        preview_img: true,
-    })
+
+    const [userValues, setUserValues] = useState(initialUserValues)
 
     const handleSubmit = async (event, userValues) => {
         event.preventDefault()
 
         const res = await fetchPostUpload(userValues, token)
-        console.log('res:', res)
         navigate(`/post/${res}`)
     }
 
@@ -47,7 +51,12 @@ const CreateArticle = () => {
             <CreateArticleGuide />
 
             {/* //* 게시글 에디터 */}
-            <CreateForm id="create-write" onSubmit={handleSubmit} isInvalid={isInvalid} onIsInvalid={setIsInvalid} />
+            <CreateForm
+                id="create-write"
+                onSubmit={handleSubmit}
+                userValues={userValues}
+                onUserValues={setUserValues}
+            />
         </>
     )
 }
