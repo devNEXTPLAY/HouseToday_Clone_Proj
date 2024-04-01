@@ -76,8 +76,9 @@ const Search = () => {
         <>
             <ul className="photo__articles">
                 <div className="articles__title-box">
-                    <div>
+                    <div className="articles__title">
                         <p>사진</p>
+                        <p style={{ color: '#35C5F0' }}>{articles?.data?.photo_video?.length || 0}</p>
                     </div>
                 </div>
 
@@ -88,8 +89,9 @@ const Search = () => {
 
             <ul className="tip__articles">
                 <div className="articles__title-box">
-                    <div>
+                    <div className="articles__title">
                         <p>노하우 콘텐츠</p>
+                        <p style={{ color: '#35C5F0' }}>{articles?.data?.tip?.length || 0}</p>
                     </div>
                 </div>
 
@@ -100,8 +102,9 @@ const Search = () => {
 
             <ul className="house__articles">
                 <div className="articles__title-box">
-                    <div>
+                    <div className="articles__title">
                         <p>집들이 콘텐츠</p>
+                        <p style={{ color: '#35C5F0' }}>{articles?.data?.housewarming?.length || 0}</p>
                     </div>
                 </div>
 
