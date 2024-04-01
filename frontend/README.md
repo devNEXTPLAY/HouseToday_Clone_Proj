@@ -35,7 +35,7 @@
 ┃ ┃ ┃ ┣ 📜CreateArticleGuide.module.css
 ┃ ┃ ┃ ┣ 📜Form.module.css
 ┃ ┃ ┃ ┣ 📜Hashtag.module.css
-┃ ┃ ┃ ┗ 📜MainImage.module.css
+┃ ┃ ┃ ┗ 📜MainImage.module.css |
 ┃ ┃ ┣ 📜ArticleAside.jsx
 ┃ ┃ ┣ 📜ArticleCommentInput.jsx
 ┃ ┃ ┣ 📜ArticleComments.jsx
