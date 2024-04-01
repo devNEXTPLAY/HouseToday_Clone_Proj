@@ -16,7 +16,7 @@ import './css/House.scss'
 
 const House = ({ title, coverImage, href }) => {
     return (
-        <li className="article">
+        <li className="house__article">
             <Link to={href}>
                 <div className="article__image-box">
                     <img src={coverImage} alt="coverImage" />
