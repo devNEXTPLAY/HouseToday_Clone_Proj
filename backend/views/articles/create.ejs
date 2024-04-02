@@ -1,0 +1,157 @@
+            <!--우측 콘텐츠 헤더영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>신규 게시글 등록</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/Home/Index">Home</a> > 
+                        </li>
+                        <li>
+                            <a> 신규 게시글</a> > 
+                        </li>
+                        <li class="active">
+                            <strong> 등록</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <form action="/articles/create" id='articleForm' method="post">
+                <div class="wrapper wrapper-content">
+                    <div class="ibox-content m-b-sm border-bottom">
+
+                        <!-- 게시판 영역 -->
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label">게시판</label>
+                                    <select name="board_type_code" id="board_type_code" class="form-control">
+                                        <option value=0>선택</option>
+                                        <option value=1>공지게시판</option>
+                                        <option value=2>기술블로깅</option>
+                                        <option value=3>자유게시판</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 글 제목 영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글제목</label>
+                                    <input type="text" name="title" id="title" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 글 내용 입력 영역 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글내용</label>
+                                    <textarea class="form-control" name='contents' id='contents' rows="10" cols="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 게시글 유형, 게시 여부, 등록자 입력 영역 -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시글 유형</label>
+                                    <select name="article_type_code" id="article_type_code" class="form-control">
+                                        <option value=0>선택</option>
+                                        <option value=1>상단 고정 게시글</option>
+                                        <option value=2>일반 게시글</option>
+                                    </select>
+                                </div>
+                            </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">게시여부</label>
+                                        <select name="is_display_code" id="is_display_code" class="form-control">
+                                            <option value=9>선택</option>
+                                            <option value=1>게시함</option>
+                                            <option value=0>게시안함</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">작성자명</label>
+                                        <input type="text" name="register" id="register" class="form-control">
+                                    </div>
+                                </div>
+                        </div>
+
+                        <!-- 저장/목록 이동 버튼 -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">저장</button>
+                            <a href="/articles/list" class="btn btn-info">목록</a>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+
+        // 서버에서 보내준 html 웹페이지가 사용자 웹브라우저에
+        // 모두 랜더링이 완료된 시점에 발생 $(document).ready
+        // 바로 게시판타입 선택 가능하게 해줌(UX 업)
+        $(document).ready(function(){
+            $("#board_type_code").focus();
+            //alert("게시글 등록 페이지가 랜더링 완료 되었습니다.");
+            console.log("게시글 등록 웹페이지가 웹 브라우저에 모두 랜더링 되었습니다.");
+        });
+
+        // form 태그 내 사용자가 입력한 데이터 유효성검사(validation check)
+        $("#articleForm").submit(function(){
+
+            // 클라이언트 자바스크립트 디버거 직접 설정하기.
+            // debugger;
+
+            // 게시판 유형값 선택여부 체크
+            if($("#board_type_code").val()=="0"){
+                alert('게시판 유형을 선택해주세요.');
+                $("#board_type_code").focus();
+                return false;
+            };
+
+            if($("#title").val()==""){
+                alert('제목을 입력해주세요.');
+                $("#title").focus();
+                return false;
+            };
+
+            if($("#article_type_code").val()=="0"){
+                alert('게시글 유형을 선택해주세요.');
+                $("#article_type_code").focus();
+                return false;
+            };
+
+            if($("#is_display_code").val()=="9"){
+                alert('게시 여부를 선택해주세요.');
+                $("#board_type_code").focus();
+                return false;
+            };
+
+            if($("#register").val()==""){
+                alert('작성자명을 입력해주세요.');
+                $("#register").focus();
+                return false;
+            };
+
+            // 최종 웹 브라우저에서 서버로 데이터를 전송하기 전에 클라이언트 디버깅을 걸어보자
+            // debugger;
+            return true;
+        });
+
+    </script>

@@ -1,0 +1,163 @@
+            <!--우측 콘텐츠 헤더영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>게시글 확인 및 수정</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/">Home</a> >
+                        </li>
+                        <li>
+                            <a>게시글 확인</a> >
+                        </li>
+                        <li class="active">
+                            <strong>수정/삭제</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <form action="/articles/modify/<%=article.article_id%>" method="post" id='articleForm'>
+                <div class="wrapper wrapper-content">
+                    <div class="ibox-content m-b-sm border-bottom">
+    
+                        <!-- 게시판 분류 -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시판</label>
+                                    <select name="board_type_code" class="form-control">
+                                        <option value="0" <% if( article.board_type_code == "0"){ %> selected <% } %>>전체</option>
+                                        <option value="1" <% if( article.board_type_code == "1"){ %> selected <% } %>>공지게시판</option>
+                                        <option value="2" <% if( article.board_type_code == "2"){ %> selected <% } %>>기술블로깅</option>
+                                    </select>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                        <!-- 글 제목 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글제목</label>
+                                    <input type="text" name="title" id="title" class="form-control", value="<%=article.title%>">
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- 글 내용 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label">글내용</label>
+                                    <textarea class="form-control" name="contents" id="contents" rows="10" cols="5"><%=article.contents%></textarea>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- 게시글 유형 -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시글 유형</label>
+                                    <select name="article_type_code" id="article_type_code" class="form-control">
+                                        <option value="0" <% if( article.article_type_code == "0"){ %> selected <% } %>>선택</option>
+                                        <option value="1" <% if( article.article_type_code == "1"){ %> selected <% } %>>상단고정게시물</option>
+                                        <option value="2" <% if( article.article_type_code == "2"){ %> selected <% } %>>일반게시글</option>
+                                    </select>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">게시여부</label>
+                                    <select name="is_display_code" id="is_display_code" class="form-control">
+                                        <option value="9" <% if( article.is_display_code == "9"){ %> selected <% } %>>선택</option>
+                                        <option value="1" <% if( article.is_display_code == "1"){ %> selected <% } %>>게시함</option>
+                                        <option value="0" <% if( article.is_display_code == "0"){ %> selected <% } %>>게시안함</option>
+                                    </select>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label">수정자명</label>
+                                    <input type="text" name="register" id="register" value="<%= article.reg_member_id %>" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">수정</button>
+                            <!-- btn-danger: 빨간색 버튼 -->
+                            <button type="button" id="btnDelete" class="btn btn-danger">삭제</button>
+                            <a href="/articless/list" class="btn btn-info">목록</a>
+                        </div>
+    
+                    </div>
+                </div>
+            </form>
+
+
+    <script>
+
+        // 서버에서 보내준 html 웹페이지가 사용자 웹브라우저에
+        // 모두 랜더링이 완료된 시점에 발생 $(document).ready
+        // 바로 게시판타입 선택 가능하게 해줌(UX 업)
+        $(document).ready(function(){
+            $("#board_type_code").focus();
+        });
+
+        // form 태그 내 사용자가 입력한 데이터 유효성검사(validation check)
+        $("#articleForm").submit(function(){
+            // 게시판 유형값 선택여부 체크
+            if($("#board_type_code").val()=="0"){
+                alert('게시판 유형을 선택해주세요.');
+                $("#board_type_code").focus();
+                return false;
+            };
+
+            if($("#title").val()==""){
+                alert('제목을 입력해주세요.');
+                $("#title").focus();
+                return false;
+            };
+
+            if($("#article_type_code").val()=="0"){
+                alert('게시글 유형을 선택해주세요.');
+                $("#article_type_code").focus();
+                return false;
+            };
+
+            if($("#is_display_code").val()=="9"){
+                alert('게시 여부를 선택해주세요.');
+                $("#board_type_code").focus();
+                return false;
+            };
+
+            if($("#register").val()==""){
+                alert('작성자명을 입력해주세요.');
+                $("#register").focus();
+                return false;
+            };
+            return true;
+        });
+
+        // 클라이언트(웹 브라우저)에서 삭제 버튼이 클릭되면 최종 삭제 여부 확인 후 삭제 라우팅 메소드 호출하기
+        $("#btnDelete").click(function(){
+            if(confirm("정말로 삭제하시겠습니까?")){
+                // 사용자가 confirm 창의 확인버튼을 누르면 true가 반환
+                // 확인 버튼 클릭시 실행해야 하는 기능 구현
+                
+                // 사용자 웹 브라우저를 특정 웹페이지 url로 이동시킨다.
+                location.href="/articles/delete/<%=article.article_id%>";
+            }
+            else{
+                alert("삭제를 취소했습니다.");
+            }
+        });
+    </script>
