@@ -8,6 +8,7 @@ const db = require('../models/index')
 // user data includes [user_id, email, name, nickname, profile_img, phone, birth_date]
 module.exports = (passport) => {
     passport.serializeUser((userSessionData, done) => {
+        console.log('serializeUser:', userSessionData)
         const id = userSessionData.admin_id
             ? { type: 'admin', id: userSessionData.admin_id }
             : { type: 'user', id: userSessionData.user_id }
@@ -26,7 +27,7 @@ module.exports = (passport) => {
                 return
             }
             const user = await db.Users.findOne({
-                where: { user_id: userId },
+                where: { user_id: userId.id },
                 attributes: ['user_id', 'email', 'name', 'nickname', 'profile_img', 'phone', 'birth_date'],
             })
             done(null, user)
@@ -37,6 +38,5 @@ module.exports = (passport) => {
     })
 
     local(passport)
-    admin(passport)
     kakao(passport)
 }

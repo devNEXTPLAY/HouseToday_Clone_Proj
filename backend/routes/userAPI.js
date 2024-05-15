@@ -18,7 +18,7 @@ const errorMiddleware = require('../middlewares/errorMiddleware.js')
  *     summary: 로그인
  */
 router.post('/login', isNotLoggedIn, (req, res, next) => {
-    passport.authenticate('user_local', (err, user, info) => {
+    passport.authenticate('local', (err, user, info) => {
         if (err) return next(err)
         if (!user) {
             if (info.message === '존재하지 않는 사용자입니다.') {
@@ -536,6 +536,7 @@ router.post('/follow', isLoggedIn, async (req, res, next) => {
  *   get:
  *     summary: 팔로잉 목록 조회
  */
+// http://localhost:3005/api/users/followings
 router.get('/followings', isLoggedIn, async (req, res, next) => {
     const follower_id = req.user.user_id
     try {

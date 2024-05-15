@@ -9,7 +9,7 @@ const { Op } = require('sequelize')
 // userSessionData: { user_id, email, name, nickname, profile_img, phone, birth_date }
 module.exports = (passport) => {
     passport.use(
-        'user_local',
+        'local',
         new LocalStrategy(
             {
                 usernameField: 'email',
